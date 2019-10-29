@@ -1,0 +1,72 @@
+<% include ../partials/header %>
+
+<!-- 
+  Show Survey Report page.
+  This is the show survey report page with all the survey information for the admin.
+  With additional option to view more details for the particular survey.
+-->
+<div class="container">
+ <h1>Survey Report</h1>
+</div>
+    
+
+    <div class="row text-left" style="display:flex; flex-wrap: wrap;">
+    <!-- 
+      CSS code to display border for each survey report.
+    -->
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+        <!--Condition for displaying survey information table-->
+        <% if(surveys.length > 0){ %>
+           <% surveys.forEach(function(survey) { %>
+                <div class="container">
+                    <div class="card card-body bg-light">
+                        <div class="caption">
+                            <h3><%= survey.name %></h3>
+                            <h4><%= survey.description %></h4>
+                            <table>
+                            <tr>
+                                <th>Total questions</th>
+                                <td><%=survey.questions.length%></td>
+                            </tr>
+                            <tr>
+                                <th>Total Answered</th>
+                                <td><%=survey.survey_answer.length%></td>
+                            </tr>
+                            <tr>
+                                <th>Created At</th>
+                                <td><%= survey.createdAt %></td>
+                            </tr>
+                            </table>
+                            <p>
+                                <a class="btn btn-outline-secondary" href="/surveys/report/<%=survey._id%>">More Detail</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            
+         <% } else { %> 
+             <div class="container">
+                 <h3 class="text-center">No Surveys Now...</h1>
+             </div>
+           
+        <% } %>
+        
+    </div>
+</div>
+
+<div class="container">
+ <a class="btn btn-secondary float-left" href="/surveys">Go Back</a>
+</div>
+<% include ../partials/footer %>

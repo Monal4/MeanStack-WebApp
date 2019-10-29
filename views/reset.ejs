@@ -1,0 +1,35 @@
+<% include partials/header %>
+
+<!-- 
+  Password reset functionality with New Password and Confirm Password.
+  After clicking Log In new password will be saved.
+-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left text-uppercase">Reset Password</h3>
+      <br></br>
+      <form action="/reset/<%= token %>" method="post">
+          
+        <div class="form-group">
+          <label for="password">New Password</label>
+          <input type="password" class="form-control" name="password" value="" autofocus="autofocus" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" class="form-control" name="confirm" value="" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary float-right">Log In</button>
+        
+        
+        <a id="btnRightSpacing" class="btn btn-secondary float-left" href="/">Go Back</a>
+        <a class="btn btn-secondary float-left" href="/register">Sign Up!</a>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

@@ -1,0 +1,38 @@
+<% include partials/header %>
+
+<!-- 
+  Log In Form.
+  Admin Log In form with Email and Password as Credentials.
+  With additional option of Forgot Password link.
+-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left text-uppercase">Log In</h3>
+      <br></br>
+      <form action="/login" method="post">
+          
+        <div class="form-group">
+          <label for="username">Email</label>
+          <input type="email" class="form-control" name="username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" required>
+        </div>
+        
+        <p><a href="/forgot_password">Forgot Password?</a></p>
+        
+        <button type="submit" class="btn btn-primary float-right">Log In</button>
+        
+        
+        <a id="btnRightSpacing" class="btn btn-secondary float-left" href="/">Go Back</a>
+        <a class="btn btn-secondary float-left" href="/register">Sign Up!</a>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

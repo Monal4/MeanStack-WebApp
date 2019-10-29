@@ -1,0 +1,77 @@
+<% include ../partials/header %>
+
+<!-- 
+  Show Survey New page.
+  This is the new survey creation page with all the survey information that needs to be filled.
+-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left text-uppercase">Create A New Survey</h3>
+      <br></br>
+      <form action="/surveys" method="post">
+        <div class="form-group">
+          <label for="name">Survey Title</label>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Survey Description</label> 
+          <textarea class="form-control" name="description" rows="5" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="startdate">Start Date</label> 
+          <input id="date" name="startdate" type="date">
+        </div>
+        
+        <div class="form-group">
+          <label for="enddate">End Date</label> 
+          <input id="date" name="enddate" type="date">
+        </div>
+        
+        <!-- 
+          More options for Admin
+        -->
+        <fieldset>
+          <legend>More Options</legend>
+          <div class="form-group">
+            <input type="checkbox" id="featuredSurveys" name="featuredSurveys" value="featuredSurveys">
+            <label for="featuredSurveys">Add to Featured Surveys</label>
+          </div>
+          
+          <div class="form-group">
+            <input type="checkbox" id="publicSurvey" name="publicSurvey" value="publicSurvey">
+            <label for="publicSurvey">Make the Survey Public</label>
+          </div>
+          
+          <div class="form-group">
+            <input type="checkbox" id="hideRespondentsNav" name="hideRespondentsNav" value="hideRespondentsNav">
+            <label for="hideRespondentsNav">Hide Respondents UI Elements</label>
+          </div>
+          
+          <div class="form-group">
+            <label for="topic">Survey Topic (Optional)</label>
+            <input type="topic" class="form-control" name="topic" value="">
+          </div>
+          
+        </fieldset>
+        <br></br>
+        
+        <!--<p>Start Date: <input type = "text"></p>-->
+        <!--<p>End Date: <input type = "text"></p>-->
+        
+        
+        <button type="submit" class="btn btn-primary float-right">Create Survey</button>
+        
+        <a class="btn btn-secondary float-left" href="/surveys">Go Back</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+    
+  
+      
+      
+
+<% include ../partials/footer %>

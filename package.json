@@ -1,0 +1,58 @@
+{
+  "name": "surveyfy",
+  "version": "1.0.0",
+  "description": "A Survey Web App",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beavinash/surveyfy.git"
+  },
+  "author": "Avinash Reddy",
+  "dependencies": {
+    "async": "~0.2.8",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "cloudinary": "^1.11.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^5.0.1",
+    "ejs": "^2.5.8",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "locus": "^2.0.1",
+    "method-override": "^2.3.10",
+    "mocha": "^5.2.0",
+    "moment": "^2.22.0",
+    "mongoose": "^5.0.12",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.6.4",
+    "nodemon": "^1.17.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.0",
+    "platform": "^1.3.5",
+    "rewire": "^4.0.1",
+    "sinon-chai": "^3.1.0",
+    "socket.io": "~0.9.14",
+    "supertest": "^3.1.0",
+    "viewport-dimensions": "^0.2.0",
+    "window-size": "^1.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-dev": "nodemon ./app.js"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "Survey",
+    "App"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beavinash/surveyfy/issues"
+  },
+  "homepage": "https://github.com/beavinash/surveyfy#readme"
+}

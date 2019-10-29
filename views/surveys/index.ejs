@@ -1,0 +1,130 @@
+<% include ../partials/header %>
+
+<!-- 
+  Show Survey Information.
+  This is the page that displays the survey information in tabular format for easy and simple view functionality.
+-->
+<div class="container">
+     <header class="jumbotron">
+         <div class="container">
+         <h1>Dashboard</h1>
+         <h3>List of our surveys</h3>
+         <p>
+             <form class="form-inline" action="/surveys" method="GET">
+                 <div class="form-group">
+                     <input type="text" class="form-control" name="search" placeholder="Search Surveys">
+                     <input type="submit" class="form-control btn btn-default" value="Search">
+                 </div>
+             </form>
+         </p>
+         </div>
+     </header>
+
+    <a class="float-right btn btn-primary" href="/surveys/new">Add New Survey</a>
+    <br></br>
+    <a class="float-right btn btn-outline-secondary" href="/surveys/report"> Survey Reports </a>
+    <br></br>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+    
+    <div class="container">
+        <canvas id="myChart" width="400" height="160"></canvas>
+    </div>
+    
+    <script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    
+    //Array of survey data
+    var suvreyData = [];
+     <% surveys.forEach(function(survey) { %>
+         suvreyData.push(<%=survey.questions.length%>)
+     <% }) %>
+    
+    var surveyLabels = [];
+    <% surveys.forEach(function(survey) { %>
+         surveyLabels.push("<%=survey.name%>");
+    <% }) %>
+    
+    //chart variable to display
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: surveyLabels,
+            datasets: [{
+                label: 'Questions',
+                data: suvreyData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+    
+    <br></br>
+    
+    <div class="row text-left" style="display:flex; flex-wrap: wrap;">
+        
+    
+        <h1>Surveys</h1>
+    <table id="SurveyList">
+      <tr>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Survey End Date</th>
+        <th>Author</th>
+        <!--<th>Link</th>-->
+        <th></th>
+      </tr>
+       <% surveys.forEach(function(survey) { %>
+       <tr>
+           <td><%= survey.name %></td>
+           <td><%= moment(survey.createdAt).format('MMMM Do YYYY')%></td>
+           <td><%= survey.enddate %></td>
+           <td><%= survey.author.firstName %></td>
+           <!--<td>undefined</td>-->
+           <td>
+              <div class="btn-toolbar" role="toolbar">
+                  <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+              <div class="btn-group mr-2" role="group">
+                  <a href="/surveys/<%= survey._id %>" class="btn btn-outline-secondary">View Survey</a>
+              </div>
+              <div class="btn-group mr-2" role="group">
+                  <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger float-right">Delete</button>
+                  </form>
+              </div>
+              <% } %>
+              </div>
+           </td>
+       </tr>
+       <% }) %>
+    </table>
+    </div>
+    
+</div>
+
+<% include ../partials/footer %>

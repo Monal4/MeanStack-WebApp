@@ -1,0 +1,50 @@
+<% include partials/header %>
+
+<!--
+  Admin Registration.
+  Admin Sign Up page with all the user details.
+-->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <h3 class="text-left text-uppercase">Sign Up!</h3>
+      <br></br>
+      <form action="/register" method="post">
+          
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="username">Email</label>
+          <input type="email" class="form-control" name="username" required>
+        </div>
+        <!--An Additional Functionality added to check the pattern matching for password-->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" pattern=".{8,16}" title="8 to 16 characters" required>
+        </div>
+        <!--An Additional Functionality added to check the pattern matching for Admin Code-->
+        <div class="form-group">
+          <label for="adminCode">Admin Code</label>
+          <input type="password" class="form-control" name="adminCode" pattern=".{10,20}" title="Please Provide Exact Admin Code">
+        </div>
+        
+        <button type="submit" class="btn btn-primary float-right">Sign Up!</button>
+        
+        
+        <a id="btnRightSpacing" class="btn btn-secondary float-left" href="/">Go Back</a>
+        <a class="btn btn-secondary float-left" href="/login">Log In</a>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

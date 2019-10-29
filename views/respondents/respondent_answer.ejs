@@ -1,0 +1,494 @@
+<% if(survey.hideRespondentsNav){ %>
+   <% include ../partials/res-header %>
+   <br></br>
+ <% } else{ %>  
+   <% include ../partials/res-full-header %>
+<% } %>
+
+<!--This is the welcome page before respondents take-->
+<div id="welcomePage">
+    <div class="container">
+     <div class="card card-body mb-2 bg-light">
+        <!--<p> <%= platformDetails.platformName %> </p>-->
+        <input id="exceptTime" type="number" name="answer[exceptTime]" value="5" style="display: none;">
+         <h1>Welcome!</h1>
+         <p>Welcome to our survey. This survey need few minutes. 
+         Before you take this survey, how many minutes you 
+         willing to allocate for this survey?</p>
+         <!--Let respondents to select their except time and collect them.-->
+          <p><%= survey.description %></p>
+         
+         <div class="form-group row">
+              <div class="col-xs-2">
+                <b><lable>Minutes: </lable></b>
+                <input type="number" id="customExceptTime" value="" min="0" step="5">
+              </div>
+              <div class="col-xs-3">
+                  
+              </div>
+              <div class="col-xs-4">
+                  
+              </div>
+         </div>
+          <button id="startButton" class="btn btn-primary btn-sm" onclick="beginAnswer()">Start</button>
+     </div>
+     </div>
+     
+</div>
+
+<!--This is answer page after the welcome page -->
+<div id="answerPage" style="display: none;">
+<div class="container">
+    <!--buttons of next and previous-->
+    <div>
+        <button id="previousButton" class="btn btn-secondary float-left prevnext" onclick="previousQuestion()" style="display: none;">Previous</button>
+		<button id="nextButton" class="btn btn-primary float-right prevnext" onclick="nextQuestion()">Next</button>
+		<input type="button" id="submitButton" class="btn btn-success float-right" onclick="final_submit()" value="Finish" style="display: none;"/>
+    </div>
+
+    <br></br>
+    <!--Survey information display-->
+    <div id="surveyTitle">
+        <div id="surveyTitleCard">
+            <!--<h1><%= survey.name %></h1>-->
+            
+            <!--<p><em>Created by - <%= survey.author.firstName %></em></p>-->
+        <form action="/surveys/response/<%= survey._id %>" id="surveySubmitForm" method="post">
+            <!--input of surveyID and Total time using-->
+            <input id="exceptTime" type="number" name="answer[exceptTime]" value="" style="display: none;" min="0" step="5">
+            <input type="text" name="answer[survey]" value="<%=survey._id%>" style="display: none;">
+            <input id="totalTime" type="text" name="answer[totalAnswerTime]" value="" style="display: none;">
+            <input type="hidden" name="answer[platformName]" value="<%= platformDetails.platformName %>">
+            <input type="hidden" name="answer[platformOS]" value="<%= platformDetails.platformOS %>">
+            <input type="hidden" name="answer[platformProduct]" value="<%= platformDetails.platformProduct %>">
+            <input type="hidden" name="answer[platformManufacturer]" value="<%= platformDetails.platformManufacturer %>">
+            <input type="hidden" name="answer[packetLoadTime]" value="<%= platformDetails.packetLoadTime %>">
+        </div>
+    </div>    
+</div>
+
+    
+<!--List all question and hide them for this div block-->
+<div class="container"> 
+  
+                <div class="progress progress-striped active" style="height: 15px;">
+                	<div class="progress-bar progress-bar-striped active" id= "progressBar1" role="progressbar"
+                		 aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                	    <p id="pid1">25</p>
+                	</div>
+                </div>
+    <% survey.questions.forEach(function(question,i) {%>
+    <div id="question<%=i%>" class="card card-body mb-2 bg-light" style="display: none;">
+            <!--<img class="col-md-2 col-sm-2 col-xs-2 img-fluid img-thumbnail" src="<%= //question.image %>">-->
+              
+            
+            <!--<p>-->
+            <!--     Question <%-c=i+1%> -->
+            <!--</p>-->
+                
+                <!-- time calcualtion starts from here -->
+                <script>
+                    var LoadTime = 0;
+                    var loadBeginTime = performance.now();
+                </script>
+                <strong> <%= question.text %>  </strong>
+                
+                <br></br>
+                
+                <p id="questionIns"><%= question.instruction %></p>
+               
+                <input id="loadQuestionTime[Q<%=i%>]" type="hidden" name="answer[answers][<%=i%>][loadQuestionTime]" value="">
+                 <script>
+                    var loadEndTime = performance.now();
+                    LoadTime =(( (loadEndTime - loadBeginTime)/1000) % 60);
+                    document.getElementById("loadQuestionTime[Q"+ <%=i%>+"]").value = LoadTime;
+                </script>
+                 <!-- time calcualtion ends from here -->
+                 
+                <!--Input of question types,id,and respond time for individual question -->
+                <input type="number" name="answer[answers][<%=i%>][types]" value="<%-question.types%>" style="display: none;">
+                <input type="text" name="answer[answers][<%=i%>][qid]" value="<%-question._id%>" style="display: none;">    
+                <input id="respondTime[Q<%=i%>]" type="text" name="answer[answers][<%=i%>][responseTime]" value="" style="display: none;">
+                <br></br>
+                
+                <script>
+                    var LoadOptionTime = 0;
+                    var loadOptionBeginTime = performance.now();
+                </script>
+                
+                <!--display options:-->
+                <!--display question preview based on types, with if statement-->
+                <% if (question.types == 1) { %>
+                    <% question.options.forEach(function(options,k) { %>
+                        <p onclick="updateCurrentSkip('<%= options.skipId %>', <%-i%>)">
+                          
+                          <input type="radio" id="radioTest[Q<%=i%>][<%-k%>]" name="answer[answers][<%-i%>][content]" value="<%= options.content %>">
+                          <label for="radioTest[Q<%=i%>][<%-k%>]"><%= options.content %></label>
+                        </p>
+                    <% }) %>
+                <% } else if (question.types == 2) { %>
+                    <% question.options.forEach(function(options,k) { %>
+                        <p onclick="updateCurrentSkip('<%= options.skipId %>',  <%-i%>)">
+                          <input type="checkbox" id="checboxTest[Q<%=i%>][<%-k%>]" name="answer[answers][<%-i%>][content][<%=k%>]"  value="<%= options.content %>">
+                          <label for="checboxTest[Q<%=i%>][<%-k%>]"><%= options.content %></label>
+                        </p>
+                    <% }) %>
+                <% } else if(question.types == 3){ %>
+                    <input type="text" class="form-control" value="" name="answer[answers][<%-i%>][content]" placeholder="Enter Input Here...">
+                    </textarea>
+                <% } else if(question.types == 4){ %>
+                    <textarea rows="4" cols="50"  class="form-control" name="answer[answers][<%-i%>][content]" placeholder="Enter Input Here..."></textarea>
+                    </textarea>
+                 <% } else if (question.types == 5) { %>
+                    <% question.options.forEach(function(options) { %>
+                        <p onclick="updateCurrentSkip('<%= options.skipId %>)',  <%-i%>">
+                          <input type="text" value="" name="answer[answers][<%-i%>][content]" >
+                        </p>
+                     <% }) %>
+                <% } else if (question.types == 6) { %>
+                   <% question.options.forEach(function(options,k) { %>
+                        <span><input onclick="updateCurrentSkip('<%= options.skipId %>', <%-i%>)" type="radio" name="rating" id="rating[Q<%=i%>][<%=k%>]" name="answer[answers][<%-i%>][content][<%=k%>]" value="<%= options.content %>"><label for="ratingrating[Q<%=i%>][<%=k%>]"><%= options.content %></label></span>
+                   <% }) %>
+                <% } else if (question.types == 7) { %>
+                    <input type="range" min="<%= question.silderMax%>" max="<%= question.silderMin%>" name="answer[answers][<%-i%>][content]">
+                    <span>Max: <%= question.silderMax%></span>
+                    <span>Min: <%= question.silderMin%></span>
+                <% } %>
+                <br></br>
+                
+                
+                <input type="hidden" name="answer[statusQI]" value="presented">
+                
+                <% if (question.SubQtext) { %>
+                
+                <!--Sub questions - revised in 9/23-->
+                <strong> <%= question.SubQtext %>  </strong>
+                
+                <br></br>
+                
+                
+                 <div style="overflow-x:auto;">
+                        <table>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Much more effective</th>
+                            <th>Somewhat more effective</th>
+                            <th>Equally effective</th>
+                            <th>Somewhat less effective</th>
+                            <th>Much less effective</th>
+                            <th>I don't know</th>
+                        </tr>
+                         <%question.SubOptions.forEach(function(SubOption,k) {%>
+                            <tr>
+                              <td><%= SubOption.content %></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][0]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="0" ><label for="radioTest[Q<%=i%>][<%-k%>][0]"></label></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][1]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="1" ><label for="radioTest[Q<%=i%>][<%-k%>][1]"></label></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][2]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="2"><label  for="radioTest[Q<%=i%>][<%-k%>][2]"></label></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][3]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="3" ><label for="radioTest[Q<%=i%>][<%-k%>][3]"></label></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][4]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="4" ><label for="radioTest[Q<%=i%>][<%-k%>][4]"></label></td>
+                              <td><input type="radio" id="radioTest[Q<%=i%>][<%-k%>][5]" name="answer[subAnswers][Q<%=i%>][<%-k%>]" value="5" ><label for="radioTest[Q<%=i%>][<%-k%>][5]"></label></td>
+                            </tr>
+                         <% }) %>
+                         </table>
+                        </div>
+                        
+                <% } %>
+                        
+                        
+                 <input id="loadOptionQuestionTime[Q<%=i%>]" type="text" name="answer[answers][<%=i%>][loadOptionTime]" value="" style="display: none;">
+                 <script>
+                    var loadOptionEndTime = performance.now();
+                    LoadOptionTime =(( (loadOptionEndTime - loadOptionBeginTime)/1000) % 60);
+                    document.getElementById("loadOptionQuestionTime[Q"+ <%=i%>+"]").value = LoadOptionTime;
+                </script>
+        </div>
+        <% }) %>
+</div>
+        
+    
+        <div class="container">
+            <!--<button type="submit" class="btn btn-primary float-right">Submit</button>-->
+            <!--<input type="button" class="btn btn-primary float-right" onclick="final_submit()" value="Submit">-->
+            <input id="demoResW" type="string" name="answer[cliWidth]" value="" style="display: none;">
+            <input id="demoResH" type="string" name="answer[cliHeight]" value="" style="display: none;">
+            <input type="button" id="submitButton" class="btn btn-primary float-right" onclick="final_submit()" value="Submit" style="display: none;"/>
+        </div>
+    </form>
+    
+    
+    <script>
+        //variables of Varibale, 
+        //it includes cursor of question, tottal question number, start time and end time
+        var JCounter = 0;
+        var currentSkipId=0;
+        var totalQuestions = <%= survey.questions.length %>
+        var serverData = <%- JSON.stringify(survey.questions)%>
+        console.log(serverData)
+        var serverDataCopy = serverData
+        var startTime = performance.now();
+        var totalTime = 0;
+        //current time variable.
+        var respondBeginTime = performance.now();
+        document.getElementById("question"+JCounter).style.display="block";
+         var forPrevious =[];
+        var submit = false;
+        var skipIdMap = {};
+        var lastIndex = 0;
+        //function that begin answer after write document.
+        function beginAnswer(){
+          
+          var customExceptMin = document.getElementById("customExceptTime").value;
+          if(customExceptMin!=0){
+              document.getElementById("exceptTime").value = customExceptMin;
+          }else if(customExceptMin < 0 || customExceptMin == 0 ){
+               document.getElementById("exceptTime").value = 5;
+          }
+          
+          document.getElementById("welcomePage").style.display="none";
+          document.getElementById("answerPage").style.display="block";  
+                  forPrevious.push(0)
+          getPrecentage();
+        }
+        
+        
+        
+        //function that change the question except time.
+        function exceptTimeSelect(expc){
+            document.getElementById("exceptTime").value = expc;
+        }
+        var count = 1;
+        
+        var previousGroup = serverData[0].groupQuestion;
+        serverDataCopy[0].isTraversed = true;
+      /*  var positionObject = {};
+        positionObject['question'+count] = 0
+        var positionObjectTrack = ['question'+count];*/
+       
+        //function for next button.
+        function nextQuestion() {
+            console.log(skipIdMap)
+            JCounter++;
+            console.log('-----------------------',submit);
+            console.log('-------------------lastIndex', lastIndex)
+            console.log(serverData)
+            if(!submit) {
+                var actualArrayIndex = 0;
+                var skipIdQsnFound = false;
+                var groupQsnFound=0;
+                document.getElementById("question"+lastIndex).style.display="none";
+              skipIdMap.lastIndex = currentSkipId;
+              console.log(skipIdMap)
+            for(i=0;i<serverData.length;i++) {
+                //console.log(serverData[i]._id)
+               if(currentSkipId && currentSkipId === serverData[i]._id && !serverData[i].isTraversed) {
+                   lastIndex = i;
+                   skipIdQsnFound= true;
+                   document.getElementById("question"+i).style.display="block";
+               } else{
+                   document.getElementById("question"+i).style.display="none";
+               }
+               //console.log(skipIdQsnFound)
+            }
+            
+            if(!skipIdQsnFound) {
+                for(i=0; i<serverData.length;i++) {
+                    if(previousGroup && serverDataCopy[i].groupQuestion === previousGroup && !serverDataCopy[i].isTraversed) {
+                        document.getElementById("question"+i).style.display="block";
+                        lastIndex = i;
+                        groupQsnFound = i;
+                        break;
+                    } else if(!serverData[i].isTraversed && !actualArrayIndex) {
+                        actualArrayIndex=i;
+                    }
+                }
+            }
+            
+            if(actualArrayIndex && !groupQsnFound) {
+                lastIndex = lastIndex+1
+                console.log(lastIndex)
+              
+               document.getElementById("question"+lastIndex).style.display="block";
+            }
+            
+            serverData[lastIndex].isTraversed = true;
+            forPrevious.push(lastIndex);
+            //console.log(forPrevious)
+            if(serverData.length == (lastIndex+1)) {
+               submit = true;
+               document.getElementById("nextButton").style.display="none";
+               document.getElementById("submitButton").style.display="block";
+               document.getElementById("previousButton").style.display="block";
+            } if(forPrevious.length>1) {
+              document.getElementById("previousButton").style.display="block";
+            }
+            
+              /* var tempCounter =false;
+           var previousCounter=arrayReadUpTo;
+           //Condition to judge and display and hide for previous and next button
+            count = positionObjectTrack.length+1;
+            var tempCount = 'question'+count;*/
+            
+            /*for(i=0;i<serverDataCopy.length; i++) {
+            if(serverDataCopy[i].groupQuestion === previousGroup && !serverDataCopy[i].isTraversed) {
+            tempCounter = true;
+                 serverDataCopy[i].isTraversed = true;
+           // positionObjectTrack[next.id] = tempCount;
+            positionObject[tempCount] = i;
+            //previousGroup = positionObject[tempCount].groupQuestion;
+           document.getElementById("question"+i).style.display="block";
+            break;
+            }
+           document.getElementById("question"+i).style.display="none";
+
+            }
+            if(!tempCounter) {
+                arrayReadUpTo += 1;
+                while(!submit && serverDataCopy[arrayReadUpTo].isTraversed){
+                    arrayReadUpTo+=1
+                    if(arrayReadUpTo >= serverDataCopy.length) {
+                        submit = true;
+                        break;
+                    }
+                }
+            if(!submit){
+            tempCounter = arrayReadUpTo;
+            alreadyReadUptoTrack.push(arrayReadUpTo)
+            positionObject[tempCount] = tempCounter;
+            previousCounter = tempCounter;
+            serverDataCopy[tempCounter].isTraversed = true;
+            previousGroup = serverDataCopy[tempCounter].groupQuestion;
+           document.getElementById("question"+tempCounter).style.display="block";
+            }else{
+                let temp = positionObject[positionObjectTrack[positionObjectTrack.length-1]]
+             document.getElementById("question"+temp).style.display="block";
+            }
+            }positionObjectTrack.push(tempCount)
+            if(positionObjectTrack.length === 0){
+			   document.getElementById("previousButton").style.display="none";
+			   document.getElementById("submitButton").style.display="none";
+		   }else if(positionObjectTrack.length>=serverData.length){
+			   document.getElementById("nextButton").style.display="none";
+			   document.getElementById("previousButton").style.display="block";
+			   document.getElementById("submitButton").style.display="block";
+		   }else{
+			   document.getElementById("previousButton").style.display="block";
+			   document.getElementById("nextButton").style.display="block";
+			   document.getElementById("submitButton").style.display="none";
+		   }
+		   if(!submit) {
+		   document.getElementById("previousButton").style.display="block";
+           //document.getElementById("question"+previousCounter).style.display="none";
+           //document.getElementById("question"+tempCounter).style.display="block";
+		   } else{
+		       document.getElementById("submitButton").disabled="true";
+		   }
+           
+           
+           //Compute repsond time of question now.
+           var respondEndTime = performance.now();
+           var respondTime = (((respondEndTime - respondBeginTime)/1000) % 60);
+           respondBeginTime = performance.now();
+           totalTime+= respondTime;
+           
+           //display the current question based on Jcounter(cursor of question)
+           //Also, hide the question answered.
+           //document.getElementById("respondTime[Q"+(JCounter-1)+"]").value = respondTime + "s"
+           //document.getElementById("totalTime").value = totalTime + "s";
+        }*/
+        currentSkipId = 0;
+        } 
+          getPrecentage();
+          // bug code 
+          //Compute repsond time of question now.
+           var respondEndTime = performance.now();
+           var respondTime = (((respondEndTime - respondBeginTime)/1000) % 60);
+           respondBeginTime = performance.now();
+           totalTime+= respondTime;
+
+           document.getElementById("respondTime[Q"+(JCounter-1)+"]").value = respondTime + "s"
+           document.getElementById("totalTime").value = totalTime + "s";
+        }
+        
+        function previousQuestion() {
+            JCounter--;
+            submit = false;
+            if(forPrevious.length>1) {
+                serverData[forPrevious[forPrevious.length -1]].isTraversed = false;
+                let temp = forPrevious[forPrevious.length-2]
+                currentSkipId=skipIdMap[temp] || 0
+                console.log(currentSkipId)
+                console.log(skipIdMap)
+                console.log(forPrevious)
+            for(i=0;i<serverData.length;i++){
+              if(i=== temp) {
+                 // console.log(serverData[i]);
+              document.getElementById("question"+i).style.display="block";
+              previousGroup = serverData[i]['groupQuestion'];
+              continue;
+              }
+              document.getElementById("question"+i).style.display="none";
+          }
+          forPrevious.splice(forPrevious.length-1,1)
+           if(forPrevious.length == serverData.length) {
+               submit = true;
+               document.getElementById("nextButton").style.display="none";
+               document.getElementById("submitButton").style.display="block";
+               document.getElementById("previousButton").style.display="block";
+            } if(forPrevious.length< serverData.length) {
+              document.getElementById("nextButton").style.display="block";
+              document.getElementById("submitButton").style.display="none";
+            }if(forPrevious.length<=1){
+              document.getElementById("previousButton").style.display="none";
+            }
+            }else{
+                document.getElementById("previousButton").style.display="none";
+            }
+            getPrecentage();
+            //console.log(forPrevious)
+            //console.log(previousGroup)
+            respondBeginTime = performance.now();
+           lastIndex = forPrevious[forPrevious.length-1]
+        }
+        function updateCurrentSkip(skipId, id) {
+            if(skipId)
+              skipIdMap[id] = skipId
+            currentSkipId = skipId;
+        }
+        function getPrecentage(){
+            var value = parseInt(((lastIndex+1)/totalQuestions)*100)
+            document.getElementById('progressBar1').style.width = value+ '%';
+            document.getElementById('pid1').innerHTML = value+ '%';
+        }
+        
+        function final_submit(){
+           var respondEndTime = performance.now();
+           var respondTime = (((respondEndTime - respondBeginTime)/1000) % 60);
+           respondBeginTime = performance.now();
+           totalTime+= respondTime;
+           
+           document.getElementById("respondTime[Q"+(JCounter)+"]").value = respondTime + "s"
+           document.getElementById("totalTime").value = totalTime + "s";
+           document.getElementById('surveySubmitForm').submit();
+        }
+        
+        function totalTime(){
+            var endTime = performance.now();
+            var totaltime =(( (endTime - startTime)/1000) % 60);
+            document.getElementById("totalTime").value = totaltime + "s"
+        }
+        
+    </script>
+    
+    <script type="text/javascript">
+        document.getElementById("demoResW").value =window.innerWidth;
+        document.getElementById("demoResH").value = window.innerHeight;
+    </script>
+
+</div>
+        <script src="/javascript/takesurvey.js"></script>  
+
+<% if(survey.hideRespondentsNav){ %>
+       <% include ../partials/res-footer %>
+ <% } else{ %>  
+   <% include ../partials/res-full-footer %>
+<% } %>

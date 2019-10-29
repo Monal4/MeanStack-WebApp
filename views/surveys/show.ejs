@@ -1,0 +1,136 @@
+
+<% include ../partials/header %>
+
+<!-- 
+  Show Survey Info page.
+  This is the show survey page with survey all the survey information, deployment link with all the survey questions.
+  With additional option to Edit, Delete and Add Questions to the survey.
+-->
+<div class="container">
+
+    <div class="card card-body mb-2">
+        <h1><%= survey.name %></h1>
+        <p><%= survey.description %></p>
+        <p><em>Created by - <%= survey.author.firstName %>, <%= moment(survey.createdAt).fromNow() %></em></p>
+        
+        
+        
+        <% if (survey.startdate && survey.enddate) { %>
+        
+        <p><em>Start Date - <%= survey.startdate %>, End Date - <%= survey.enddate %></em></p>
+        
+        <% } %>
+        
+        <p>Share: https://surveyfy-avinashbe.c9users.io/surveys/response/<%= routeParam.id %></p>
+        
+        <!--currentUser is checking if some one is logged in before working on showing edit or delete-->
+        <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %> <!--setup for currentUser._id is in app.js-->
+            <p><a class="btn btn-outline-success float-right" href="/surveys/<%= survey._id %>/edit">Edit Survey</a></p>
+            <div>
+                <a class=" btn btn-outline-secondary float-right" href="/surveys">Go Back</a>
+                <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
+                    <button id ="btnRightSpacing" class="btn btn-outline-danger float-right">Delete</button>
+                </form>
+            </div>
+        <% } %>
+        
+        
+    </div>
+    
+    <br></br>
+        <div class="card card-body mb-2 bg-light">
+            <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) {%>
+            <p><a class="btn btn-primary float-right" href="/surveys/<%= survey._id %>/questions/new">Add Question</a></p>
+        
+            <% } %>
+            
+            <br></br>
+            <hr></hr>
+            <% survey.questions.forEach(function(question, i) {%>
+                <div>
+                <%if (question.image) { %>
+                    <img class="col-md-2 col-sm-2 col-xs-2 img-fluid img-thumbnail" src="<%= question.image %>">
+                <%}%>
+                    <p>
+                        
+                        <p>Question: <%= i + 1 %></p>      
+                        <strong>
+                        <%= question.text %>
+                        </strong>
+                    
+                        
+                    </p>    
+                    
+                    <!--display options:-->
+                    
+                    <!--display question preview based on types, with if condition check-->
+                    <% if (question.types == 1) { %>
+                        <div>
+                            <% question.options.forEach(function(options) { %>
+                                <p>
+                                  <input type="radio" id="radioTest<%- question.options.indexOf(options)%>" value="<%= options.content %>" name="radio-group">
+                                  <label for="radioTest<%- question.options.indexOf(options)%>"><%= options.content %></label>
+                                </p>
+                            <% }) %>
+                        </div>
+                    <% } else if (question.types == 2) { %>
+                        <div>
+                        <% question.options.forEach(function(options) { %>
+                            <p>
+                              <input type="checkbox" id="checboxTest<%- question.options.indexOf(options)%>" value="<%= options.content %>" name="checboxes">
+                              <label for="checboxTest<%- question.options.indexOf(options)%>"><%= options.content %></label>
+                            </p>
+                        <% }) %>
+                        </div>
+                    <% } else if(question.types == 3){ %>
+                        <div>
+                            <input type="text" value="" >
+                            </textarea>
+                        </div>
+                    <% } else if(question.types == 4){ %>
+                        <div>
+                            <textarea rows="4" cols="50"></textarea>
+                            </textarea>
+                        </div>
+                     <% } else if (question.types == 5) { %>
+                        <div>
+                        <% question.options.forEach(function(options) { %>
+                            <p>
+                              <input type="text" value="" >
+                            </p>
+                         <% }) %>
+                        </div>
+                    <% } else if (question.types == 6) { %>
+                       <div>
+                       <% question.options.forEach(function(options) { %>
+                            <span><input type="radio" name="rating" id="rating<%- question.options.indexOf(options)%>"><label for="rating<%- question.options.indexOf(options)%>"><%= options.content %></label></span>
+                       <% }) %>
+                       </div> 
+                    <% } else if (question.types == 7) { %>
+                        <input type="range" min="<%= question.silderMax%>" max="<%= question.silderMin%>">
+                        <span>Max: <%= question.silderMax%></span>
+                        <span>Min: <%= question.silderMin%></span>
+                    <% } %>
+                        
+                     
+                    <!--button group place adjustment and additional functionality for Edit and Delete options for the question.-->
+                    <div class="form-group">
+                        <% if(currentUser && question.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) {%>
+                            <a class="btn btn-outline-success float-right" href="/surveys/<%= survey._id %>/questions/<%= question._id %>/edit">Edit Question</a>
+                            <form action="/surveys/<%= survey._id %>/questions/<%= question._id %>?_method=DELETE" method="post">
+                                <button id ="btnRightSpacing" class="btn btn-outline-danger float-right">Delete</button>
+                            </form>
+                            <% if(question.groupQuestion) { %> 
+                                <h3 id="btnRightSpacing" class="btn btn-light float-right"><%= question.groupQuestion %></h3>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    
+                    <br></br>
+                    <br></br>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
