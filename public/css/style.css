@@ -1,12 +1,45 @@
 /* CSS changes and additonal properties for user interface elements  */
+
+
 nav {
-    margin-bottom: 2em;
+    margin-bottom: 0;
+   
 }
+
+.navbar{
+  padding:0;
+}
+
+ 
+
+.navbar-nav .nav-link{
+  padding-left:10px;
+}
+
+
+.nav-item a{
+  padding: 0px;
+  
+}
+nav ul{
+  margin-left: 10px;
+}
+
+
+ul:not(.browser-default){
+margin:0px;
+}
+
+#nav-bar-toggler{
+  margin-top: -15px;
+}
+
 
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    
 }
 
 main {
@@ -180,4 +213,20 @@ label {
   font-style: italic;
   color: #000000;
   line-height: 0.7;
+}
+
+
+
+.dropdown-menu a{
+  background-color: white;
+  border-block-color: white;
+  padding: 10px;
+}
+
+
+.collapse.show{
+  min-width: auto;
+  width:100%;
+  height:100%;
+  
 }
