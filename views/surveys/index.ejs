@@ -4,27 +4,81 @@
   Show Survey Information.
   This is the page that displays the survey information in tabular format for easy and simple view functionality.
 -->
-<div class="container">
-     <header class="jumbotron">
-         <div class="container">
-         <h1>Dashboard</h1>
-         <h3>List of our surveys</h3>
-         <p>
+
+    <div class="container-fluid border  border-bottom-1 border-right-0 border-left-0" style="padding: 0px">
+                     <h1 align="center">Dashboard</h1>
+                   <!--  <h3 align="center">List of our surveys</h3> -->
+
+                         <h2>
+                             <ul>
+                     <% if (!currentUser) {  %>             
+                       <li align="center"><a href="/login" class="text-black">Login</a></li>
+                       <li align="center"><a href="/register" class="text-black">Sign Up</a></li>
+                       <% } else { %>
+                           <li align="center" class="text-black">Welcome <%= currentUser.firstName %></li>
+                     <% } %>
+                         <ul>           
+                  </h2>
+                 </div>
+
+<div class="container"  >
+  
+       <!--  <header class="jumbotron">   -->
+        <!-- <div class="container"> -->
+             
+             <!--This was a jumbotron that has just search button for surveys-->
+     <!--   <p>
              <form class="form-inline" action="/surveys" method="GET">
                  <div class="form-group">
                      <input type="text" class="form-control" name="search" placeholder="Search Surveys">
                      <input type="submit" class="form-control btn btn-default" value="Search">
                  </div>
              </form>
-         </p>
-         </div>
-     </header>
+         </p> -->
+     <!--    </div> -->
+    <!-- </header> -->
+    <!-- <form class="form-inline float-left" action="/surveys" method="GET">
+                 <div class="row">
 
-    <a class="float-right btn btn-primary" href="/surveys/new">Add New Survey</a>
+                    <div class="col">
+                        <input type="text" action="/surveys" class="form-control" name="search" placeholder="Search Surveys">
+                    </div>
+
+                    <div class="col">
+                        <input type="submit" class="form-control btn btn-default" value="Search">
+                    </div>
+            </div>
+                 </form>-->
     <br></br>
-    <a class="float-right btn btn-outline-secondary" href="/surveys/report"> Survey Reports </a>
+
+     <div class="row d-block d-sm-none">
+       <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <form class="form-inline float-left" method="GET">
+            <input type="text" action="/surveys" class="form-inline float-left" name="search" placeholder="Search Surveys">
+        </form>
+           </div>
+       <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12 offset-lg-2 offset-md-2">
+           <form class="form-inline float-right">
+    <a class="float-right btn btn-primary" href="/surveys/new">Create New Survey </a> &nbsp;&nbsp;
+        <a class="float-right btn btn-primary" href="/surveys/report"> Survey Reports </a>
+        </form>
+       </div>
+       </div>
+
+<div class="d-none d-sm-block">
+    <form class="form-inline float-left d-none d-sm-block" method="GET">
+            <input type="text" action="/surveys" class="form-inline float-left" name="search" placeholder="Search Surveys">
+        </form>
+
+    <form class="form-inline float-right d-none d-sm-block">
+    <a class="float-right btn btn-primary" href="/surveys/new">Create New Survey </a> &nbsp;&nbsp;
+        <a class="float-right btn btn-primary" href="/surveys/report"> Survey Reports </a>
+        </form>
     <br></br>
-    
+    </div>
+
+    <!-- This part is a chart implementation-->
+    <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
     
     <div class="container">
@@ -83,7 +137,13 @@
         }
     });
     </script>
-    
+    -->
+
+
+
+
+
+
     <br></br>
     
     <div class="row text-left" style="display:flex; flex-wrap: wrap;">
