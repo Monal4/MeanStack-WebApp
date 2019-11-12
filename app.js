@@ -83,6 +83,6 @@ app.use("/surveys/:id/questions", questionRoutes)
 
 
 // For starting a node client server
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT || 30000, process.env.IP, function(){
     console.log("Surveyfy Server Started")
 })
