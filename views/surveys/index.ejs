@@ -21,7 +21,7 @@
                   </h2>
                  </div>
 
-<div class="container"  >
+<div class="container" >
   
        <!--  <header class="jumbotron">   -->
         <!-- <div class="container"> -->
@@ -65,7 +65,7 @@
        </div>
        </div>
 
-<div class="d-none d-sm-block">
+<div class="row d-none d-sm-block">
     <form class="form-inline float-left d-none d-sm-block" method="GET">
             <input type="text" action="/surveys" class="form-inline float-left" name="search" placeholder="Search Surveys">
         </form>
@@ -138,25 +138,100 @@
     });
     </script>
     -->
-
-
-
-
-
-
-    <br></br>
-    
-    <div class="row text-left" style="display:flex; flex-wrap: wrap;">
+    <div class="container d-none d-md-block" style="display:flex; flex-wrap: wrap;">
+           <table class="table table-dark" style="border: 1px; font-size: 17px" id="SurveyList">
+      <tr>
+        <th style="text-align:left">Name</th>
+      <!--  <th>Created At</th>
+        <th>Survey End Date</th>-->
+        <th>Author</th>
+          <th>No Of Questions</th>
+          <th>No Of Respondents</th>
         
+      </tr>
+       <% surveys.forEach(function(survey) { %>
+       <tr>
+           <td style="text-align:left"><%= survey.name %><br></br><span style="font-size:13px"/><%=moment(survey.createdAt).format('MMMM Do YYYY')%>
+           |<%= moment(survey.enddate).format('MMMM Do YYYY') %></td>
+           
+           <td><%= survey.author.firstName %></td>
+           <td><%= survey.questions.length %></td>
+           <td><%= survey.survey_answer.length %></td>
+           
+           <td style="align:right">
+               <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+               <div class="btn-group dropright">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Options
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/surveys/<%= survey._id %>">View Survey</a>
+                      <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
+                        <button class="dropdown-item" >Delete Survey</button>
+                  </form>
+                    
+                  </div>
+                </div>
+                <% } %>
+           </td>
+
+       <!--    <td>
+
+              <div class="btn-toolbar" role="toolbar">
+                  <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+              <div class="btn-group mr-2" role="group">
+                  <a href="/surveys/<%= survey._id %>" class="btn btn-outline-secondary">View Survey</a>
+              </div>
+              <div class="btn-group mr-2" role="group">
+                  <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger float-right">Delete</button>
+                  </form>
+              </div>
+              <% } %>
+              </div>
+           </td> -->
+       </tr>
+       <% }) %>
+    </table>
+    </div>
     
-        <h1>Surveys</h1>
-    <table id="SurveyList">
+    <div class="container d-sm-block d-md-none" style="display:flex; flex-wrap: wrap;">
+       
+            <table class="table table-dark" style="border: 1px; font-size: 17px" id="SurveyList">
+                 <% surveys.forEach(function(survey) { %> 
+                <tr>
+              <th style="text-align: center">  <%= survey.name %> <br></br><span style="font-weight: normal">
+                  <%= moment(survey.createdAt).format('MMMM Do YYYY')
+                  %>|<%=moment(survey.enddate).format('MMMM Do YYYY')%></th>
+     
+               </tr>
+                <tr>
+                    <th>Author Name</th>
+                    <td><%= survey.author.firstName %></td>
+                </tr>
+                <tr>
+                    <th>No Of Questions</th>
+                    <td><%= survey.questions.length %></td>
+                </tr>
+                <tr>
+                    <th>No Of Respondents</th>
+
+                    <td><%= survey.survey_answer.length %></td>  
+                </tr>
+                <br></br>
+               <% }) %>
+                </table>
+       
+    </div>
+    
+   <!-- <div class="container row text-left" style="display:flex; flex-wrap: wrap;">
+           <table id="SurveyList">
       <tr>
         <th>Name</th>
         <th>Created At</th>
         <th>Survey End Date</th>
         <th>Author</th>
-        <!--<th>Link</th>-->
+       
         <th></th>
       </tr>
        <% surveys.forEach(function(survey) { %>
@@ -165,7 +240,7 @@
            <td><%= moment(survey.createdAt).format('MMMM Do YYYY')%></td>
            <td><%= survey.enddate %></td>
            <td><%= survey.author.firstName %></td>
-           <!--<td>undefined</td>-->
+          
            <td>
               <div class="btn-toolbar" role="toolbar">
                   <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
@@ -184,7 +259,7 @@
        <% }) %>
     </table>
     </div>
-    
+    -->
 </div>
 
 <% include ../partials/footer %>
