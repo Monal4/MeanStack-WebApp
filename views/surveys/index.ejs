@@ -167,10 +167,12 @@
                     Options
                   </button>
                   <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/surveys/<%= survey._id %>/edit">Edit Survey</a>
                     <a class="dropdown-item" href="/surveys/<%= survey._id %>">View Survey</a>
                       <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
                         <button class="dropdown-item" >Delete Survey</button>
                   </form>
+                      
                     
                   </div>
                 </div>
