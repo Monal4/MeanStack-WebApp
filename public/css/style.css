@@ -1,13 +1,5 @@
 /* CSS changes and additonal properties for user interface elements  */
 
-.card {
-  /*  position: absolute;
-      left: 50%;
-      transform: translate(-50%); */
-      position:relative;
-      z-index:0;
-      
-  }
 
 nav {
     margin-bottom: 0;
@@ -18,17 +10,7 @@ nav {
   padding:0;
 }
 
-
-
-#navbarCard{
-  z-index:1;
-  padding:0;
-  border:0;
-}
-
- #eachcard{
-   z-index: 0;
- }
+ 
 
 .navbar-nav .nav-link{
   padding-left:10px;
@@ -248,10 +230,3 @@ label {
   height:100%;
   
 }
-
-
-
-
-
-
-
