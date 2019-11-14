@@ -160,7 +160,7 @@
            <td><%= survey.questions.length %></td>
            <td><%= survey.survey_answer.length %></td>
            
-           <td style="align:right">
+           <td style="text-align:right">
                <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                <div class="btn-group dropright">
                   <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -169,7 +169,8 @@
                   <div class="dropdown-menu">
                       <a class="dropdown-item" href="/surveys/<%= survey._id %>/edit">Edit Survey</a>
                     <a class="dropdown-item" href="/surveys/<%= survey._id %>">View Survey</a>
-                      <form id="delete-inline" action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
+                      <a class="dropdown-item" href="/surveys">View Report</a>
+                      <form  action="/surveys/<%= survey._id %>?_method=DELETE" method="post">
                         <button class="dropdown-item" >Delete Survey</button>
                   </form>
                       
