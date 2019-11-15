@@ -1,9 +1,9 @@
 /* CSS changes and additonal properties for user interface elements  */
 
-
+/*Navbar styling-----------------------------------*/
 nav {
-    margin-bottom: 0px;
-    
+    margin-bottom: 3px;
+    height:50px;
 }
 
 .navbar{
@@ -18,11 +18,10 @@ nav {
   
 }
 
-
 .nav-item a{
   padding: 0px;
-  
 }
+
 nav ul{
   margin-left: 10px;
 }
@@ -35,7 +34,7 @@ margin:0px;
 #nav-bar-toggler{
   margin-top: px;
 }
-
+/*----------------------------------------------------*/
 
 body {
     display: flex;
@@ -49,11 +48,7 @@ main {
       margin-top:2px;  
 }
   
-footer{
-    
-    
-}
-  
+
 #btnRightSpacing {
     margin-right: 1em;
 }
@@ -200,7 +195,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px ;
     background-color: #f6f5f3;
 }
 
@@ -223,17 +218,28 @@ label {
   line-height: 0.7;
 }
 
-#flash-messages{
-  position: relative;
-  top:200px;
+
+
+/*footer part*/
+footer > div{ 
 
 }
+ footer #footerLinks a{
+  color: #7dce94 ;
+  text-decoration:none;
+  align-items: flex-end;
+  padding:10px;
+  float:right;
+ }
 
-.dropdown-menu a{
-  background-color: white;
-  border-block-color: white;
-  padding: 10px;
+/*DashBoard-buttons*/
+.dashboardBtn a{
+  background-color:#7dce94;
 }
 
+.dashboardBtn a:hover{
+  color:white;
+  background-color:#7dce94;
+}
 
 

@@ -4,30 +4,31 @@
         -->
     
         </main>
-        <footer class="page-footer white border border-top-1 border-bottom-1 border-right-0 border-left-0" >
+        <footer class="page-footer white border border-top-1 border-bottom-1 border-right-0 border-left-0" style="padding:5px">
           <div class="container-fluid" style="margin:5px ">
-            <div class="row">
-              <div class="col-lg-6 col-sm-12">
-                <h5 style="color: #7dce94">Surveyfy</h5>
-                <p style="color: #7dce94">A Survey Platform.</p>
+            <div class="row" style="margin:0px">
+              <div class="col-lg-6 col-md-6 col-sm-3  d-none d-sm-block">
+                <h5 style="color: #7dce94; padding:10px;">Surveyfy</h5>
               </div>
-             
-                <h5 class="white-text">Links</h5>
-                
-                  <li><a style="color: #7dce94" href="/">Home</a></li>
-                  <li><a style="color: #7dce94"  href="/about">About</a></li>
-                  <li><a style="color: #7dce94" href="/surveys">Dashboard</a></li>
-                  <li><a style="color: #7dce94" href="/login">Login</a></li>
-                  <li><a style="color: #7dce94" href="/register">Sign Up</a></li>
-              
+              <div class="col-lg-5 offset-lg-1 col-md-5 offset-md-1 col-sm-9 col-xs-12" id="footerLinks">
+                <ul>
+                  <<a href="/about">About</a>
+                  <a href="/">Home</a>
+                  <a href="/surveys">Dashboard</a>
+                  <%if(!currentUser){%>
+                  <a href="/login">Login</a>
+                  <a href="/register">Sign Up</a>
+                  <%}%>
+                  </ul>
+            </div>
             </div>
           </div>
-          <div class="footer-copyright">
-            <div class="container" style="color:#3d3d3f">
+          
+            <div class="container-fluid" style="color:#3d3d3f;background-color:#f6f5f3">
             © 2018 Copyright Surveyfy. All Rights Reserved.
             <!--<a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
             </div>
-          </div>
+          
         </footer>
         
         <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
