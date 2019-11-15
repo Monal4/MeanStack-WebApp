@@ -62,19 +62,17 @@
        </div>
        </div>
 
-<div class="row d-none d-sm-block">
-    <form id="23" class="form-inline float-left" action="/surveys" method="GET">
-            <input type="text" style="margin-bottom: 0px" class="float-left" name="search" placeholder="Search Surveys">
-       
-        </form>
-     
-    
-    
-    <a class="float-right btn" style="background-color: #7dce94" href="/surveys/new">Create New Survey </a> &nbsp; &nbsp;
-        <a class="float-right btn" style="background-color: #7dce94" href="/surveys/report"> Survey Reports </a>
+       <div class="row d-none d-sm-block dashboardBtn" >
+            <form class="form-inline float-left"  action="/surveys" method="GET">
+                             <input type="text" class="form-control" name="search" placeholder="Search Surveys">
+                             <input type="submit" class="form-control btn " value="Search" style="background-color: #7dce94">         
+                    </form>
+            <a class=" btn rounded-0" href="/surveys/new">Create New Survey </a> &nbsp; &nbsp;
+                <a class="float-right btn rounded-0" href="/surveys/report"> Survey Reports </a>
+               
+            <br></br>
+            </div>
         
-    <br></br>
-    </div>
 
     <!-- This part is a chart implementation-->
     <!--
