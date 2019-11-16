@@ -62,15 +62,18 @@
        </div>
        </div>
 
-       <div class="row d-none d-sm-block dashboardBtn" >
-            <form class="form-inline float-left"  action="/surveys" method="GET">
-                             <input type="text" class="form-control" name="search" placeholder="Search Surveys">
-                             <input type="submit" class="form-control btn " value="Search" style="background-color: #7dce94">         
-                    </form>
-            <a class=" btn rounded-0" href="/surveys/new">Create New Survey </a> &nbsp; &nbsp;
-                <a class="float-right btn rounded-0" href="/surveys/report"> Survey Reports </a>
-               
-            <br></br>
+       <div class="conatiner d-none d-sm-block dashboardBtn" style="padding:20px 20px 0px 20px">  
+          <div class="col-lg-6 col-md-8 float-right">
+           <a class=" btn rounded-0 float-right mx-2" href="/surveys/new">Create New Survey</a> 
+            </div>             
+            <div class="col-lg-4 col-md-4">  
+                    <form class="form-inline " action="/surveys" method="GET"> 
+                            <div class="form-group mx-sm-2 mb-2">
+                              <input type="text" class="form-control" name="search" placeholder="Search Surveys">
+                            </div>
+                            <button type="submit" class="btn mb-2 rounded-0" style="background-color:#7dce94">Search</button>
+                            </form>
+                        </div>
             </div>
         
 
@@ -138,12 +141,10 @@
     <div class="container d-none d-md-block" >
            <table class="table" style="border: 1px; font-size: 17px; background-color:#f6f5f3" id="SurveyList">
       <tr>
-        <th style="text-align:left">Name</th>
+        
       <!--  <th>Created At</th>
         <th>Survey End Date</th>-->
-        <th>Author</th>
-          <th>No Of Questions</th>
-          <th>No Of Respondents</th>
+        
         
       </tr>
        <% surveys.forEach(function(survey) { %>
@@ -155,7 +156,7 @@
            <td><%= survey.questions.length %></td>
            <td><%= survey.survey_answer.length %></td>
            
-           <td style="text-align:right">
+           <td style="text-align:center">
                <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                <div class="btn-group dropright">
                   <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
