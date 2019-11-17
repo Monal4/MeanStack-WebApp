@@ -91,7 +91,7 @@ This is the page that displays the survey information in tabular format for easy
                     
                     <form action="/surveys" method="POST">
                         <div class="form-group" style="padding:20px;margin: 0px;">
-                            <input style="padding: 0px" type="name" class="form-control" name="name" placeholder="Survey Title" id="Title">
+                            <input style="padding: 0px" type="name" class="form-control" name="name" placeholder="Survey Title" id="Title" required>
                         </div>
                     <div class="form-inline float-left">
                         <div class="form-group " style="margin: 0px;padding: 5px;">
@@ -100,39 +100,55 @@ This is the page that displays the survey information in tabular format for easy
 
                             <label class="font-weight-bold" for="enddate">End Date</label>
                             <input  id="date" name="enddate" type="date">
+                            <button type="button" style="float: left;" class="btn btn-primary">Get Started</button>
                         </div>
                     </div>
-                    <div class="form-inline float-right">
-                        <div class="form-group" style="margin: 0px;padding: 5px;">
-                            
+                    <div class="form-group float-right" >
+                            <div class="row" style="margin: 0px;padding: 7px;">
+                                    <label style="font-size: 12px;font-weight: bold;">More Options:</label>
+                            </div>
+                            <div class="row" style="margin: 0px;padding: 7px;">
                                 <input type="checkbox" id="featuredSurveys" name="featuredSurveys" value="featuredSurveys">
                                 <label for="featuredSurveys">Add to Featured Surveys</label>
-                               <input type="checkbox" id="publicSurvey" name="publicSurvey" value="publicSurvey">
+                            </div>
+                            <div class="row" style="margin: 0px;padding: 7px;">
+                                <input type="checkbox" id="publicSurvey" name="publicSurvey" value="publicSurvey">
                                 <label for="publicSurvey">Make the Survey Public</label>
-                              
-                                <input type="checkbox" id="hideRespondentsNav" name="hideRespondentsNav" value="hideRespondentsNav">
-                                <label for="hideRespondentsNav">Hide Respondents UI Elements</label>
-                              
-                    </div>
+                            </div>
+                            
+                             <div class="row" style="margin: 0px;padding: 5px;"></div>
+                             <input type="checkbox" id="hideRespondentsNav" name="hideRespondentsNav" value="hideRespondentsNav">
+                             <label for="hideRespondentsNav">Hide Respondents UI Elements</label>
+                             <div class="row" style="margin: 0px;padding: 7px;">
+                                <button type="button" class="btn btn-secondary" id="closebtn">Close</button>
+                                </div>
+                     </div>
                 </form>
-                
-                        </div>
+                <div class="modal-footer" style="padding: 0px;">
+                        
+                       
+                      </div>
+            </div>
+               
+        </div>
+
+    <!--    <script type="text/javascript" src="..\..\public\js\Modal.js"></script> -->
+
         <script>
                 var btn = document.getElementById("mybtn");
                 var modal = document.getElementById("mymodal");
-                var closebtn = document.getElementsByClassName("close")[0];
-
-                var formtitle = document.getElementById("Title");
-
-                if(formtitle==null){
-                    alert("Please enter valid Title");
-                }
+                var closebtn = document.getElementById("closebtn");
+                var span = document.getElementsByClassName("close")[0];
 
                 btn.onclick = () => {
                     modal.style.display = "block";
                 }
 
                 closebtn.onclick = () => {
+                    modal.style.display = "none";
+                }
+
+                span.onclick = () => {
                     modal.style.display = "none";
                 }
 
