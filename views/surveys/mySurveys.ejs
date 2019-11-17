@@ -20,6 +20,33 @@
 
 <div class="container-fluid" style="background-color:darkgrey">
 
+    <%if(!surveys){%>
+    <div class="container">
+    </div>
+    <%}else{%>
+        <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Questions</th>
+                    <th>Responses</th>
+                    <th>Public</th>
+                    <th>Feature</th>
+                    <th>Options</th>
+                    </tr>
+    <%surveys.forEach(function(surveys){%>
+    <tr>
+        <td><%=surveys.name%></td>
+        <td><%= surveys.questions.length %></td>
+        <td><%= surveys.survey_answer.length %></td>
+        <td><%=surveys.publicSurvey%></td>
+        <td><%=surveys.featuredSurveys%></td>
+    </tr>
+       
+    
+        <%})}%>
+       
+    </table>
+
 
 </div>
    
