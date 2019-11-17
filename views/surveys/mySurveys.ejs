@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+<!-- 
+  Detailed Survey information.
+  This is the page that displays the survey information in tabular format for easy and simple view functionality giving 
+  access to survey functionalties on tip of hands.
+-->
+<!--defining a permanent container describing the current page-->
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3">
+        <h2 align="center"><span style="color:#3d3d3f">MySurveys</span></h2>
+            <h4>
+                <ul>
+         <% if (currentUser) {  %>  
+               <li style="color:#3d3d3f;text-align:center" class="text-black">Welcome, <%= currentUser.firstName %>!</li>
+        <% } %>
+            <ul>           
+            </h4>
+    </div>
+
+
+<div class="container-fluid" style="background-color:darkgrey">
+
+
+</div>
+   
+
+<% include ../partials/footer %>

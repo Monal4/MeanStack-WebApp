@@ -8,8 +8,10 @@ var platform = require('platform')
 
 // Display - Route for Surveys
 router.get("/", middleware.isLoggedIn,function(req, res) {
+    
     var noMatch = null;
     // To display the Survey searched by the user
+    console.log();
     if (req.query.search) {
         // Get all survey from search string
         const regex = new RegExp(escapeRegex(req.query.search), 'gi'); // g - global, i - ignore case
@@ -36,6 +38,10 @@ router.get("/", middleware.isLoggedIn,function(req, res) {
         })
     }
 })
+
+
+
+
 
 // Create - Route for Creating Surveys
 router.post("/", middleware.isLoggedIn, function(req, res) {
@@ -105,6 +111,21 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
     res.render("surveys/new")
 })
 
+
+/*
+Creating a new display page called MySurvey for surveys to provide all survey functions to be accessed just 
+a click away.
+Edited by Azam Khan at 09/15/2019 
+*/
+router.get("/mySurveys",middleware.isLoggedIn,function(req,res){
+    Survey.find({},function(error,allSurveys){
+        if(error){}
+        else{res.render("surveys/mySurveys",{surveys:allSurveys})}
+    })
+})
+
+
+
 // Survey Form - Route for Survey report
 router.get("/report", middleware.isLoggedIn, function(req, res) {
     Survey.find({}, function(error, allSurveys) {
@@ -115,6 +136,8 @@ router.get("/report", middleware.isLoggedIn, function(req, res) {
         }
     })
 })
+
+
 
 // Show Survey - Route for displaying an individual Survey
 router.get("/:id", middleware.isLoggedIn, function(req, res) {
@@ -127,6 +150,7 @@ router.get("/:id", middleware.isLoggedIn, function(req, res) {
     })
     
 })
+
 
 // Survey Form - Route for details of individual survey & line chart
 // Edited:Karthik Parsad
@@ -148,6 +172,11 @@ router.get("/:id/edit", middleware.checkSurveyOwnership, function(req, res) {
         res.render("surveys/edit", {survey: foundSurvey})
     })
 })
+
+
+
+
+
 
 // UPDATE - Survey Update Route
 router.put("/:id", middleware.checkSurveyOwnership, function(req, res) {
@@ -216,7 +245,6 @@ router.delete("/:id", middleware.checkSurveyOwnership, function(req, res) {
         }
     })
 })
-
 
 
 // Respondent Survey Display - Route for displaying an individual Survey
@@ -293,6 +321,10 @@ router.get("/response/end",function(req, res) {
 //         }
 //     })
 // })
+
+
+
+
 
 function escapeRegex(text) {
     // Matches any number of characters globally
