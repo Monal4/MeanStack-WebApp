@@ -15,34 +15,62 @@
         <% } %>
             <ul>           
             </h4>
+           
     </div>
 
 
-<div class="container-fluid" style="background-color:darkgrey">
+<div class="container-fluid">
 
     <%if(!surveys){%>
     <div class="container">
     </div>
     <%}else{%>
+        
+        <div class="row mx-0 my-2 float-right create" >
+                <a class=" btn rounded-0 float-right " href="/surveys/new">Create New Survey</a> 
+        </div>
         <table>
+            <thead class="rounded-0" style="background-color:gray;">
                 <tr>
-                    <th>Title</th>
-                    <th>Questions</th>
-                    <th>Responses</th>
-                    <th>Public</th>
-                    <th>Feature</th>
-                    <th>Options</th>
+                    <th style="width:20% ">Title</th>
+                    <th style="width:11%">Questions</th>
+                   
+                    <th style="width:11%">Responses</th>
+                    <th style="width:11%">Public</th>
+                    <th style="width:11%">Feature</th>
+                    <th style="width:36%" class="text-center">Options</th>
                     </tr>
+                    </thead>
     <%surveys.forEach(function(surveys){%>
-    <tr>
-        <td><%=surveys.name%></td>
-        <td><%= surveys.questions.length %></td>
-        <td><%= surveys.survey_answer.length %></td>
-        <td><%=surveys.publicSurvey%></td>
-        <td><%=surveys.featuredSurveys%></td>
+        <tbody>
+    <tr style="height:80px">
+        <td class="text-left border border-left-0 border-right-0" ><%=surveys.name%></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%= surveys.questions.length %></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%= surveys.survey_answer.length %></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%=surveys.publicSurvey%></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%=surveys.featuredSurveys%></td>
+        <td class="border border-left-0 border-right-0 ">
+            <div class="row">
+                
+               <div class="col-4 text-center">
+                   <form action="/surveys/<%= surveys._id %>/edit" method="get">
+                <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="create" style="height:20px;width:20px ;color:#3d3d3f"></ion-icon></button>
+                </form>
+            </div>
+               <div class="col-4 text-center">
+                    <form action="/surveys/report/<%=surveys._id%>" method="get">
+                        <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="analytics" style="height:20px;width:20px ;color:#3d3d3f"></ion-icon></button>
+                        </form>
+               </div>
+               <div class="col-4 text-center">
+                   <form action="/surveys/<%= surveys._id %>?_method=DELETE" method="post">
+                        <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="trash" style="height:20px;width:20px;color:#3d3d3f"></ion-icon></button>
+                        </form>
+                    </div>
+        </td>
     </tr>
        
-    
+    </tbody>
         <%})}%>
        
     </table>
