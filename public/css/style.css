@@ -246,7 +246,11 @@ footer > div{
   background-color: #7dce94;
 }
 
-<<<<<<< HEAD
+.create a:hover{
+  color:white;
+  background-color: #7dce94;
+}
+
 /*Creating a new popup for creating a new survey*/
   
 .modal {
@@ -280,10 +284,7 @@ footer > div{
   text-decoration: none;
   cursor: pointer;
 }
-=======
-.create a:hover{
-  color:white;
-  background-color: #7dce94;
-}
 
->>>>>>> 4300aa91f2ef3762bfbfa2d2f9a5d7186744562d
+#xmark{
+    color: darkgrey;
+}
