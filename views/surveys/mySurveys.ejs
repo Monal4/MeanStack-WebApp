@@ -1,0 +1,82 @@
+<% include ../partials/header %>
+
+<!-- 
+  Detailed Survey information.
+  This is the page that displays the survey information in tabular format for easy and simple view functionality giving 
+  access to survey functionalties on tip of hands.
+-->
+<!--defining a permanent container describing the current page-->
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3">
+        <h2 align="center"><span style="color:#3d3d3f">MySurveys</span></h2>
+            <h4>
+                <ul>
+         <% if (currentUser) {  %>  
+               <li style="color:#3d3d3f;text-align:center" class="text-black">Welcome, <%= currentUser.firstName %>!</li>
+        <% } %>
+            <ul>           
+            </h4>
+           
+    </div>
+
+
+<div class="container-fluid">
+
+    <%if(!surveys){%>
+    <div class="container">
+    </div>
+    <%}else{%>
+        
+        <div class="row mx-0 my-2 float-right create" >
+                <a class=" btn rounded-0 float-right " href="/surveys/new">Create New Survey</a> 
+        </div>
+        <table>
+            <thead class="rounded-0" style="background-color:gray;">
+                <tr>
+                    <th style="width:20% ">Title</th>
+                    <th style="width:11%">Questions</th>
+                   
+                    <th style="width:11%">Responses</th>
+                    <th style="width:11%">Public</th>
+                    <th style="width:11%">Feature</th>
+                    <th style="width:36%" class="text-center">Options</th>
+                    </tr>
+                    </thead>
+    <%surveys.forEach(function(surveys){%>
+        <tbody>
+    <tr style="height:80px">
+        <td class="text-left border border-left-0 border-right-0" ><%=surveys.name%></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%= surveys.questions.length %></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%= surveys.survey_answer.length %></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%=surveys.publicSurvey%></td>
+        <td class="text-center border border-left-0 border-right-0 " ><%=surveys.featuredSurveys%></td>
+        <td class="border border-left-0 border-right-0 ">
+            <div class="row">
+                
+               <div class="col-4 text-center">
+                   <form action="/surveys/<%= surveys._id %>/edit" method="get">
+                <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="create" style="height:20px;width:20px ;color:#3d3d3f"></ion-icon></button>
+                </form>
+            </div>
+               <div class="col-4 text-center">
+                    <form action="/surveys/report/<%=surveys._id%>" method="get">
+                        <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="analytics" style="height:20px;width:20px ;color:#3d3d3f"></ion-icon></button>
+                        </form>
+               </div>
+               <div class="col-4 text-center">
+                   <form action="/surveys/<%= surveys._id %>?_method=DELETE" method="post">
+                        <button style="height:42px; padding:10px" class="dropdown-item" ><ion-icon name="trash" style="height:20px;width:20px;color:#3d3d3f"></ion-icon></button>
+                        </form>
+                    </div>
+        </td>
+    </tr>
+       
+    </tbody>
+        <%})}%>
+       
+    </table>
+
+
+</div>
+   
+
+<% include ../partials/footer %>
