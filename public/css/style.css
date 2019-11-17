@@ -239,7 +239,15 @@ footer > div{
 
 .dashboardBtn a:hover{
   color:white;
-  background-color:#7dce94;
+  background-color:#58825E;
 }
 
+.create a{
+  background-color: #7dce94;
+}
+
+.create a:hover{
+  color:white;
+  background-color: #7dce94;
+}
 
