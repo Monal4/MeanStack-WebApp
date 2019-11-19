@@ -271,8 +271,6 @@ footer > div{
   width: 80%;
 }
 
-
-
 .close:hover,
 .close:focus {
   color: #000;
@@ -284,3 +282,6 @@ footer > div{
   background-color: #7dce94;
 }
 
+/*Buttons for creating survey*/
+.inline-row-2 >.form-group>#delete{background-color:red;color:white}
+.inline-row-2 >.form-group>#save{background-color:#7dce94;color:white}

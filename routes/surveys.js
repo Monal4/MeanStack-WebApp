@@ -100,7 +100,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         } else {
             // redirecting to surveys
             console.log(newSurveyCreated)
-            res.redirect("/surveys")
+            res.render("surveys/createSurvey")
         }
     })
     
@@ -110,6 +110,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 router.get("/new", middleware.isLoggedIn, function(req, res) {
     res.render("surveys/new")
 })
+
 
 
 /*
@@ -123,6 +124,10 @@ router.get("/mySurveys",middleware.isLoggedIn,function(req,res){
         else{res.render("surveys/mySurveys",{surveys:allSurveys})}
     })
 })
+
+//Create Survey - Route to create survey 
+router.get("",)
+
 
 
 
