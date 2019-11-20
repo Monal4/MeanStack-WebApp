@@ -119,8 +119,9 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
                         survey.questions.push(question)
                         survey.save()
                         // redirect to surveys page
+                        res.status.send("success")
                         req.flash("success", "Successfully Created a Question.")
-                        res.redirect("/surveys/" + survey._id)
+                        //res.redirect("/surveys/" + survey._id)
                     }
                 }) // -5
                 
