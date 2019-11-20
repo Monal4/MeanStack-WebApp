@@ -102,7 +102,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         } else {
             // redirecting to surveys
             console.log(newSurveyCreated)
-            res.render("surveys/createSurvey")
+            res.render("surveys/createSurvey",{surveys:newSurvey})
         }
     })
     
