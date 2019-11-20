@@ -11,9 +11,8 @@
             </h4>
     </div>
 
-
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px">
-    <h2 style="padding-right:10px;padding-left:10px">Survey Title Name</h2>
+    <h2 style="padding-right:10px;padding-left:10px"><%= surveys.name %></h2>
     <form class="form" action="/hello/ss" method="post">
     <div class="row pt-3 pr-3" style="background-color:white;margin:10px">
        
@@ -77,7 +76,7 @@
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                             <div class="form-group">
-                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:20px" placeholder="sample option"></input>
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option"></input>
                                             </div>
                                     </label>
                                   </div>
@@ -85,7 +84,7 @@
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                                     <label class="form-check-label" for="exampleRadios2">
                                             <div class="form-group">
-                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:20px" placeholder="sample option"></input>
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option"></input>
                                             </div>
                                     </label>
                                   </div>
@@ -93,7 +92,7 @@
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
                                     <label class="form-check-label" for="exampleRadios3">
                                             <div class="form-group">
-                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:20px" placeholder="sample option"></input>
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option"></input>
                                             </div>
                                     </label>
                                   </div>
@@ -141,6 +140,134 @@
 
        
 </div>
+
+
+ <!-- Starting of Question 2  -->
+
+<div class="container mt-4" style="background-color: #f6f5f3; padding:10px">
+    <h2 style="padding-right:10px;padding-left:10px"><%= surveys.name %></h2>
+    <form class="form" action="/hello/ss" method="post">
+    <div class="row pt-3 pr-3" style="background-color:white;margin:10px">
+       
+<div class="col-lg-1 col-sm-2 text-center px-0">
+    <h4 class="m-1 pb-1">Q.1</h4>
+</div>
+     <div class="col-lg-11 col-sm-10 px-2">
+
+         <div class="d-flex flex-column flex-wrap">
+
+            <div class="row1">
+                <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1  pr-5 flex-grow-1" >
+                        <div class="form-group" >
+                            <input type="text rounded-0" class="form-control"  placeholder="sample question" required></input>
+                        </div>
+                        <div class="form-group">
+                                <input type="text" class="form-control form-control-sm pl-2 my-0" style="height:30px" placeholder="Instructions"></input>
+                                
+                        </div>
+                    </div>
+                    <div class="inline-row-2" >
+                        <div class="form-group" >  
+                            <div class="input-group mb-3">
+                                    <select class="custom-select" id="inputGroupSelect02">
+                                      <option selected>single select</option>
+                                      <option value="1">multiple select</option>
+                                      <option value="2">slider</option>
+                                      <option value="3">rating scale</option>
+                                      <option value="4">text</option>
+                                      <option value="5">multi row textbox</option>
+                                      <option value="6">List of textbox</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                      <label class="input-group-text" for="options">Options</label>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="form-group" >
+                                <div class="input-group mb-3">
+                                    <select class="form-control custom-select" id="inputGroupSelect02">
+                                        <option selected>none</option>
+                                          <option value="1">Highly Cognitive</option>
+                                          <option value="2">Medium Cognitive</option>
+                                          <option value="3">Low Cognitive</option>
+                                          <option value="4">Don't Know</option>
+                                    </select>
+                                        <div class="input-group-append">
+                                           <label class="input-group-text" for="options">Question's Difficulty</label>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row2">
+                 <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1 flex-grow-1">
+                            <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                            <div class="form-group">
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option"></input>
+                                            </div>
+                                    </label>
+                                  </div>
+                                  <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                            <div class="form-group">
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option"></input>
+                                            </div>
+                                    </label>
+                                  </div>
+                                  <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                                    <label class="form-check-label" for="exampleRadios3">
+                                            <div class="form-group">
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option"></input>
+                                            </div>
+                                    </label>
+                                  </div>
+                    </div>
+                <div class="inline-row-2 ">
+
+                        <div class="form-group " >  
+                                <div class="input-group mb-3">
+                                        <select class="form-control custom-select" id="qtopic" name="question[qtopic]">
+                                                <option value="" selected>None</option>
+                                                <option>Lifestyle</option>
+                                                <option>Health</option>
+                                                <option>Demographics</option>
+                                                <option>Education</option>
+                                                <option>Finances</option>
+                                                <option>Daily Living</option>
+                                                <option>Hobbies</option>
+                                                <option>Relationships</option>
+                                                <option>Travel</option>
+                                                <option>Transportation</option>
+                                                <option>Technology</option>
+                                                <option>Employment</option>
+                                                <option>Entertainment</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                          <label class="input-group-text">Question's Topic</label>
+                                        </div>
+                                      </div>
+                            </div>
+                        <div class="form-group d-flex" >
+                            <div class="buttons" >
+                                <a id="delete" href="#" class="btn ml-5" value="Delete">Delete</a>
+                                <input id="save" type="submit" class="btn form-control float-right ml-5" value="Save">
+                              </div>
+                            </div>
+                     </div>
+                     </div>
+                </div>
+
+     </div>
+    </div>
+     
 
 
 
