@@ -11,7 +11,8 @@ var express         = require("express"),
     seedDB          = require("./seeds"),
     flash           = require("connect-flash"),
     platform        = require('platform'),
-    cookieParser = require('cookie-parser');
+    cookieParser = require('cookie-parser'),
+    session = require("express-session");
 
     
 // Environment config

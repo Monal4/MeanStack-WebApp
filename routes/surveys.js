@@ -5,6 +5,9 @@ var Answer = require("../models/answer")
 var middleware = require("../middleware/index") // "../middleware" is fine coz of index.js has a special value for node 
 var platform = require('platform')
 
+//express session here and in main app
+var session = require("express-session");
+
 
 // Display - Route for Surveys
 router.get("/", middleware.isLoggedIn,function(req, res) {
