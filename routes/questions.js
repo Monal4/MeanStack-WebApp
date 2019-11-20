@@ -119,7 +119,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
                         survey.questions.push(question)
                         survey.save()
                         // redirect to surveys page
-                        res.status.send("success")
+                    res.sendStatus(200)
                         req.flash("success", "Successfully Created a Question.")
                         //res.redirect("/surveys/" + survey._id)
                     }

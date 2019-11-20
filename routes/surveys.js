@@ -102,7 +102,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         } else {
             // redirecting to surveys
             console.log(newSurveyCreated)
-            res.render("surveys/createSurvey",{surveys:newSurvey})
+            res.render("surveys/createSurvey",{survey:newSurveyCreated})
         }
     })
     
@@ -114,7 +114,6 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 })
 
 
-
 /*
 Creating a new display page called MySurvey for surveys to provide all survey functions to be accessed just 
 a click away.
@@ -122,7 +121,9 @@ Edited by Azam Khan at 09/15/2019
 */
 router.get("/mySurveys",middleware.isLoggedIn,function(req,res){
     Survey.find({},function(error,allSurveys){
-        if(error){}
+        if(error){
+            console.log(error)
+        }
         else{res.render("surveys/mySurveys",{surveys:allSurveys})}
     })
 })
