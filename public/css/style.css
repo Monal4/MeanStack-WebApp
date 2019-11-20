@@ -12,10 +12,8 @@ nav {
 }
 
  
-
 .navbar-nav .nav-link{
   padding-left:10px;
-  
 }
 
 .nav-item a{
@@ -282,6 +280,7 @@ footer > div{
   background-color: #7dce94;
 }
 
-/*Buttons for creating survey*/
-.inline-row-2 >.form-group>#delete{background-color:red;color:white}
-.inline-row-2 >.form-group>#save{background-color:#7dce94;color:white}
+/*Buttons for creating survey page*/
+#delete{background-color:red;color:white; width:90px}
+#delete:hover{background-color:RED;color:rebeccapurple}
+#save{background-color:#7dce94;color:white;width:90px}
