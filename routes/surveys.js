@@ -21,8 +21,7 @@ router.get("/", middleware.isLoggedIn,function(req, res) {
             } else {
                 
                  if(allSurveys.length < 1) {
-                  noMatch = "No campgrounds match that query, please try again.";
-                  
+                  noMatch = "No campgrounds match that query, please try again.";     
               }
                 res.render("surveys/index", {surveys: allSurveys, noMatch: noMatch})
             }
@@ -126,7 +125,7 @@ router.get("/mySurveys",middleware.isLoggedIn,function(req,res){
 })
 
 //Create Survey - Route to create survey 
-router.get("",)
+router.get("/create",middleware.isLoggedIn,function(req,res){})
 
 
 
