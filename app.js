@@ -50,10 +50,10 @@ app.use('/javascript', express.static(__dirname + "/public/js"));
 app.use(methodOverride("_method"))
 
 // Passport configuration for the web app
-app.use(require("express-session")({
+app.use(session({
     secret: "This is a adapatable survey web app.", 
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
 }))
 
 app.locals.moment = require('moment') // Now moment is available for use in all of project's view files via the variable named moment
