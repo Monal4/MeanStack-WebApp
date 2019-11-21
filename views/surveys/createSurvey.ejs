@@ -72,23 +72,64 @@
             <div class="row2">
                  <div class="d-flex flex-row flex-wrap">
                     <div class="inline-row-1 flex-grow-1">
-                            <div class="form-check p-1">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
-                                    <label class="form-check-label" for="exampleRadios1">
+                      <!--Single Select display-->  
+                            <div class="single-select">
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option1" >
+                                        <label class="form-check-label" for="exampleRadios1">
                                             <div class="form-group">
                                                     <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
                                             </div>
                                     </label>
-                                  </div>
-                                  <div class="form-check p-1">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                </div>
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option2">
                                     <label class="form-check-label" for="exampleRadios2">
                                             <div class="form-group">
                                                     <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
                                             </div>
                                     </label>
-                                  </div>
-                                  
+                                </div>
+                            </div>  
+
+                    <!--Multiple Select display-->       
+                                <div class="Multiple-select">
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox"  id="create-checkboxes" value="option1" >
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="create-checkboxes" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                 </div> 
+
+                    <!--Text-Box type display-->       
+                                <div class="Text-Box-Display">
+                                       <p class="m-2"> A Text Field provided for user to enter with only single line of words.</p>
+                                       <input type="text"  value="" >
+                                 </div> 
+
+                     <!--Multiple-Row-Box type display-->       
+                             <div class="single-select">
+                                    <p class="m-2"> A Text Field provided for user to enter with multiple row lines of words.</p>
+                                    <textarea rows="4" col="50"></textarea>
+                             </div> 
+                             
+                     <!--Multiple-Row-Box type display-->       
+                     <div class="single-select">
+                            <p class="m-2"> A Text Field provided for user to enter with multiple row lines of words.</p>
+                            <textarea rows="4" col="50"></textarea>
+                     </div>         
+                                
                     </div>
                 <div class="inline-row-2">
 
