@@ -17,7 +17,7 @@
     <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
        
 <div class="col-lg-1 col-sm-2 text-center px-0" >
-    <h4 class="m-1 pb-1">Question <%= i=i+1 %></h4>
+    <h4 class="m-1 pb-1">Question </h4>
 </div>
      <div class="col-lg-11 col-sm-10 px-2">
 
@@ -117,9 +117,9 @@
                             </div>
                         <div class="form-group d-flex" >
                             <div class="buttons" >
-                              <form action="/surveys/<%= survey._id %>/questions/<%= question._id %>?_method=DELETE" method="post">
+                            
                                 <button id ="del" class="btn btn-outline-danger float-right">Delete</button>
-                            </form>
+                         <!--   </form> -->
                                 <input id="save" type="submit" class="btn form-control float-right ml-5" value="Save">
                               </div>
                             </div>
@@ -158,14 +158,14 @@
                           clonediv.id = "divtobeduplicated" + ++i;
 
                           div.parentNode.appendChild( clonediv );
-
+                          console.log("The valhfiskd"+i);
                       }
+                     
+                    //  del.onclick( () => {
 
-                      del.onclick( () => {
+                      //  i=i-1;
 
-                        i=i-1;
-
-                      });
+                     // });
                   
                   </script>
 
