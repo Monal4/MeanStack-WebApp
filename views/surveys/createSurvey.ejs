@@ -13,7 +13,8 @@
    
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px">
     <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
-    <form class="form" action="/surveys/<%=survey._id%>/questions" id="validationform" method="post" enctype="multipart/form-data">
+    <div id="validationform0">
+    <form class="form" action="/surveys/<%=survey._id%>/questions" id="validationform20"  method="post" enctype="multipart/form-data">
     <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
        
 <div class="col-lg-1 col-sm-2 text-center px-0" >
@@ -131,41 +132,45 @@
     </div>
    
      </div>
+     
     </form>
+  </div>
     <div class="row">
-    <button id="duplicatebtn" class="btn m-2 p-1" style="background-color: #7dce94;color: black;">Add Another Question</button>
-    </div>
+      <button id="duplicatebtn" class="btn m-2 p-1" style="background-color: #7dce94;color: black;">Add Another Question</button>
+      </div>
   </div>
 
                   <script>
 
-                    var form = document.getElementById("validationform");
+                   // var form = document.getElementById("validationform");
 
                     var del = document.getElementById("del");
 
-                    if( form.dataset != null ) {
-                      document.getElementById( "duplicatebtn" ).onclick = duplicate;
-                    }
+                    // if( form.dataset != null ) {
+                     document.getElementById( "duplicatebtn" ).onclick = duplicate;
+                    // }
                      
                       var i = 0;
 
                      function duplicate() {
 
-                          var div = document.getElementById( "divtobeduplicated" + i );
+                          var div = document.getElementById( "validationform20");
 
                           var clonediv = div.cloneNode( true );
 
                           clonediv.id = "divtobeduplicated" + ++i;
-
-                          div.parentNode.appendChild( clonediv );
+                          clonediv.reset();
+                         var parent = document.getElementById("validationform0");
+                          parent.appendChild(clonediv);
+                        //  div.parentNode(tobeapended).appendChild( clonediv );
                           console.log("The valhfiskd"+i);
                       }
                      
                     //  del.onclick( () => {
 
-                      //  i=i-1;
+                    //    i=i-1;
 
-                     // });
+                    //  });
                   
                   </script>
 
