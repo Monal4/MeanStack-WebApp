@@ -10,7 +10,7 @@
             <ul>           
             </h4>
     </div>
-
+   
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px">
        <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
@@ -197,6 +197,7 @@
     </div>
    
      </div>
+     
     </form>
     </div>
     <div class="d-flex justify-content-end" >
@@ -206,13 +207,13 @@
 
                  <!-- <script>
 
-                    var form = document.getElementById("validationform");
+                   // var form = document.getElementById("validationform");
 
-                    if( form != null ) {
-                      document.getElementById( "duplicatebtn" ).onclick = duplicate;
-                    }else{
-                      document.getElementById( "duplicatebtn" ).onclick = none;
-                    }
+                    var del = document.getElementById("del");
+
+                    // if( form.dataset != null ) {
+                     document.getElementById( "duplicatebtn" ).onclick = duplicate;
+                    // }
                      
                       var i = 0;
 
@@ -224,7 +225,24 @@
                           clonediv.id = "validationform" + ++i;
 
                           div.parentNode.appendChild( clonediv );
+
+                          var div = document.getElementById( "validationform20");
+
+                          var clonediv = div.cloneNode( true );
+
+                          clonediv.id = "divtobeduplicated" + ++i;
+                          clonediv.reset();
+                         var parent = document.getElementById("validationform0");
+                          parent.appendChild(clonediv);
+                        //  div.parentNode(tobeapended).appendChild( clonediv );
+                          console.log("The valhfiskd"+i);
                       }
+                     
+                    //  del.onclick( () => {
+
+                    //    i=i-1;
+
+                    //  });
                   
                       function deleteblock(){
                           var element=document.getElementById()
