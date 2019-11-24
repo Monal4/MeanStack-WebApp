@@ -4,46 +4,57 @@
   Password reset functionality with New Password and Confirm Password.
   After clicking Log In new password will be saved.
 -->
-<div class="container">
+
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3">
+        <h3 align="center" class="my-1"><span style="color:#3d3d3f">Home</span></h3>
+    <!--  <h3 align="center">List of our surveys</h3> -->
+            <h4 align="center" class="py-1">
+            You can find here the featured and public surveys         
+            </h4>
+    </div>
+
+<div class="container my-2" style="background-color:#f6f5f3;">
     <header class="jumbotron">
         <div class="container">
-            <h1 class="text-capitalize">Welcome to Surveyfy</h1>
-            <h3>View Our Surveys</h3>
+            <h1 class="text-capitalize" align="center">Welcome to Surveyfy</h1>  
         </div>
+
+        <% if(currentUser) {%>
+    
+            <a class="float-right btn rounded-0" href="/surveys" style="background-color:#7dce94;color:white">View All Surveys</a>
+        
+        <% } %>
     </header>
     
     <!--Checks if admin is logged in with credentials before he can access and view the surveys-->
-    <% if(currentUser) {%>
-    
-        <a class="float-right btn btn-primary" href="/surveys">View All Surveys</a>
-    
-    <% } %>
     
     
     
-    <br></br>
-    <br></br>
+    
+    
+    
     
     <!-- 
       Checks if Surveys are created and saved in the database
       then to display all the featured survey list.
     -->
-    <h1 class="text-center">FEATURED SURVEYS</h1>
+    <h1 class="text-center">Featured Surveys</h1>
     <br></br>
-    <div class="container">
+    <div class="container pb-5">
         <% if(surveys.length > 0){ %>
            <% surveys.forEach(function(survey) { %>
-                <div class="card card-body bg-light">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h3><%= survey.name %></h3>
-                            <h4><%= survey.description %></h4>
-                            
+                <div class="container mx-2 take-survey">
+                    <div class="row px-4 pt-4">  
+                        <div class="col-6">         
+                            <h4>Survey Name: <%= survey.name %></h4>
+                            <p>Description: <%= survey.description %></p>
+                        </div>
+                        <div class="col-6"> 
                             <p>
-                                <a href="/surveys/response/<%= survey._id %>" class="btn btn-outline-secondary">Take the Survey</a>
+                                <a class="float-right btn rounded-pill" style="background-color:#7dce94" href="/surveys/response/<%= survey._id %>" class="btn btn-outline-secondary">Take Survey</a>
                             </p>
                         </div>
-                    </div>
+                        </div>
                 </div>
             <%})%>
         <!--If featured surveys are not found in the database. Then the following outcome is displayed.-->
