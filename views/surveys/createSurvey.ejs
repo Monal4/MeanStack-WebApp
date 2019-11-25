@@ -12,14 +12,14 @@
     </div>
    
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px" id="main">
-       <h2  style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
+       <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
    <div id="form-container"> 
       <form class="form"  id="validationform" method="post" enctype="multipart/form-data">
          <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
        
 <div class="col-lg-1 col-sm-2 text-center px-0" >
-    <h4 class="m-1 pb-1">Q.</h4>
+    <h4 id="question-number" class="m-1 pb-1"><span>Q.1</span></h4>
 </div>
      <div class="col-lg-11 col-sm-10 px-2">
 
@@ -257,9 +257,7 @@
 
 
 $('#save').click(function(e){
- 
     var id=$('#S_id').val()
-    var selected_item=$(this).closest('#form-container')
     var items=$(this).closest('form').serialize()
     $.ajax({
         type:'POST',
@@ -272,7 +270,7 @@ $('#save').click(function(e){
 })
 
 
-    /*chnaging the div blocks using questiontype selector*/
+    /*changing the div blocks using questiontype selector*/
      $('#questionType').change(function(e){
          var option=$(this).children('option:selected').val()
          var hello=$(this).closest('form').find('#'+option)
@@ -280,25 +278,41 @@ $('#save').click(function(e){
         
          var l=8;
          for ( var i = 0; i < l; i++ ) {
-         if(i!=option){$(this).closest('form').find('#'+i).css('display','none')}
-         }     
-        })
-
-    /*deletein the nearest validation form*/
-        $('#delete').click(function(){
-            var current_id=$(this).closest('form').attr('id')
-                if(current_id!='validationform'){$(this).closest("form").remove()}
-                else{ }
+            if(i!=option){$(this).closest('form').find('#'+i).css('display','none')}
+            }     
         })
 
 
     /*cloning new validation form*/ 
-        var i = 0;
+        var i = 1;
         $('#duplicate').click(function(){
         var div=$('#validationform')
-        var t=div.clone(true,true).attr('id','validationform'+ ++i).appendTo(div.parent())
+        var t=div.clone(true,true).attr('id', ++i).appendTo(div.parent())
         t.find("input").val("")
+        t.find("#question-number").children('span').remove()
+        t.find("#question-number").append('<span>Q.'+i+'</span>')
 })
+
+
+    /*deletein the nearest validation form*/
+    $('#delete').click(function(){
+            var current_id=$(this).closest('form').attr('id')
+                if(current_id!='validationform'){
+                    $(this).closest("form").remove()  //removing the current form
+                    $('form').each(function(){  //getting the question numbers set accordingly
+                        var id=$(this).attr('id') //id of the forms for setting question numbers 
+                        var question_number=$(this).find('#question-number')
+                        if(id!='validationform' && parseInt(current_id)<parseInt(id)){
+                            temp=parseInt(id)-1
+                            question_number.children('span').remove()
+                            question_number.append('<span>Q.'+temp+'</span>')
+                            $(this).attr('id',temp)} 
+                 })
+            }
+            i--
+        })
+
+
    })
   
 </script>
