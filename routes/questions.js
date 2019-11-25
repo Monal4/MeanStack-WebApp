@@ -48,8 +48,8 @@ router.get("/new", middleware.isLoggedIn,function(req, res) {
     
     // QUESTION - Create add new question to survey
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) { // }) -1
-    
-    if (req.file) {
+console.log("asasasasaascacaccaccascccccasca")    
+if (req.file) {
         Survey.findById(req.params.id, function(err, survey) { // }) -2 
         if (err) {
             console.log(err)
@@ -82,6 +82,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
                     survey.questions.push(question)
                     survey.save()
                     // redirect to surveys page
+                    
                     req.flash("success", "Successfully Created a Question.")
                     res.redirect("/surveys/" + survey._id)
                 }
@@ -99,6 +100,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
                     console.log(err)
                     res.redirect("/surveys")
                 } else { // } -3
+                
                 Question.create(req.body.question, function(err, question) { // -5
                     if (err) {
                         req.flash("error", "The Create Operation not Successful.")
@@ -119,7 +121,8 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
                         survey.questions.push(question)
                         survey.save()
                         // redirect to surveys page
-                    res.sendStatus(200)
+                       
+                       res.send("lol")
                         req.flash("success", "Successfully Created a Question.")
                         //res.redirect("/surveys/" + survey._id)
                     }
