@@ -25,7 +25,7 @@
 
          <div class="d-flex flex-column flex-wrap">
 
-            <div class="row1">
+            <div class="row1" id="fuck">
                 <div class="d-flex flex-row flex-wrap">
                     <div class="inline-row-1  pr-5 flex-grow-1" >
                         <div class="form-group" >
@@ -73,7 +73,7 @@
 
             <div class="row2">
                  <div class="d-flex flex-row flex-wrap">
-                    <div class="inline-row-1 flex-grow-1">
+                    <div class="inline-row-1 for-options flex-grow-1">
              <!--Single Select display-->  
                             <div class="options" id="1" style="display:block">
                                 <div class="form-check p-1">
@@ -185,7 +185,7 @@
                         <div class="form-group d-flex" >
                             <div class="buttons" >
                                 <a id="delete" href="#" class="btn ml-5" value="Delete">Delete</a>
-                            <button id="save" type="submit" class="btn form-control float-right ml-5 " >Save</button>
+                            <button id="save" type="submit" class="btn form-control float-right ml-5" >Save</button>
                                 
                               </div>
                             </div>
@@ -257,6 +257,8 @@
 
 
 $('#save').click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
     var id=$('#S_id').val()
     var items=$(this).closest('form').serialize()
     $.ajax({
@@ -264,8 +266,9 @@ $('#save').click(function(e){
         enctype:'multipart/form-data',
         url:'/surveys/'+id+'/questions',
         data:items,
-    }).done(function(result){
-        console.log(result)
+        success:function(data){
+            console.log(data+"done")
+        }
     })
 })
 
@@ -288,9 +291,20 @@ $('#save').click(function(e){
         $('#duplicate').click(function(){
         var div=$('#validationform')
         var t=div.clone(true,true).attr('id', ++i).appendTo(div.parent())
+        console.log('created form:'+t.attr('id'))
         t.find("input").val("")
         t.find("#question-number").children('span').remove()
         t.find("#question-number").append('<span>Q.'+i+'</span>')
+        //t.find('.for-options').children('.options').remove()
+        //t.find('.for-options').append($('#1'))
+        if(t.attr('id')>2){
+           var a=$('#'+(i-1))
+           var s=a.find('.row1')
+           console.log("from inside"+s.attr('id'))
+        }
+        else{
+
+        }
 })
 
 
@@ -309,7 +323,7 @@ $('#save').click(function(e){
                             $(this).attr('id',temp)} 
                  })
             }
-            i--
+            i--       //subtracting one number from total of all forms
         })
 
 

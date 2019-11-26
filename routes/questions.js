@@ -122,7 +122,7 @@ if (req.file) {
                         survey.save()
                         // redirect to surveys page
                        
-                       res.send("lol")
+                       res.send('Hello')
                         req.flash("success", "Successfully Created a Question.")
                         //res.redirect("/surveys/" + survey._id)
                     }
