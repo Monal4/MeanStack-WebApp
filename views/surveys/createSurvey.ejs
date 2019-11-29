@@ -142,29 +142,40 @@
 
                   <script>
 
-                   // var form = document.getElementById("validationform");
+                      //this is the main parent
+                    //var maindiv = document.getElementById('validationform0');
+                    //parent = maindiv.parentNode;
 
-                    var del = document.getElementById("del");
-
-                    // if( form.dataset != null ) {
-                     document.getElementById( "duplicatebtn" ).onclick = duplicate;
-                    // }
+                    //onclick events
+                    document.getElementById("del").onclick = deletef;
+                    document.getElementById( "duplicatebtn" ).onclick = duplicate;
                      
                       var i = 0;
+                     
+                     //div to be duplicated
+                      var div = document.getElementById( "validationform20");
 
                      function duplicate() {
 
-                          var div = document.getElementById( "validationform20");
+                        var clonediv = div.cloneNode( true );
 
-                          var clonediv = div.cloneNode( true );
-
-                          clonediv.id = "divtobeduplicated" + ++i;
+                          clonediv.id = "validationform2" + ++i;
                           clonediv.reset();
-                         var parent = document.getElementById("validationform0");
-                          parent.appendChild(clonediv);
-                        //  div.parentNode(tobeapended).appendChild( clonediv );
-                          console.log("The valhfiskd"+i);
+
+                          clonediv
+                    
+                          div.parentNode.appendChild( clonediv );
+                           console.log("The valhfiskd"+i);
                       }
+
+                     function deletef() {
+                            if( div.id == 'validationform20' ){
+                              alert("Action Illegal ");
+                            }else{
+                              div.parentNode.removeChild(div);
+                              i--;
+                            }
+                          }
                      
                     //  del.onclick( () => {
 
