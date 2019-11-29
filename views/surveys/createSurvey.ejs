@@ -1,5 +1,5 @@
 <%include ../partials/header%>
-<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3">
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3" >
         <h3 align="center"><span style="color:#3d3d3f">Get Started by Creating Survey</span></h3>
     <!--  <h3 align="center">List of our surveys</h3> -->
             <h4>
@@ -11,20 +11,21 @@
             </h4>
     </div>
    
-<div class="container mt-4" style="background-color: #f6f5f3; padding:10px">
-    <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
-    <div id="validationform0">
-    <form class="form" action="/surveys/<%=survey._id%>/questions" id="validationform20"  method="post" enctype="multipart/form-data">
-    <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
+<div class="container mt-4" style="background-color: #f6f5f3; padding:10px" id="main">
+       <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
+
+   <div id="form-container"> 
+      <form class="form"  id="validationform" method="post" enctype="multipart/form-data">
+         <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
        
 <div class="col-lg-1 col-sm-2 text-center px-0" >
-    <h4 class="m-1 pb-1">Question </h4>
+    <h4 id="question-number" class="m-1 pb-1"><span>Q.1</span></h4>
 </div>
      <div class="col-lg-11 col-sm-10 px-2">
 
          <div class="d-flex flex-column flex-wrap">
 
-            <div class="row1">
+            <div class="row1" id="fuck">
                 <div class="d-flex flex-row flex-wrap">
                     <div class="inline-row-1  pr-5 flex-grow-1" >
                         <div class="form-group" >
@@ -39,13 +40,13 @@
                         <div class="form-group" >  
                             <div class="input-group mb-3">
                                     <select class="form-control custom-select" name="question[types]" id="questionType">
-                                      <option selected value="1">single select</option>
-                                      <option value="2">multiple select</option>
+                                      <option selected value="1">single-select</option>
+                                      <option value="2">multiple-select</option>
                                       <option value="3">slider</option>
-                                      <option value="4">rating scale</option>
+                                      <option value="4">rating-scale</option>
                                       <option value="5">text</option>
-                                      <option value="6">multi row textbox</option>
-                                      <option value="7">List of textbox</option>
+                                      <option value="6">multi-row-textbox</option>
+                                      <option value="7">List-of-textbox</option>
                                     </select>
                                     <div class="input-group-append">
                                       <label class="input-group-text" for="options">Options</label>
@@ -54,7 +55,7 @@
                         </div>
                         <div class="form-group" >
                                 <div class="input-group mb-3">
-                                    <select class="form-control custom-select" name="question[cognitive]" id="inputGroupSelect02">
+                                    <select class="form-control custom-select" name="question[cognitive]" id="Cognitivity">
                                         <option selected>none</option>
                                           <option value="1">Highly Cognitive</option>
                                           <option value="2">Medium Cognitive</option>
@@ -72,24 +73,89 @@
 
             <div class="row2">
                  <div class="d-flex flex-row flex-wrap">
-                    <div class="inline-row-1 flex-grow-1">
-                            <div class="form-check p-1">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
-                                    <label class="form-check-label" for="exampleRadios1">
+                    <div class="inline-row-1 for-options flex-grow-1">
+             <!--Single Select display-->  
+                            <div class="options" id="1" style="display:block">
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option1" >
+                                        <label class="form-check-label" for="exampleRadios1">
                                             <div class="form-group">
                                                     <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
                                             </div>
                                     </label>
-                                  </div>
-                                  <div class="form-check p-1">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                </div>
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option2">
                                     <label class="form-check-label" for="exampleRadios2">
                                             <div class="form-group">
                                                     <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
                                             </div>
                                     </label>
-                                  </div>
-                                  
+                                </div>
+                            </div>  
+
+                    <!--Multiple Select display-->       
+                                <div class="options" id="2" style="display:none">
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox"  id="create-checkboxes" value="option1" >
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="create-checkboxes" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                 </div> 
+
+                    <!--Rating Scale display box-->                    
+                                 <div class="options" id="4" style="display: none;">
+                                        <h5 class="text-left">Rating Scale</h5>
+                                        Choosing one of the block provided.
+                                        <div class="rating">
+                                          <span><input type="radio" name="rating" id="str5" value="5"><label for="str5">Excellent</label></span>
+                                          <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">Good</label></span>
+                                          <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">Fair</label></span>
+                                          <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">Poor</label></span>
+                                          <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">Bad</label></span>
+                                        </div>
+                                      </div>
+
+                    <!--Preview Slider display box-->                  
+                                      <div class="options" id="3" style="display: none;">
+                                        <h5 class="text-left">Silder</h5>
+                                        Draging the button to rate one stuff.
+                                        <input type="range" min="1" max="100" value="50">
+                                      </div>
+                                      
+
+                    <!--Text-Box type display-->       
+                                <div class="options" id="5" style="display:none">
+                                       <p class="m-2"> A Text Field provided for user to enter with only single line of words.</p>
+                                       <input type="text"  value="" >
+                                 </div> 
+
+                     <!--Multiple-Row-Box type display-->       
+                             <div class="options" id="6" style="display:none"> 
+                                    <p class="m-2"> A Text Field provided for user to enter with multiple row lines of words.</p>
+                                    <textarea rows="4" col="50"></textarea>
+                             </div> 
+                             
+                     <!--Multiple-Row-Box type display-->       
+                     <div class="options" id="7" style="display: none;">
+                            <h5 class="text-left">List of textboxs</h5>
+                            A list of textboxs which can let users to enter multiple lines of words.
+                            <input type="text" value="" >
+                            <input type="text" value="" >
+                            <input type="text" value="" >
+                          </div>      
+                                
                     </div>
                 <div class="inline-row-2">
 
@@ -118,10 +184,9 @@
                             </div>
                         <div class="form-group d-flex" >
                             <div class="buttons" >
-                            
-                                <button id ="del" class="btn btn-outline-danger float-right">Delete</button>
-                         <!--   </form> -->
-                                <input id="save" type="submit" class="btn form-control float-right ml-5" value="Save">
+                                <a id="delete" href="#" class="btn ml-5" value="Delete">Delete</a>
+                            <button id="save" type="submit" class="btn form-control float-right ml-5" >Save</button>
+                                
                               </div>
                             </div>
                      </div>
@@ -133,14 +198,15 @@
    
      </div>
      
+     <input type="hidden" id="S_id" value="<%=survey._id%>">
     </form>
-  </div>
-    <div class="row">
-      <button id="duplicatebtn" class="btn m-2 p-1" style="background-color: #7dce94;color: black;">Add Another Question</button>
-      </div>
+    </div>
+    <div class="d-flex justify-content-end" >
+    <button id="duplicate" class="btn m-2 p-1 " style="background-color: #7dce94;color: white;">Add Another Question</button>
+    </div>
   </div>
 
-                  <script>
+                 <!-- <script>
 
                       //this is the main parent
                     //var maindiv = document.getElementById('validationform0');
@@ -156,6 +222,13 @@
                       var div = document.getElementById( "validationform20");
 
                      function duplicate() {
+                          var div = document.getElementById( "validationform" );
+
+                          var clonediv = div.cloneNode( true );
+
+                          clonediv.id = "validationform" + ++i;
+
+                          div.parentNode.appendChild( clonediv );
 
                         var clonediv = div.cloneNode( true );
 
@@ -183,7 +256,91 @@
 
                     //  });
                   
-                  </script>
+                      function deleteblock(){
+                          var element=document.getElementById()
+                      }
+                  </script>-->
+         <!--Script wrritten using jquery for diplaying options on click-->         
+      
+             
+<script>
+  $(document).ready(function(){
 
+
+$('#save').click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    var id=$('#S_id').val()
+    var items=$(this).closest('form').serialize()
+    $.ajax({
+        type:'POST',
+        enctype:'multipart/form-data',
+        url:'/surveys/'+id+'/questions',
+        data:items,
+        success:function(data){
+            console.log(data+"done")
+        }
+    })
+})
+
+
+    /*changing the div blocks using questiontype selector*/
+     $('#questionType').change(function(e){
+         var option=$(this).children('option:selected').val()
+         var hello=$(this).closest('form').find('#'+option)
+         $(hello).css('display','block')
+        
+         var l=8;
+         for ( var i = 0; i < l; i++ ) {
+            if(i!=option){$(this).closest('form').find('#'+i).css('display','none')}
+            }     
+        })
+
+
+    /*cloning new validation form*/ 
+        var i = 1;
+        $('#duplicate').click(function(){
+        var div=$('#validationform')
+        var t=div.clone(true,true).attr('id', ++i).appendTo(div.parent())
+        console.log('created form:'+t.attr('id'))
+        t.find("input").val("")
+        t.find("#question-number").children('span').remove()
+        t.find("#question-number").append('<span>Q.'+i+'</span>')
+        //t.find('.for-options').children('.options').remove()
+        //t.find('.for-options').append($('#1'))
+        if(t.attr('id')>2){
+           var a=$('#'+(i-1))
+           var s=a.find('.row1')
+           console.log("from inside"+s.attr('id'))
+        }
+        else{
+
+        }
+})
+
+
+    /*deletein the nearest validation form*/
+    $('#delete').click(function(){
+            var current_id=$(this).closest('form').attr('id')
+                if(current_id!='validationform'){
+                    $(this).closest("form").remove()  //removing the current form
+                    $('form').each(function(){  //getting the question numbers set accordingly
+                        var id=$(this).attr('id') //id of the forms for setting question numbers 
+                        var question_number=$(this).find('#question-number')
+                        if(id!='validationform' && parseInt(current_id)<parseInt(id)){
+                            temp=parseInt(id)-1
+                            question_number.children('span').remove()
+                            question_number.append('<span>Q.'+temp+'</span>')
+                            $(this).attr('id',temp)} 
+                 })
+            }
+            i--       //subtracting one number from total of all forms
+        })
+
+
+   })
+  
+</script>
 
 <%include ../partials/footer%>
+

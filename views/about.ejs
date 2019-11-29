@@ -4,11 +4,24 @@
   About Page.
   Displays Information about the Surveyfy web application and company's team.
 -->
-<div class="container">
+
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3">
+        <h3 align="center" class="my-1"><span style="color:#3d3d3f"> About our team</span></h3>
+    <!--  <h3 align="center">List of our surveys</h3> -->
+            <h4>
+                <ul>
+        <% if (currentUser) {  %>  
+            <li style="color:#3d3d3f;text-align:center" class="text-black py-1">Welcome <%= currentUser.firstName %></li>
+        <% } %>
+            <ul>           
+            </h4>
+    </div>
+
+<div class="container mt-3">
     <header class="jumbotron">
         <div class="container">
-            <h1 class="text-capitalize">About Us</h1>
-            <h3>What we do</h3>
+            <h2 class="text-capitalize ">About Us</h2>
+            <p>This is currently a project under research guided by Proefessor Kenneth Fletcher.</p>
         </div>
     </header>
   
