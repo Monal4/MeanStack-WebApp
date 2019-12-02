@@ -16,7 +16,17 @@ nav {
   padding-left:10px;
 }
 
+.nav-item {
+  padding: 0px;
+}
+
+
 .nav-item a{
+  padding: 0px;
+  height:55px;
+}
+
+.nav-item a:hover{
   padding: 0px;
 }
 
@@ -30,7 +40,7 @@ margin:0px;
 }
 
 #nav-bar-toggler{
-  margin-top: px;
+
 }
 /*----------------------------------------------------*/
 
@@ -293,3 +303,5 @@ footer > div{
   border-bottom:solid #50C878 1px;
   
 }
+
+

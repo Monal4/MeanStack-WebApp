@@ -1,500 +1,335 @@
-<% include ../partials/header %>
-
-<!--
-	Edit/modify a question functionality
-	Left side container consisting of question types can be chosen to modify a question 
-	Right side container consisting of question information can be edited to modify the question
--->	
-<div class="container">
-<div class="row">
-<div id="TypeChosing" class="col-sm-6 mx-auto"> 
-    <!--Div block for button group of type chosing-->
-    <div class="card card-body">
-      <!--Button of multple choices-->
-      <div id="Multiple_Choice_Group"> 
-        <h4 class="text-left">Multiple Choice</h4>
-          <button id="btnSingle" type="button" onclick="displayRadiobox()" class="btn btn-primary mb1 bg-teal" name="1">Single Select</button>
-          <button id="btnMult" type="button" onclick="displayCheckbox()" class="btn btn-primary mb1 bg-teal" name=="2">Multiple Select</button>
-      </div>
-      
-      <br></br>
-      
-      <!--Button group of text box types choosing-->
-      <div id="Textbox_Group">
-        <h4 class="text-left">Open Text Field Choice</h4>
-        <button id="btnTxtBox" type="button" onclick="displayTextbox()" class="btn btn-primary mb1 bg-teal" name=="3" >Textbox</button>
-        <button id="btnMultTxt" type="button" onclick="displayMultLineTextbox()" class="btn btn-primary mb1 bg-teal">Multi Row Textbox</button>
-        <button id="btnTxtList" type="button" onclick="displayLineListTextbox()" class="btn btn-primary mb1 bg-teal"> List of Textboxes</button>
-      </div>
-      <br></br>
-      
-      <!--Button group of text box types choosing-->
-      <div id="Rating_Group">
-        <h4 class="text-left">Rating & Ranks</h4>
-         <button id="btnRateScale" type="button" onclick="displayRatingScale()" class="btn btn-primary mb1 bg-teal">Rating Scale</button>
-         <button id="btnRateSilder" type="button" onclick="displaySilder()" class="btn btn-primary mb1 bg-teal">Rating Silder</button>
-      </div>
-      <br></br>
-      <!--Preview of single select type-->
-      <body>
-      <div id="Preview_Radio">
-        <h5 class="text-left">Single Select</h5>
-        Single Select can let user to choose only one answer which already provided by the survey.
-        <br></br>
-        <p>
-          <input type="radio" id="test1" name="radio-group" checked>
-          <label for="test1">Apple</label>
-        </p>
-        <p>
-          <input type="radio" id="test2" name="radio-group">
-          <label for="test2">Peach</label>
-        </p>
-        <p>
-          <input type="radio" id="test3" name="radio-group">
-          <label for="test3">Orange</label>
-        </p>
-      <br></br>
-      </div>
-      
-      <!--Preview of multiple(checkboxes) select type-->
-      <div id="Preview_Checkbox" style="display: none;">
-        <h5 class="text-left">Multiple Select</h5>
-        Multiple Selection questions are similar to Multiple Choice questions. However, questions can have more than one correct answer. You can create as many choices as necessary. 
-        <p>
-          <input type="checkbox" id="testCheck1" name="checbox_group-group" checked>
-          <label>Apple</label>
-        </p>
-        <p>
-          <input type="checkbox" id="testCheck2" name="checbox_group-group" checked>
-          <label>Peach</label>
-        </p>
-        <p>
-          <input type="checkbox" id="testCheck3" name="checbox_group-group">
-          <label>Orange</label>
-        </p>
-        <br></br>
-         
-      </div>
-      
-      <!--Preview of textbox type-->
-      <div id="Preview_SingleLineText" style="display: none;">
-        <h5 class="text-left">Single line text</h5>
-        A Text Field provided for user to enter with only single line of words.
-        <input type="text" value="" >
-        </textarea>
-      </div>
-      
-      <!--Preview of mult line textbox type-->
-      <div id="Preview_MultLineTxt" style="display: none;">
-        <h5 class="text-left">Multiple Line of text</h5>
-        A Text Field provided for user to enter with multple lines of words.
-        <textarea rows="4" cols="50"></textarea>
-      </div>
-      
-      <!--Preview of textbox list type-->
-      <div id="Preview_LineList" style="display: none;">
-        <h5 class="text-left">List of textboxs</h5>
-        A list of textboxs which can let users to enter multiple lines of words.
-        <input type="text" value="" >
-        <input type="text" value="" >
-        <input type="text" value="" >
-      </div>
-      
-      <!--Preview of rating scale type-->
-      <div id="Preview_RatingScale" style="display: none;">
-        <h5 class="text-left">Rating Scale</h5>
-        Choosing one of the block provided.
-        <div class="rating">
-          <span><input type="radio" name="rating" id="str5" value="5"><label for="str5">Excellent</label></span>
-          <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">Good</label></span>
-          <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">Fair</label></span>
-          <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">Poor</label></span>
-          <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">Bad</label></span>
-        </div>
-      </div>
-      
-      <!--Preview of silder type-->
-      <div id="Preview_Silder" style="display: none;">
-        <h5 class="text-left">Silder</h5>
-        Draging the button to rate one stuff.
-        <input type="range" min="1" max="100" value="50">
-      </div>
-      <br/>
-      
-      </body>
-      
-      </div>  
+<%include ../partials/header%>
+<div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3" >
+        <h3 align="center"><span style="color:#3d3d3f">Get Started by Creating Survey</span></h3>
+    <!--  <h3 align="center">List of our surveys</h3> -->
+            <h4>
+                <ul>
+        <% if (currentUser) {  %>  
+            <li style="color:#3d3d3f;text-align:center" class="text-black">Welcome,<%= currentUser.firstName %>!</li>
+        <% } %>
+            <ul>           
+            </h4>
     </div>
+   
+<div class="container mt-4" style="background-color: #f6f5f3; padding:10px" id="main">
+       <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
-  
-  <!--Div block that edit question content-->
-  <div class="col-md-6 mx-auto">
-    <div class="card card-body">
-      <h3 class="text-left text-uppercase">Edit Question</h3>
-      <br></br>
-      <form action="/surveys/<%= survey_id %>/questions/<%= question._id %>?_method=PUT" method="post">
-        <div class="form-group">
-          <label for="name">Question Title</label>
-          <input type="text" class="form-control" name="question[text]" value="<%= question.text %>" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="name">Instructions</label>
-          <input type="text" class="form-control" name="question[instruction]" value="<%= question.instruction %>">
-        </div>
-        
-        <!--Selecting group of questions-->
-        <div class="form-group">
-            <label for="groupQuestion">Group Question</label>
-            <select class="form-control" id="groupQuestion" name="question[groupQuestion]">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="" <% if (question.groupQuestion == "") { %> selected="selected" <%}%>>None</option>
-              <option <% if (question.groupQuestion == "G1") { %> selected="selected" <%}%>>G1</option>
-              <option <% if (question.groupQuestion == "G2") { %> selected="selected" <%}%>>G2</option>
-              <option <% if (question.groupQuestion == "G3") { %> selected="selected" <%}%>>G3</option>
-              <option <% if (question.groupQuestion == "G4") { %> selected="selected" <%}%>>G4</option>
-              <option <% if (question.groupQuestion == "G5") { %> selected="selected" <%}%>>G5</option>
-              <option <% if (question.groupQuestion == "G6") { %> selected="selected" <%}%>>G6</option>
-              <option <% if (question.groupQuestion == "G7") { %> selected="selected" <%}%>>G7</option>
-              <option <% if (question.groupQuestion == "G8") { %> selected="selected" <%}%>>G8</option>
-              <option <% if (question.groupQuestion == "G9") { %> selected="selected" <%}%>>G9</option>
-              <option <% if (question.groupQuestion == "G10") { %> selected="selected" <%}%>>G10</option>
-            </select>
-        </div>
-        
-        <br></br>
-        <br></br>
-        
-        <!--Display options with array number for editing-->
-        <p>Options: </p>
-        <div class="form-group" id="options_group">
-        <% question.options.forEach(function(options, i) { %>
-          <label for="Newoption">Answer <%= question.options.indexOf(options) + 1%> </label>
-          <input type="text" class="form-control" name="question[options][<%=question.options.indexOf(options)%>][content]" value="<%=options.content %>">
-            
-            <!-- Display Skip Logic for Edit  // Ganesh Velu  29th September 2018      -->
-            <label>Skip to</label>
-            <p><%= options.skippedToQuestion %></p>
-            <select class="form-control" name="question[options][<%=question.options.indexOf(options)%>][skipId]">
-              <option>None</option>
-              <% survey.questions.forEach(function(question, i) { %>
-              <option value="<%= question %>">
-                      <p>Question: <%= i + 1 %></p>      
-                      <!--<strong>-->
-                      <!--<%= question.text %>-->
-                      <!--</strong>-->
+   <div id="form-container"> 
+      <form class="form"  id="validationform" method="post" enctype="multipart/form-data">
+         <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
+       
+<div class="col-lg-1 col-sm-2 text-center px-0" >
+    <h4 id="question-number" class="m-1 pb-1"><span>Q.1</span></h4>
+</div>
+     <div class="col-lg-11 col-sm-10 px-2">
 
-              </option>
-              <% }) %>
-            </select> 
-            <!--Skip Logic for Edit ends here-->
-            
-          <script>addCounter();</script>
-        <% }) %>
-        </div>
-        
-        <input type="number" class="form-control" id="typeInput" value="1" name="question[types]" style="display: none;">
-        
-        <!-- 
-          More options for Admin
-        -->
-        <fieldset>
-          <p>Cognitive ability of the question</p>
-          <div class="form-group">
-            <input type="radio" id="high" name="question[cognitive]" value="high-cognitive" <% if (question.cognitive == "high-cognitive") { %> checked="checked" <%}%>> 
-            <label for="high">High Cognitive</label>
-          </div>
-          
-          <div class="form-group">
-            <input type="radio" id="medium" name="question[cognitive]" value="medium-cognitive" <% if (question.cognitive == "medium-cognitive") { %> checked="checked" <%}%>>
-            <label for="medium">Medium Cognitive</label>
-          </div>
-          
-          <div class="form-group">
-            <input type="radio" id="low" name="question[cognitive]" value="low-cognitive" <% if (question.cognitive == "low-cognitive") { %> checked="checked" <%}%>>
-            <label for="low">Low Cognitive</label>
-          </div>
-          
-          <div class="form-group">
-            <input type="radio" id="none" name="question[cognitive]" value="dont-know" <% if (question.cognitive == "dont-know") { %> checked="checked" <%}%>>
-            <label for="none">Don't know</label>
-          </div>
-          
-        </fieldset>
-        <br></br>
-        
-        <!-- 
-          Question Topic options for Admin
-        -->
-        
-        <fieldset>
-          <p>Question Topics</p>
-        <div class="form-group">
-            
-            <select class="form-control" id="qtopic" name="question[qtopic]">
-              <option value="" <% if (question.qtopic == "") { %> selected="selected" <%}%>>None</option>
-              <option <% if (question.qtopic == "Lifestyle") { %> selected="selected" <%}%>>Lifestyle</option>
-              <option <% if (question.qtopic == "Health") { %> selected="selected" <%}%>>Health</option>
-              <option <% if (question.qtopic == "Demographics") { %> selected="selected" <%}%>>Demographics</option>
-              <option <% if (question.qtopic == "Education") { %> selected="selected" <%}%>>Education</option>
-              <option <% if (question.qtopic == "Finances") { %> selected="selected" <%}%>>Finances</option>
-              <option <% if (question.qtopic == "Daily Living") { %> selected="selected" <%}%>>Daily Living</option>
-              <option <% if (question.qtopic == "Hobbies") { %> selected="selected" <%}%>>Hobbies</option>
-              <option <% if (question.qtopic == "Relationships") { %> selected="selected" <%}%>>Relationships</option>
-              <option <% if (question.qtopic == "Travel") { %> selected="selected" <%}%>>Travel</option>
-              <option <% if (question.qtopic == "Transportation") { %> selected="selected" <%}%>>Transportation</option>
-              <option <% if (question.qtopic == "Technology") { %> selected="selected" <%}%>>Technology</option>
-              <option <% if (question.qtopic == "Employment") { %> selected="selected" <%}%>>Employment</option>
-              <option <% if (question.qtopic == "Entertainment") { %> selected="selected" <%}%>>Entertainment</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="qtopicother">Other Topic?</label>
-          <input type="text" id="qtopicother" class="form-control" name="question[qtopicother]" value="<%= question.qtopicother %>">
-        </div>
-        </fieldset>
-          
-        
-          
-        
-        <br></br>
-        
-        <button type="submit" class="btn btn-primary float-right">Edit Question</button>
-        
-        <a class="btn btn-secondary float-left" href="/surveys/<%= survey_id %>">Go Back</a>
-      </form>
+         <div class="d-flex flex-column flex-wrap">
+
+            <div class="row1" id="fuck">
+                <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1  pr-5 flex-grow-1" >
+                        <div class="form-group" >
+                            <input type="text rounded-0" class="form-control"  name="question[text]" placeholder="sample question" required></input>
+                        </div>
+                        <div class="form-group">
+                                <input type="text" class="form-control form-control-sm pl-2 my-0" style="height:30px" name="question[instruction]" placeholder="Instructions"></input>
+                                
+                        </div>
+                    </div>
+                    <div class="inline-row-2" >
+                        <div class="form-group" >  
+                            <div class="input-group mb-3">
+                                    <select class="form-control custom-select" name="question[types]" id="questionType">
+                                      <option selected value="1">single-select</option>
+                                      <option value="2">multiple-select</option>
+                                      <option value="3">slider</option>
+                                      <option value="4">rating-scale</option>
+                                      <option value="5">text</option>
+                                      <option value="6">multi-row-textbox</option>
+                                      <option value="7">List-of-textbox</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                      <label class="input-group-text" for="options">Options</label>
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="form-group" >
+                                <div class="input-group mb-3">
+                                    <select class="form-control custom-select" name="question[cognitive]" id="Cognitivity">
+                                        <option selected>none</option>
+                                          <option value="1">Highly Cognitive</option>
+                                          <option value="2">Medium Cognitive</option>
+                                          <option value="3">Low Cognitive</option>
+                                          <option value="4">Don't Know</option>
+                                    </select>
+                                        <div class="input-group-append">
+                                           <label class="input-group-text" for="options">Question's Difficulty</label>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row2">
+                 <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1 for-options flex-grow-1">
+             <!--Single Select display-->  
+                            <div class="options" id="1" style="display:block">
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option1" >
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            <div class="form-group">
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
+                                            </div>
+                                    </label>
+                                </div>
+                                <div class="form-check p-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                            <div class="form-group">
+                                                    <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
+                                            </div>
+                                    </label>
+                                </div>
+                            </div>  
+
+                    <!--Multiple Select display-->       
+                                <div class="options" id="2" style="display:none">
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox"  id="create-checkboxes" value="option1" >
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0 " style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                        <div class="form-check p-1">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="create-checkboxes" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                        <div class="form-group">
+                                                                <input type="text rounded-0" class="form-control form-control-sm pl-2 my-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                 </div> 
+
+                    <!--Rating Scale display box-->                    
+                                 <div class="options" id="4" style="display: none;">
+                                        <h5 class="text-left">Rating Scale</h5>
+                                        Choosing one of the block provided.
+                                        <div class="rating">
+                                          <span><input type="radio" name="rating" id="str5" value="5"><label for="str5">Excellent</label></span>
+                                          <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">Good</label></span>
+                                          <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">Fair</label></span>
+                                          <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">Poor</label></span>
+                                          <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">Bad</label></span>
+                                        </div>
+                                      </div>
+
+                    <!--Preview Slider display box-->                  
+                                      <div class="options" id="3" style="display: none;">
+                                        <h5 class="text-left">Silder</h5>
+                                        Draging the button to rate one stuff.
+                                        <input type="range" min="1" max="100" value="50">
+                                      </div>
+                                      
+
+                    <!--Text-Box type display-->       
+                                <div class="options" id="5" style="display:none">
+                                       <p class="m-2"> A Text Field provided for user to enter with only single line of words.</p>
+                                       <input type="text"  value="" >
+                                 </div> 
+
+                     <!--Multiple-Row-Box type display-->       
+                             <div class="options" id="6" style="display:none"> 
+                                    <p class="m-2"> A Text Field provided for user to enter with multiple row lines of words.</p>
+                                    <textarea rows="4" col="50"></textarea>
+                             </div> 
+                             
+                     <!--Multiple-Row-Box type display-->       
+                     <div class="options" id="7" style="display: none;">
+                            <h5 class="text-left">List of textboxs</h5>
+                            A list of textboxs which can let users to enter multiple lines of words.
+                            <input type="text" value="" >
+                            <input type="text" value="" >
+                            <input type="text" value="" >
+                          </div>      
+                                
+                    </div>
+                <div class="inline-row-2">
+
+                        <div class="form-group" >  
+                                <div class="input-group mb-3">
+                                        <select class="form-control custom-select" id="qtopic" name="question[qtopic]">
+                                                <option value="" selected>None</option>
+                                                <option>Lifestyle</option>
+                                                <option>Health</option>
+                                                <option>Demographics</option>
+                                                <option>Education</option>
+                                                <option>Finances</option>
+                                                <option>Daily Living</option>
+                                                <option>Hobbies</option>
+                                                <option>Relationships</option>
+                                                <option>Travel</option>
+                                                <option>Transportation</option>
+                                                <option>Technology</option>
+                                                <option>Employment</option>
+                                                <option>Entertainment</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                          <label class="input-group-text">Question's Topic</label>
+                                        </div>
+                                      </div>
+                            </div>
+                        <div class="form-group d-flex" >
+                            <div class="buttons" >
+                                <a id="delete" href="#" class="btn ml-5" value="Delete">Delete</a>
+                            <button id="save" type="submit" class="btn form-control float-right ml-5" >Save</button>
+                                
+                              </div>
+                            </div>
+                     </div>
+                     </div>
+                </div>
+
+     </div>
+    </div>
+   
+     </div>
+     
+     <input type="hidden" id="S_id" value="<%=survey._id%>">
+    </form>
+    </div>
+    <div class="d-flex justify-content-end" >
+    <button id="duplicate" class="btn m-2 p-1 " style="background-color: #7dce94;color: white;">Add Another Question</button>
     </div>
   </div>
-</div>
-</div>
 
+                 <!-- <script>
+
+                   // var form = document.getElementById("validationform");
+
+                    var del = document.getElementById("del");
+
+                    // if( form.dataset != null ) {
+                     document.getElementById( "duplicatebtn" ).onclick = duplicate;
+                    // }
+                     
+                      var i = 0;
+
+                     function duplicate() {
+                          var div = document.getElementById( "validationform" );
+
+                          var clonediv = div.cloneNode( true );
+
+                          clonediv.id = "validationform" + ++i;
+
+                          div.parentNode.appendChild( clonediv );
+
+                          var div = document.getElementById( "validationform20");
+
+                          var clonediv = div.cloneNode( true );
+
+                          clonediv.id = "divtobeduplicated" + ++i;
+                          clonediv.reset();
+                         var parent = document.getElementById("validationform0");
+                          parent.appendChild(clonediv);
+                        //  div.parentNode(tobeapended).appendChild( clonediv );
+                          console.log("The valhfiskd"+i);
+                      }
+                     
+                    //  del.onclick( () => {
+
+                    //    i=i-1;
+
+                    //  });
+                  
+                      function deleteblock(){
+                          var element=document.getElementById()
+                      }
+                  </script>-->
+         <!--Script wrritten using jquery for diplaying options on click-->         
+      
+             
 <script>
-  //counter variable of question options.
-  var optionCounter = 0;
-  
-  //variables of buttons and preview element in edit.ejs, using getElementById method.
-  var checkbox = document.getElementById("multiple_select");
-  var radiobox = document.getElementById("single_select");
-  var checkboxGroup = document.getElementById("checbox_group");
-  var radioboxGroup = document.getElementById("radio_group");
-  
-  var radioboxPreview = document.getElementById("Preview_Radio");
-  var checkboxPreview = document.getElementById("Preview_Checkbox");
-  var singleLinePreview = document.getElementById("Preview_SingleLineText");
-  var multLinePreview = document.getElementById("Preview_MultLineTxt");
-  var lineListPreview = document.getElementById("Preview_LineList");
-  var ratingScalePreview = document.getElementById("Preview_RatingScale");
-  var sliderPreview = document.getElementById("Preview_Silder");
-  
-  //disable single select button since it is default.
-  document.getElementById("btnSingle").disabled = true;
-  
-  //add Counter of question options
-  function addCounter(){
-    optionCounter++;
-  }
-  
-  function setNameForBlock(){
-    var d = document.getElementByClass("option1"); 
-    d.setAttribute("data-main", countrycod);
-  }
-  
-  
-  
-   function displayRadiobox(){
-    //control of other boxes and buttons, now is disable single select button  
-    //and display preview of single select
-    //control of other boxes and buttons
-    radioboxPreview.style.display = "block";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "none";
-    
-    //mark element type input as 1, which is single select
-    document.getElementById("typeInput").value = 1;
-    
-    document.getElementById("btnSingle").disabled = true;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = false;
-  }
+  $(document).ready(function(){
 
-  function displayCheckbox(){
-    //control of other boxes and buttons, now is disable checkbox and display 
-    //preview of checkbox(multiple select)
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "block";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "none";
-    
-    //mark element type input as 2, which is mult select(checkboxes)
-    document.getElementById("typeInput").value = 2;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = true;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = false;
-  }
+
+$('#save').click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    var id=$('#S_id').val()
+    var items=$(this).closest('form').serialize()
+    $.ajax({
+        type:'POST',
+        enctype:'multipart/form-data',
+        url:'/surveys/'+id+'/questions',
+        data:items,
+        success:function(data){
+            console.log(data+"done")
+        }
+    })
+})
+
+
+    /*changing the div blocks using questiontype selector*/
+     $('#questionType').change(function(e){
+         var option=$(this).children('option:selected').val()
+         var hello=$(this).closest('form').find('#'+option)
+         $(hello).css('display','block')
+        
+         var l=8;
+         for ( var i = 0; i < l; i++ ) {
+            if(i!=option){$(this).closest('form').find('#'+i).css('display','none')}
+            }     
+        })
+
+
+    /*cloning new validation form*/ 
+        var i = 1;
+        $('#duplicate').click(function(){
+        var div=$('#validationform')
+        var t=div.clone(true,true).attr('id', ++i).appendTo(div.parent())
+        console.log('created form:'+t.attr('id'))
+        t.find("input").val("")
+        t.find("#question-number").children('span').remove()
+        t.find("#question-number").append('<span>Q.'+i+'</span>')
+        //t.find('.for-options').children('.options').remove()
+        //t.find('.for-options').append($('#1'))
+        if(t.attr('id')>2){
+           var a=$('#'+(i-1))
+           var s=a.find('.row1')
+           console.log("from inside"+s.attr('id'))
+        }
+        else{
+
+        }
+})
+
+
+    /*deletein the nearest validation form*/
+    $('#delete').click(function(){
+            var current_id=$(this).closest('form').attr('id')
+                if(current_id!='validationform'){
+                    $(this).closest("form").remove()  //removing the current form
+                    $('form').each(function(){  //getting the question numbers set accordingly
+                        var id=$(this).attr('id') //id of the forms for setting question numbers 
+                        var question_number=$(this).find('#question-number')
+                        if(id!='validationform' && parseInt(current_id)<parseInt(id)){
+                            temp=parseInt(id)-1
+                            question_number.children('span').remove()
+                            question_number.append('<span>Q.'+temp+'</span>')
+                            $(this).attr('id',temp)} 
+                 })
+            }
+            i--       //subtracting one number from total of all forms
+        })
+
+
+   })
   
-   function displayTextbox(){
-    //control of other boxes and buttons, now is disable textbox button  
-    //and display preview of single line textbox.
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "block";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "none";
-    
-    //Mark element type input as 3, which is single linetextbox
-    document.getElementById("typeInput").value = 3;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = true;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = false;
-   }
-   
-   function displayMultLineTextbox(){
-    //control of other boxes and buttons, now is disable mult line textbox button  
-    //and display preview of multiple line textbox
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "block";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "none";
-    
-    //Mark element type input as 4, which is Multple line of textboxes
-    document.getElementById("typeInput").value = 4;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = true;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = false;
-   }
-   
-   function displayLineListTextbox(){
-    //control of other boxes and buttons, now is disable textbox button  
-    //and display preview of single line textbox 
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "block";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "none";
-    
-    //Mark element type input as 5, which is list of textboxes
-    document.getElementById("typeInput").value = 5;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = true;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = false;
-   }
-   
-   function displayRatingScale(){
-    //control of other boxes and buttons, now is disable Rating Scale button
-    //and display preview of rating scale button textbox 
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "block";
-    sliderPreview.style.display = "none";
-    
-    //Mark element type input as 6, which is rating scale
-    document.getElementById("typeInput").value = 6;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = true;
-    document.getElementById("btnRateSilder").disabled = false;
-   }
-   
-   function displaySilder(){
-    //control of other boxes and buttons, now is disable Silder button
-    //and display preview of single line textbox
-    radioboxPreview.style.display = "none";
-    checkboxPreview.style.display = "none";
-    singleLinePreview.style.display = "none";
-    multLinePreview.style.display = "none";
-    lineListPreview.style.display = "none";
-    ratingScalePreview.style.display = "none";
-    sliderPreview.style.display = "block";
-    
-    //Mark element type input as 7, which is rating slider.
-    document.getElementById("typeInput").value = 7;
-    
-    document.getElementById("btnSingle").disabled = false;
-    document.getElementById("btnMult").disabled = false;
-    document.getElementById("btnTxtBox").disabled = false;
-    document.getElementById("btnMultTxt").disabled = false;
-    document.getElementById("btnTxtList").disabled = false;
-    document.getElementById("btnRateScale").disabled = false;
-    document.getElementById("btnRateSilder").disabled = true;
-   }
-   
-  function addNewInputRadioText(){
-    // val = optionRadioHTML;
-    // radio_group.append(val);
-    // This is function that can add new option for question.
-    var div = document.createElement('divNewRadio');
-    
-    div.classname = 'newRadio';
-    
-    div.innerHTML =  '<div class="form-group">'+
-                    '<label for="option1">New Answer</label>'+
-                    '<input type="text" class="form-control" name="option">'+
-                    ' <input type="button" value="remove" onclick="removeNewRadio(this)">'
-                    '</div>';
-    
-    radioboxGroup.appendChild(div);
-  }
-  
-  function removeNewRadio(input){
-    radioboxGroup.removeChild(input.parentNode.parentNode);
-  }
-  
-  function removeElement() {
-    var element = document.getElementById("myDIV");
-    element.classList.remove("mystyle");
-  }
-   
-  // function removeNewCheckbox(input){
-  //   checbox_group.removeChild(input.parentNode.parentNode);
-  // }
-    
 </script>
 
+<%include ../partials/footer%>
 
-<% include ../partials/footer %>

@@ -230,12 +230,12 @@ var myChart = new Chart(ctx, {
     </tr>
     <% surveys.forEach(function(survey) { %>
     <tr>
-        <td style="text-align:left"><%= survey.name %><br></br><span style="font-size:13px"><%=moment(survey.createdAt).format('MMMM Do YYYY')%>
-        |<%= moment(survey.enddate).format('MMMM Do YYYY') %></span></td>
+        <td style="text-align:left">Survey:<br></br><%= survey.name %><br></br><span style="font-size:13px">Date Created:<%=moment(survey.createdAt).format('MMMM Do YYYY')%>
+        | End Date:<%= moment(survey.enddate).format('MMMM Do YYYY') %></span></td>
         
-        <td><%= survey.author.firstName %></td>
-        <td><%= survey.questions.length %></td>
-        <td><%= survey.survey_answer.length %></td>
+        <td style="text-align: center;">Author<br></br><%= survey.author.firstName %></td>
+        <td style="text-align: center;">Questions<br></br><%= survey.questions.length %></td>
+        <td style="text-align: center;">Responses<br></br><%= survey.survey_answer.length %></td>
         
         <td style="text-align:center">
             <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
