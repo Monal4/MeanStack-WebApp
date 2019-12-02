@@ -154,12 +154,12 @@
                      <div class="options" id="7" style="display: none;">
                             <h5 class="text-left">List of textboxs</h5>
                             A list of textboxs which can let users to enter multiple lines of words.
-                            <input type="text" value="" >
-                            <input type="text" value="" >
-                            <input type="text" value="" >
+                            <input type="text" value="">
+                            <input type="text" value="">
+                            <input type="text" value="">
                           </div>      
                            
-                          <div class="text-center"><ion-icon id="add-option" class="btn" style="height:30px;width:25px;color:grey" name="add-circle-outline"></ion-icon></div>   
+                          <div class="add-option text-center"><ion-icon id="add-option" class="btn" style="height:30px;width:25px;color:grey" name="add-circle-outline"></ion-icon></div>   
                             
                     </div>
                 <div class="inline-row-2">
@@ -302,7 +302,7 @@ $('#save').click(function(e){
             if(option==='2'){for ( var i = 2; i <=option_counter[temp]; i++ ) {
                 $('#radio-option-'+i).remove()
             }option_counter[temp]=1;} 
-            else if(option==='1'){for ( var i = 2; i <=option_counter[temp]; i++ ) {
+            else if(option==='1'){for ( var i = 2; i <=option_counter[temp]; i++ ){
                 $('#check-option-'+i).remove()
             }option_counter[temp]=1;}
         }
@@ -310,8 +310,10 @@ $('#save').click(function(e){
          var divison_to_display=$(this).closest('form').find('#'+option)
          $(divison_to_display).css('display','block')
          var l=8;
-         for ( var i = 0; i < l; i++ ) {
+         for ( var i = 1; i < l; i++ ) {
             if(i!=option){$(this).closest('form').find('#'+i).css('display','none')}
+            if(parseInt(option)>2){$(this).closest('form').find('.add-option').css('display','none')}
+            else{$(this).closest('form').find('.add-option').css('display','block')}
             } 
             current_questiontype[temp]=option; 
         })
@@ -327,10 +329,18 @@ $('#save').click(function(e){
         t.find("input").val("")
         t.find("#question-number").children('span').remove()
         t.find("#question-number").append('<span>Q.'+i+'</span>')
-        option_counter[i]=option_counter[1]
+        option_counter[i]=1
         current_questiontype[i]=t.find('#questionType').children('option:selected').val()
-        //t.find('.for-options').children('.options').remove()
+        t.find('.options').css('display','none')
+        t.find('#'+current_questiontype[i]).css('display','block')
         //t.find('.for-options').append($('#1'))
+        t.find('.add-option').css('display','block')
+        if(option_counter[1]>1){
+        for(var temp=2;temp<=option_counter[1];temp++){
+            t.find('#radio-option-'+temp).remove()
+            t.find('#check-option-'+temp).remove()
+        }
+    }
     })
 
 
