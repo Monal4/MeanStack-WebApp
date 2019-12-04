@@ -31,8 +31,8 @@
 <body>
   
 
-  <nav class="navbar  bg-light navbar-light navbar-expand-lg navbar-expand-md navbar-expand-sm ">
-     <div class="container-fluid px-2" style="background-color: #7dce94;"> 
+  <nav class="navbar  bg-light navbar-light navbar-expand-lg navbar-expand-md navbar-expand-sm">
+     <div class="container-fluid" style="background-color: #7dce94;height:55px"> 
 
 
         <a class="navbar-brand d-none d-sm-block " href="/"><h4 class="m-2" style="color:white">Surveyfy</h4></a>
@@ -43,71 +43,71 @@
           <div class="bar3" style="width:25px ;height:4px;background-color: white; margin:4px"></div>
         </button>
 
-        <!--Will only be visibile for small screen devices-->
+       <!--This div will only be visibile for small screen devices-->
         <div class="d-block d-sm-none" style="height:50px">
       <a class="navbar-brand " href="/" style="margin-right:10px"><span style="color:white">Surveyfy</span></a>
      </div>
       
     
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-     
-      <ul class="navbar-nav" >
-
-        <div class="large-Screens d-none d-sm-block">
+      <ul class="navbar-nav" style="width:100%">
+       <!--list for displaying on large screens-->
+        <div class="large-Screens d-none d-sm-block " style="width:100%;height:55px">
+            <li class="nav-item dropdown float-right" >
+                <a class="nav-link" href="#" data-target="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="color: white"><%if(currentUser){%><%=currentUser.firstName%><%} else{%>User<%}%></span><span class="oi oi-caret-bottom p-2" style="color:  white"></span></a>
+            <div class="dropdown-menu"  id="drop" aria-labelledby="dropdownMenuLink" >    
+                <% if (!currentUser) {%>
+              <a style="padding:5px" class="dropdown-item " href="/login">Login</span><span class="oi oi-account-login" title="icon name" aria-hidden="true"></span></a>
+              <a style="padding:5px" class="dropdown-item" href="/register">Sign Up</a>
+              <% } else {%>
+              <a style="padding:5px;" class="dropdown-item " href="/logout">Logout&nbsp;&nbsp;<span class="oi oi-account-logout" title="icon name" aria-hidden="true"></span></a>
+              <% } %>
+          </div>
+      </li>
         &nbsp;
-        <li class="nav-item">
-          <a class="nav-link" href="/surveys"><span style="color:  white">Dashboard</span> <span class="sr-only">(current)</span></a>
+        <li class="nav-item float-right">
+          <a class="nav-link" href="/surveys" style="color:white">Dashboard<span class="sr-only">(current)</span></a>
         </li>
         &nbsp;
-        <li class="nav-item">
-          <a class="nav-link" href="/surveys/mySurveys"><span style="color:  white">MySurvey</span></a>
+        <li class="nav-item float-right">
+          <a class="nav-link" href="/surveys/mySurveys" style="color:white">MySurvey</a>
         </li>
         &nbsp;
         <li class="nav-item float-right" >
-          <a class="nav-link" href="/about"><span style="color:  white">About</span></a>
+          <a class="nav-link" href="/about" style="color:white">About</a>
         </li>
+         <!--displaying the user info having @media width>576px for lg,md,sm displays-->
+        
         </div>
 
-       <!--displaying as a list when in mobile displays-->
-        <li class="nav-item d-block d-sm-none my-3">
+       <!---displaying nav link list on mobile screens-->
+        <li class="nav-item d-block d-sm-none">
           <a class="nav-link" href="/surveys"><span style="color:  white">Dashboard</span> <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item d-block d-sm-none my-3">
+        </li>  
+        <li class="nav-item d-block d-sm-none">
           <a class="nav-link" href="/surveys/mySurveys"><span style="color:  white">MySurvey</span></a>
         </li>
-        <li class="nav-item d-block d-sm-none my-3">
+        <li class="nav-item d-block d-sm-none" >
           <a class="nav-link" href="/about"><span style="color:  white">About</span></a>
         </li>
-       
+
          <!--displaying the user info when in mobile screens-->
-        <li class="nav-item d-xs-block d-sm-none align-center" data-target="dropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <a class="nav-link" href="#" ><span style="color:  white"><%if(currentUser){%><%=currentUser.firstName%><%} else{%>User<%}%></span> <span class="oi oi-caret-top" style="color:  white"></span></a>
-          </li>
+         <li class="nav-item dropdown float-right d-block d-sm-none" >
+            <a class="nav-link" href="#" data-target="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span style="color: white"><%if(currentUser){%><%=currentUser.firstName%><%} else{%>User<%}%></span><span class="oi oi-caret-bottom p-2" style="color:  white"></span></a>
+        <div class="dropdown-menu"  id="drop" aria-labelledby="dropdownMenuLink" >    
+            <% if (!currentUser) {%>
+          <a style="padding:5px" class="dropdown-item " href="/login">Login</span><span class="oi oi-account-login" title="icon name" aria-hidden="true"></span></a>
+          <a style="padding:5px" class="dropdown-item" href="/register">Sign Up</a>
+          <% } else {%>
+          <a style="padding:5px;" class="dropdown-item " href="/logout">Logout&nbsp;&nbsp;<span class="oi oi-account-logout" title="icon name" aria-hidden="true"></span></a>
+          <% } %>
+      </div>
+  </li>
           
-          <li class="nav-item dropdown" >
-              <div class="dropdown-menu"  id="drop" aria-labelledby="dropdownMenuLink" >    
-                  <% if (!currentUser) {%>
-                <a style="padding:5px" class="dropdown-item " href="/login">Login</span><span class="oi oi-account-login" title="icon name" aria-hidden="true"></span></a>
-                <a style="padding:5px" class="dropdown-item" href="/register">Sign Up</a>
-                <% } else {%>
-                <a style="padding:5px;" class="dropdown-item " href="/logout">Logout&nbsp;&nbsp;<span class="oi oi-account-logout" title="icon name" aria-hidden="true"></span></a>
-                <% } %>
-            </div>
-        </li>
-
-           <!--displaying the user info having @media width>576px for lg,md,sm displays-->
-          <li class="nav-item d-none d-sm-block" id="dropbtn" data-target="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <a class="nav-link" href="#"><span style="color: white"><%if(currentUser){%><%=currentUser.firstName%><%} else{%>User<%}%></span><span class="oi oi-caret-bottom p-2" style="color:  white"></span></a>
-            </li>
-
-       
+          
        </ul>
-
 </div>
-      
-  
-    </div>
+</div>
   </nav>  
 
 
