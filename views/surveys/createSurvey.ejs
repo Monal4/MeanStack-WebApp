@@ -1,4 +1,5 @@
 <%include ../partials/header%>
+
 <div class="container-fluid border border-bottom-1 border-top-0 border-right-0 border-left-0" style="padding: 0px; background-color: #f6f5f3" >
         <h3 align="center"><span style="color:#3d3d3f">Get Started by Creating Survey</span></h3>
     <!--  <h3 align="center">List of our surveys</h3> -->
@@ -15,9 +16,16 @@
        <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
    <div id="form-container"> 
-      <form class="form"  id="validationform" method="post" enctype="multipart/form-data">
-         <div  id="divtobeduplicated0"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
-       
+
+   
+    <div class="questionPreview row p-3" id="afterSave"  style="background-color:white;margin:10px;display:none">
+        
+    </div>
+
+    
+
+      <form class="form"  id="validationform" method="post" enctype="multipart/form-data" >
+         <div  id="form-input"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
 <div class="col-lg-1 col-sm-2 text-center px-0" >
     <h4 id="question-number" class="m-1 pb-1"><span>Q.1</span></h4>
 </div>
@@ -187,6 +195,7 @@
                         <div class="form-group d-flex" >
                             <div class="buttons" >
                                <a id="delete" href="#" class="btn m-2" value="Delete">Delete</a>
+                            <button id="edit" type="submit" class="btn form-control float-right m-2" style="display:none">Edit</button>   
                            <button id="save" type="submit" class="btn form-control float-right m-2" >Save</button>
                                 
                               </div>
@@ -206,6 +215,7 @@
     <div class="d-flex justify-content-end" >
     <button id="duplicate" class="btn m-2 p-1 " style="background-color: #7dce94;color: white;">Add Another Question</button>
     </div>
+    
   </div>
 
 
@@ -263,29 +273,62 @@
 <script>
   $(document).ready(function(){
 /*block for tooltip work here ,either you can add the popper classs of bootsterap before bootstrap.min.js bundle containing popper*/
-    $(function () {
+    $(function (event) {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+//form-container variable for keeping track of form-container
+var form_container=[]
 
 /*for passing the data from form to cotroller with ajax*/
 $('#save').click(function(e){
     e.preventDefault()
     e.stopPropagation()
     var id=$('#S_id').val()
+    var current_element_selected=$(this).closest('form')
     var items=$(this).closest('form').serialize()
+    var Print_question_number_here=current_element_selected.attr('id')
+    if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
     $.ajax({
         type:'POST',
         enctype:'multipart/form-data',
         url:'/surveys/'+id+'/questions',
         data:items,
-        success:function(questions){
-            console.log(questions.array.forEach(element => {
-                element.text
-            })+"done")
+        success:function(question){ 
+           var new_cloned_element=$('#afterSave').clone(true,true).attr('id','afterSave'+Print_question_number_here)
+           new_cloned_element.insertAfter(current_element_selected)
+           new_cloned_element.css('display','block')
+           new_cloned_element.append('<div class="row"></div>')
+           new_cloned_element.find('.row').append( '<div class="col-lg-1 col-sm-2 text-center px-0"><h4 id="question-number" class="m-1"><span>Q.'+ Print_question_number_here+'</span></h4> </div>')
+           new_cloned_element.find('.row').append('<div class="col-lg-11 col-sm-10" id="afterSave-text"></div>')
+           new_cloned_element.find('#afterSave-text').append('<h4 class="m-1">'+question.text+'</h4>')
+           for(var x=0; x < question.options.length;x++){
+            new_cloned_element.find('#afterSave-text').append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
+                }
+           current_element_selected.css('display','none')
         }
     })
 })
 
+    /*displaying edit option on the */
+    $('.questionPreview').mouseenter(function(){
+        $(this).css('opacity','0.76'); 
+        $(this).append('<div class="float-right m-2" id="Edit-div"><a class="btn" id="Edit-button" style="color:white">Edit</a><a id="delete" href="#" class="btn m-2" value="Delete" style="color:white>Delete</a></div>');
+        $(this).find('#Edit-div').css('opacity','1')
+        $('#Edit-button').click(function(){
+            var nearest_required_div_id=$(this).closest('.questionPreview').attr('id')
+            $(this).closest('.questionPreview').css('display','none')
+            $(this).closest('#form-container').find('#'+nearest_required_div_id.replace(/\D/g, "")).css('display','block')
+            var temp=$(this).closest('#form-container').find('#'+nearest_required_div_id.replace(/\D/g, ""))
+            temp.css('display','block')
+                })
+        })
+        .mouseleave(function(){
+            $(this).css('opacity','1');
+            $(this).find('#Edit-div').remove()})
+
+    /*The edit button usage on the page*/
+    
 
     /*changing the div blocks using questiontype selector*/
     var option_counter=[0,1] //initalizing the option counter for the current form's(i.e. id='validationform') total options available
@@ -335,6 +378,7 @@ $('#save').click(function(e){
         t.find('#'+current_questiontype[i]).css('display','block')
         //t.find('.for-options').append($('#1'))
         t.find('.add-option').css('display','block')
+        t.css('display','block')
         if(option_counter[1]>1){
         for(var temp=2;temp<=option_counter[1];temp++){
             t.find('#radio-option-'+temp).remove()
@@ -342,6 +386,7 @@ $('#save').click(function(e){
         }
     }
     })
+
 
 
     /*deletein the nearest validation form*/
