@@ -15,20 +15,20 @@
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px" id="main">
        <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
-   <div id="form-container"> 
-
-   
-    <div class="questionPreview row p-3" id="afterSave"  style="background-color:white;margin:10px;display:none">
-        
-    </div>
+<div id="form-container"> 
 
     
 
-      <form class="form"  id="validationform" method="post" enctype="multipart/form-data" >
-         <div  id="form-input"  class="row pt-3 pr-3" style="background-color:white;margin:10px">
-<div class="col-lg-1 col-sm-2 text-center px-0" >
+
+<form class="form"  id="validationform" method="post" enctype="multipart/form-data" style="display:none">
+
+    <div class="questionPreview row p-3" id="afterSave"  style="background-color:white;margin:10px;display:none">  
+        </div>
+
+     <div id="form-input"  class="form-input row pt-3 pr-3" style="background-color:white;margin:10px">
+        <div class="col-lg-1 col-sm-2 text-center px-0" >
     <h4 id="question-number" class="m-1 pb-1"><span>Q.1</span></h4>
-</div>
+            </div>
      <div class="col-lg-11 col-sm-10 px-2">
 
          <div class="d-flex flex-column flex-wrap">
@@ -223,7 +223,6 @@
 
   </div>
 
-
                  <!-- <script>
 
                    // var form = document.getElementById("validationform");
@@ -277,8 +276,7 @@
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-//form-container variable for keeping track of form-container
-var form_container=[]
+
 
 /*for passing the data from form to cotroller with ajax*/
 $('#save').click(function(e){
@@ -295,17 +293,17 @@ $('#save').click(function(e){
         url:'/surveys/'+id+'/questions',
         data:items,
         success:function(question){ 
-           var new_cloned_element=$('#afterSave').clone(true,true).attr('id','afterSave'+Print_question_number_here)
-           new_cloned_element.insertAfter(current_element_selected)
+           var new_cloned_element=current_element_selected.children('#afterSave').attr('id','afterSave'+Print_question_number_here)
            new_cloned_element.css('display','block')
            new_cloned_element.append('<div class="row"></div>')
            new_cloned_element.find('.row').append( '<div class="col-lg-1 col-sm-2 text-center px-0"><h4 id="question-number" class="m-1"><span>Q.'+ Print_question_number_here+'</span></h4> </div>')
            new_cloned_element.find('.row').append('<div class="col-lg-11 col-sm-10" id="afterSave-text"></div>')
            new_cloned_element.find('#afterSave-text').append('<h4 class="m-1">'+question.text+'</h4>')
+           current_element_selected.append('<input type="hidden" id="q_id" value="'+question._id +'">')
            for(var x=0; x < question.options.length;x++){
             new_cloned_element.find('#afterSave-text').append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
                 }
-           current_element_selected.css('display','none')
+           current_element_selected.children('#form-input').css('display','none')
         }
     })
 })
@@ -316,11 +314,13 @@ $('#save').click(function(e){
         $(this).append('<div class="float-right m-2" id="Edit-div"><a class="btn" id="Edit-button" style="color:white">Edit</a><a id="delete" href="#" class="btn m-2" value="Delete" style="color:white>Delete</a></div>');
         $(this).find('#Edit-div').css('opacity','1')
         $('#Edit-button').click(function(){
-            var nearest_required_div_id=$(this).closest('.questionPreview').attr('id')
-            $(this).closest('.questionPreview').css('display','none')
-            $(this).closest('#form-container').find('#'+nearest_required_div_id.replace(/\D/g, "")).css('display','block')
-            var temp=$(this).closest('#form-container').find('#'+nearest_required_div_id.replace(/\D/g, ""))
-            temp.css('display','block')
+            var nearest_required_div=$(this).closest('.questionPreview')
+            var form_container=nearest_required_div.closest('#form-container')
+                var temp=form_container.children('#'+nearest_required_div.attr('id').replace(/[^0-9]/gi, '')).css('display','block')
+                temp.children('#form-input').css('display','block')
+                temp.find('#save').css('display','none')
+                temp.find('#edit').css('display','block')
+                nearest_required_div.css('display','none')
                 })
         })
         .mouseleave(function(){
@@ -328,19 +328,41 @@ $('#save').click(function(e){
             $(this).find('#Edit-div').remove()})
 
     /*The edit button usage on the page*/
-    
+   $('#edit').click(function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    var id=$('#S_id').val()
+    var question_id=$(this).closest('.form').find('#q_id').val()
+    var current_element_selected=$(this).closest('form')
+    var items=$(this).closest('form').serialize()
+    var Print_question_number_here=current_element_selected.attr('id')
+    if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
+    $.ajax({
+        type:'POST',
+        enctype:'multipart/form-data',
+        url:'/surveys/'+id+'/questions/'+question_id+'?_method=PUT',
+        data:items,
+        success:function(question){ 
+           console.log('done'+ question.text+question.options[0].content)
+           var afterSave_div=$(current_element_selected).find('#afterSave'+Print_question_number_here)
+           afterSave_div.css('display','block')
+           var afterSave_text_div=afterSave_div.find('.row>#afterSave-text')
+           afterSave_text_div.children('h4').replaceWith('<h4 class="m-1">'+question.text+'</h4>')
+           for(var x=0; x < question.options.length;x++){
+            afterSave_text_div.find('p').replaceWith('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
+                }
+           
+           current_element_selected.children('#form-input').css('display','none')
+        }
+    })
+   })
 
     /*changing the div blocks using questiontype selector*/
-    var option_counter=[0,1] //initalizing the option counter for the current form's(i.e. id='validationform') total options available
-    var current_questiontype=[0,$(this).find('#questionType').children('option:selected').val()];
+    var option_counter=[0] //initalizing the option counter for the current form's(i.e. id='validationform') total options available
+    var current_questiontype=[0];
      $('#questionType').change(function(e){
         var option=$(this).children('option:selected').val()
-        var temp;
-        if($(this).closest('form').attr('id')!=='validationform'){
-                temp=parseInt($(this).closest('form').attr('id'))}
-            else{
-                temp=1;
-             }
+        var temp=parseInt($(this).closest('form').attr('id'))     
         if(option_counter[temp]>1){
             if(option==='2'){for ( var i = 2; i <=option_counter[temp]; i++ ) {
                 $('#radio-option-'+i).remove()
@@ -379,6 +401,8 @@ $('#save').click(function(e){
         //t.find('.for-options').append($('#1'))
         t.find('.add-option').css('display','block')
         t.css('display','block')
+        t.find('#save').css('display','block')
+        t.find('#edit').css('display','none')
         if(option_counter[1]>1){
         for(var temp=2;temp<=option_counter[1];temp++){
             t.find('#radio-option-'+temp).remove()
@@ -404,6 +428,8 @@ $('#save').click(function(e){
                             $(this).attr('id',temp)} 
                  })
             }
+            option_counter.splice(parseInt(current_id),1)
+            current_questiontype.splice(parseInt(current_id),1)
             i--       //subtracting one number from total of all forms
         })
 
@@ -436,6 +462,23 @@ $('#add-option').on('click',function(event){
     new_div.append().insertAfter(div)
     console.log(new_div.attr('id')+'TO  form' +div.attr('id')+'  '+option_counter[temp])
         })
+
+      
+    /*creating question 1 to display on page load with brute-force method*/  
+    
+        var first_question=$('#validationform').clone(true,true).attr('id',i).appendTo($('#validationform').parent())
+        console.log('created form:'+first_question.attr('id'))
+        first_question.find("input").val("")
+        first_question.find("#question-number").children('span').remove()
+        first_question.find("#question-number").append('<span>Q.'+i+'</span>')
+        option_counter[i]=1
+        current_questiontype[i]=first_question.find('#questionType').children('option:selected').val()
+        first_question.find('.options').css('display','none')
+        first_question.find('#'+current_questiontype[i]).css('display','block')
+        //t.find('.for-options').append($('#1'))
+        first_question.find('.add-option').css('display','block')
+        first_question.css('display','block')
+        console.log(current_questiontype[i] +'  value '+i+' optioncounter  ' + option_counter[i])
 
 })
   

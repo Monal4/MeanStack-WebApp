@@ -189,7 +189,7 @@ router.put("/:question_id", middleware.checkQuestionOwnership, function(req, res
       if(err){
           res.redirect("back");
       } else {
-          res.redirect("/surveys/" + req.params.id );
+          res.send(req.body.question);
       }
    });
 })
