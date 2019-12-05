@@ -294,6 +294,7 @@ footer > div{
 #delete{background-color:red;color:white; width:90px}
 #delete:hover{background-color:RED;color:rebeccapurple}
 #save{background-color:#7dce94;color:white;width:90px}
+#edit{background-color:#7dce94;color:white;width:90px}
 
 .take-survey{
   background-color:white ;
