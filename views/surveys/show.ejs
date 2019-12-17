@@ -38,9 +38,9 @@
     </div>
     
     <br></br>
-        <div class="card card-body mb-2 bg-light">
+        <div class="continer p-4 mb-2 bg-light">
             <% if(currentUser && survey.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) {%>
-            <p><a class="btn btn-primary float-right" href="/surveys/<%= survey._id %>/questions/new">Add Question</a></p>
+
         
             <% } %>
             

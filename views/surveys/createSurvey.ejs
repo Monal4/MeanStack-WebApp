@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <div class="d-flex">
                                 <input type="text" class="form-control form-control-sm pl-2 my-0" style="height:25px;width:70%" name="question[instruction]" placeholder="Question's Instructions"></input>  
-                               <ion-icon class="border rounded-circle mx-3 my-1" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="right" title="Add some special instructions for given question here or you can leave this blank either"></ion-icon>
+                               <ion-icon id="Instructions-tooltip" class="border rounded-circle mx-3 my-1" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="right" title="Add some special instructions for given question here or you can leave this blank either"></ion-icon>
                                 </div>
                         </div>
                         
@@ -61,7 +61,7 @@
                                       <option value="6">Multi-Row-Textbox</option>
                                       <option value="7">List-Of-Textbox</option>
                                     </select>
-                                    <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                    <ion-icon id=Questiontype-tooltip " class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want to create</p>"></ion-icon>
                                   </div>
                         </div>
                         <div class="form-group" >
@@ -73,7 +73,7 @@
                                           <option value="3">Low Cognitive</option>
                                           <option value="4">Don't Know</option>
                                     </select>
-                                    <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                    <ion-icon id="Cognitivity-tooltip" class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Cognitivity</h4><p>You can describe here the difficulty level of question you want ot create</p>"></ion-icon>
                                 </div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                                                 <option>Employment</option>
                                                 <option>Entertainment</option>
                                         </select>
-                                        <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                        <ion-icon id="Category-tooltip" class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Category</h4><p>You can describe here the category of question in which it belongs</p>"></ion-icon>
                                       </div>
                             </div>
                         <div class="form-group d-flex" >
@@ -271,14 +271,24 @@
              
 <script>
   $(document).ready(function(){
-/*block for tooltip work here ,either you can add the popper classs of bootsterap before bootstrap.min.js bundle containing popper*/
-    $(function (event) {
-  $('[data-toggle="tooltip"]').tooltip()
+/*block for tooltip's for various stuffs work here ,either you can add the popper classs of bootsterap before bootstrap.min.js bundle containing popper*/
+$("#Cognitivity-tooltip").mouseenter(function(){
+$(this).closest('form').find('#Cognitivity-tooltip').tooltip()  
 })
 
+$("#Category-tooltip").hover(function(){
+$(this).closest('form').find('#Category-tooltip').tooltip()  
+})
 
+$("#Questiontype-tooltip").hover(function(){
+$(this).closest('form').find('#Questiontype-tooltip').tooltip()  
+})
 
-/*for passing the data from form to cotroller with ajax*/
+$("#Instructions-tooltip").hover(function(){
+$(this).closest('form').find('#Instructions-tooltip').tooltip()  
+})
+
+/*for passing the data from form to cotroller with ajax and saving the form*/
 $('#save').click(function(e){
     e.preventDefault()
     e.stopPropagation()
@@ -332,26 +342,29 @@ $('#save').click(function(e){
     e.preventDefault()
     e.stopPropagation()
     var id=$('#S_id').val()
+    console.log(id)
     var question_id=$(this).closest('.form').find('#q_id').val()
     var current_element_selected=$(this).closest('form')
-    var items=$(this).closest('form').serialize()
+    var items=$(this).closest('form').serializeArray()
     var Print_question_number_here=current_element_selected.attr('id')
-    if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
+    //if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
     $.ajax({
         type:'POST',
         enctype:'multipart/form-data',
         url:'/surveys/'+id+'/questions/'+question_id+'?_method=PUT',
         data:items,
         success:function(question){ 
-           console.log('done'+ question.text+question.options[0].content)
+           console.log('done'+ question.options[1].content +"length "+question.options.length)
            var afterSave_div=$(current_element_selected).find('#afterSave'+Print_question_number_here)
            afterSave_div.css('display','block')
            var afterSave_text_div=afterSave_div.find('.row>#afterSave-text')
            afterSave_text_div.children('h4').replaceWith('<h4 class="m-1">'+question.text+'</h4>')
-           for(var x=0; x < question.options.length;x++){
-            afterSave_text_div.find('p').replaceWith('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
-                }
-           
+           for(var x=0;x<question.options.length;x++){
+            afterSave_text_div.find('p').remove();
+               }
+           for(var x=0;x<question.options.length;x++){
+            afterSave_text_div.append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
+               }
            current_element_selected.children('#form-input').css('display','none')
         }
     })
@@ -416,7 +429,18 @@ $('#save').click(function(e){
     /*deletein the nearest validation form*/
     $('#delete').click(function(){
             var current_id=$(this).closest('form').attr('id')
+            var id=$('#S_id').val()
+            var question_id=$(this).closest('form').find('#q_id').val()
                 if(current_id!='validationform'){
+                    $.ajax({
+                        type:'POST',
+                        enctype:'multipart/form-data',
+                         url:'/surveys/'+id+'/questions/'+question_id+'?_method=DELETE',
+                        success:function(success){ 
+                        console.log(success)
+                        }
+                    })
+                    
                     $(this).closest("form").remove()  //removing the current form
                     $('form').each(function(){  //getting the question numbers set accordingly
                         var id=$(this).attr('id') //id of the forms for setting question numbers 

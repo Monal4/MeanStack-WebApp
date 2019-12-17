@@ -2,6 +2,7 @@ var express = require("express")
 var router  = express.Router()
 var Survey  = require("../models/survey")
 var Answer = require("../models/answer")
+var Question = require("../models/question")
 var middleware = require("../middleware/index") // "../middleware" is fine coz of index.js has a special value for node 
 var platform = require('platform')
 
@@ -175,7 +176,8 @@ router.get("/report/:id", middleware.isLoggedIn, function(req, res) {
 // EDIT - Survey Edit Route
 router.get("/:id/edit", middleware.checkSurveyOwnership, function(req, res) {
 
-    Survey.findById(req.params.id, function(err, foundSurvey) {
+    
+    Survey.findById(req.params.id).populate("questions").exec(function(err, foundSurvey) {
         res.render("surveys/edit", {survey: foundSurvey})
     })
 })

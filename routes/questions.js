@@ -207,8 +207,7 @@ router.delete("/:question_id", middleware.checkQuestionOwnership, function(req, 
             // Redirects back to the previous page
             res.redirect("back")
         } else {
-            req.flash("success", "Question Successfully Deleted")
-            res.redirect("/surveys/" + req.params.id)
+            res.send("Successfully deleted the question")
         }
     })
 })

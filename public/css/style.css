@@ -292,7 +292,7 @@ footer > div{
 
 /*Buttons for creating survey page*/
 #delete{background-color:red;color:white; width:90px}
-#delete:hover{background-color:RED;color:rebeccapurple}
+#delete:hover{background-color:RED;color:white}
 #save{background-color:#7dce94;color:white;width:90px}
 #edit{background-color:#7dce94;color:white;width:90px}
 
