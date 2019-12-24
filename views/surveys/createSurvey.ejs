@@ -468,39 +468,35 @@ $('#save').click(function(e){
             i--       //subtracting one number from total of all forms
         })
 
-
-     /*Adding more options to given question*/
-     
-$('#add-option').on('click',function(event){
-    event.preventDefault()
-    var div;
-    var new_div;
-    var temp;
-//conditional block for getting the attribute id of selected form  
-    if($(this).closest('form').attr('id')!=='validationform'){
-    temp=parseInt($(this).closest('form').attr('id'))}
-    else{
-    temp=1;
-    }
-   
-//if else for adding new div on basis of selected question type
-    if(current_questiontype[temp]==='1'){
-     div=$(this).closest("form").find('#radio-option-'+option_counter[temp])
-     new_div = div.clone(true).attr('id','radio-option-'+ ++option_counter[temp])
-    }
-    else if(current_questiontype[temp]==='2'){
-        div=$(this).closest("form").find('#check-option-'+option_counter[temp])
-        new_div = div.clone(true,true).attr('id','check-option-'+ ++option_counter[temp])  
-    }
-    new_div.find('input').val("")
-    new_div.find('.form-group > .form-control').attr('name','question[options]['+option_counter[temp]+'][content]')
-    new_div.append().insertAfter(div)
-    console.log(new_div.attr('id')+'TO  form' +div.attr('id')+'  '+option_counter[temp])
+/*Adding more options to given question*/     
+    $('#add-option').on('click',function(event){
+        event.preventDefault()
+        var div;
+        var new_div;
+        var temp;
+    //conditional block for getting the attribute id of selected form  
+        if($(this).closest('form').attr('id')!=='validationform'){
+        temp=parseInt($(this).closest('form').attr('id'))}
+        else{
+        temp=1;
+        } 
+    //if else for adding new div on basis of selected question type
+        if(current_questiontype[temp]==='1'){
+        div=$(this).closest("form").find('#radio-option-'+option_counter[temp])
+        new_div = div.clone(true).attr('id','radio-option-'+ ++option_counter[temp])
+        }
+        else if(current_questiontype[temp]==='2'){
+            div=$(this).closest("form").find('#check-option-'+option_counter[temp])
+            new_div = div.clone(true,true).attr('id','check-option-'+ ++option_counter[temp])  
+        }
+        new_div.find('input').val("")
+        new_div.find('.form-group > .form-control').attr('name','question[options]['+option_counter[temp]+'][content]')
+        new_div.append().insertAfter(div)
+        console.log(new_div.attr('id')+'TO  form' +div.attr('id')+'  '+option_counter[temp])
         })
 
       
     /*creating question 1 to display on page load with brute-force method*/  
-    
         var first_question=$('#validationform').clone(true,true).attr('id',i).appendTo($('#validationform').parent())
         console.log('created form:'+first_question.attr('id'))
         first_question.find("input").val("")
@@ -514,6 +510,7 @@ $('#add-option').on('click',function(event){
         first_question.find('.add-option').css('display','block')
         first_question.css('display','block')
         console.log(current_questiontype[i] +'  value '+i+' optioncounter  ' + option_counter[i])
+
 
 })
   
