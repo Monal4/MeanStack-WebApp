@@ -60,9 +60,9 @@ How to Run the Web App:
 
 - Other Way just using these commands:
 Install $project by running:
-    git clone https://github.com/beavinash/surveyfy.git
+    git clone https://github.com/azamakhan/Surveyfy-2.0.git
     cd surveyfy
-    rm -r npm node_moudles
+    rm -r npm node_moudles 
     npm install
 
 Installing MongoDB on a Cloud9 workspace
@@ -93,43 +93,22 @@ Asynchronous testing is done. Tests are run serially.
 
 - Mocha utilizes a library called "Chai"
 
+
 Contribution
 ------------
 
-- Avinash
-- Yuxuan
-- Karthik
+- Chintan
+- Azam
+- Monal
 
 How to get support
 ------------------
 - If you are having issues, please let us know.
-- Avinash
-- Email: avinashshankar.re001@umb.edu
-- Karthik: Karthik.Prasad001@umb.edu 
-- Yuxuan: Yuxuan.He001@umb.edu
+- Email:
+- Chintan: chintan.rank001@umb.edu
+- Karthik: azamahmad.khan001@umb.edu 
+- Yuxuan: monal.rupapara001@umb.edu
 
-Server Information
-------------------
-- Surveyfy has been currently deployed on “Heroku” Web Server. 
-
-Deployment Procedure:
----------------------
-
-•	Login into “Heroku” account and prompts are followed to create a new SSH Public Key
-    $ heroku login
-•	Clone the project repository to the local machine
-    Example: 
-    $ heroku git:clone https://github.com/beavinash/surveyfy.git
-•	Change directory into the root directory of the cloned project.
-    $ cd Surveyfy
-
-•	Use the following command to install required dependencies for the Surveyfy project
-    $ npm install
-
-•	If any changes are made to the project repository, use the following git commands to save and deploy to the production server.
-    $ git add .
-    $ git commit -am "make it better"
-    $ git push heroku master      
 
 Coding Standard:
 ----------------
@@ -145,7 +124,6 @@ Support
 -------
 
 - Prof. Kenneth Fletcher
-- Prof. Trent D Buskirk (Director, Center for Survey Research)
 
 License
 -------
@@ -153,7 +131,7 @@ License
 © 2018 Copyright Surveyfy. All Rights Reserved.
 
 
-
-
-
-
+ 
+ 
+ 
+ 
