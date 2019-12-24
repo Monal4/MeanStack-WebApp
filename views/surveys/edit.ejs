@@ -17,15 +17,11 @@
     </div>
    
 
-
 <div class="container mt-4" style="background-color: #f6f5f3; padding:10px" id="main">
        <h2 style="padding-right:10px;padding-left:10px"><%= survey.name %></h2>
 
 <div id="form-container"> 
 
-    
-
-       
 <form class="form"  id="validationform" method="post" enctype="multipart/form-data" style="display:none">
 
     
@@ -216,74 +212,233 @@
     </div>
    
      </div>
-     
      <input type="hidden" id="S_id" value="<%=survey._id%>">
     </form>
+     
+    
+    
+  <%survey.questions.forEach(function(question,i){%>
+  <form class="form"  id="<%=i+1%>" method="post" enctype="multipart/form-data" style="display:block">
+        <div class="questionPreview row p-3" id="afterSave<%=i+1%>" style="background-color: white; margin: 10px; display: block; opacity: 1;">  
+                <div class="row">
+                    <div class="col-lg-1 col-sm-2 text-center px-0">
+                        <h4 id="question-number" class="m-1"><span>Q.<%=i+1%></span></h4> </div>
+                        <div class="col-lg-11 col-sm-10" id="afterSave-text">
+                            <h4 class="m-1"><%=question.text%></h4>
+                            <%if(question.options){%>
+                            <%question.options.forEach(function(option,i){%>
+                            <p class="p-1 mb-1"><%=option.content%></p>
+                            <%})%>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+
+     <div id="form-input"  class="form-input row pt-3 pr-3" style="background-color:white;margin:10px;display:none" >
+        <div class="col-lg-1 col-sm-2 text-center px-0" >
+    <h4 id="question-number" class="m-1 pb-1"><span>Q.<%=i+1%></span></h4>
+            </div>
+     <div class="col-lg-11 col-sm-10 px-2">
+
+         <div class="d-flex flex-column flex-wrap">
+
+            <div class="row1" id="row1">
+                <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1  pr-5 flex-grow-1" >
+                        <div class="form-group" >
+                            <input type="text" class="form-control border rounded-0 pl-2"  name="question[text]" placeholder="Add Question Title here" style="height:45px" required></input>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex">
+                                <input type="text" class="form-control form-control-sm pl-2 my-0" style="height:25px;width:70%" name="question[instruction]" placeholder="Question's Instructions"></input>  
+                               <ion-icon class="border rounded-circle mx-3 my-1" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="right" title="Add some special instructions for given question here or you can leave this blank either"></ion-icon>
+                                </div>
+                        </div>
+                        
+                               
+                              
+                    </div>
+                    <div class="inline-row-2" >
+                        <div class="form-group" >  
+                            <div class="input-group mb-3">
+                                    <select class="form-control custom-select border rounded" name="question[types]" id="questionType">
+                                      <option selected value="1">Single-Select</option>
+                                      <option value="2">Checkboxes</option>
+                                      <option value="3">Slider</option>
+                                      <option value="4">Rating-Scale</option>
+                                      <option value="5">Text</option>
+                                      <option value="6">Multi-Row-Textbox</option>
+                                      <option value="7">List-Of-Textbox</option>
+                                    </select>
+                                    <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                  </div>
+                        </div>
+                        <div class="form-group" >
+                                <div class="input-group mb-3">
+                                    <select class="form-control custom-select border rounded" name="question[cognitive]" id="Cognitivity">
+                                        <option selected>none</option>
+                                          <option value="1">Highly Cognitive</option>
+                                          <option value="2">Medium Cognitive</option>
+                                          <option value="3">Low Cognitive</option>
+                                          <option value="4">Don't Know</option>
+                                    </select>
+                                    <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row2" id="row2">
+                 <div class="d-flex flex-row flex-wrap">
+                    <div class="inline-row-1 pr-5 for-options flex-grow-1">
+             <!--Single Select display-->  
+                            <div class="options" id="1" style="display:block">
+                                <div class="form-check p-1" id="radio-option-0">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option1" >
+                                        <label class="form-check-label" for="exampleRadios1" style="height:30px;width:100%">
+                                            <div class="form-group" >
+                                                    <input type="text" class="form-control form-control-sm pl-2 my-0 border rounded-0" style="height:30px" placeholder="Add option here" name="question[options][0][content]"></input>
+                                            </div>
+                                    </label>
+                                </div>
+                                <div class="form-check p-1" id="radio-option-1">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2" style="height:30px;width:100%">
+                                            <div class="form-group" >
+                                                    <input type="text" class="form-control form-control-sm pl-2 my-0 border rounded-0 " style="height:30px" placeholder="Add option here" name="question[options][1][content]"></input>
+                                            </div>
+                                    </label>
+                                </div>
+                                
+                            </div>  
+
+                    <!--Multiple Select display-->       
+                                <div class="options" id="2" style="display:none" >
+                                        <div class="form-check p-1" id="check-option-0">
+                                                <input class="form-check-input" type="checkbox"  id="create-checkboxes" value="option1" >
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                        <div class="form-group">
+                                                                <input type="text" class="form-control form-control-sm pl-2 my-0 border rounded-0" style="height:25px" placeholder="sample option" name="question[options][0][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+                                        <div class="form-check p-1" id="check-option-1">
+                                                <input class="form-check-input" type="checkbox" name="exampleRadios" id="create-checkboxes" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                        <div class="form-group">
+                                                                <input type="text" class="form-control form-control-sm pl-2 my-0 border rounded-0" style="height:25px" placeholder="sample option" name="question[options][1][content]"></input>
+                                                        </div>
+                                                </label>
+                                         </div>
+
+                                  </div> 
+
+                    <!--Rating Scale display box-->                    
+                                 <div class="options" id="4" style="display: none;">
+                                        <h5 class="text-left">Rating Scale</h5>
+                                        Choosing one of the block provided.
+                                        <div class="rating">
+                                          <span><input type="radio" name="rating" id="str5" value="5"><label for="str5">Excellent</label></span>
+                                          <span><input type="radio" name="rating" id="str4" value="4"><label for="str4">Good</label></span>
+                                          <span><input type="radio" name="rating" id="str3" value="3"><label for="str3">Fair</label></span>
+                                          <span><input type="radio" name="rating" id="str2" value="2"><label for="str2">Poor</label></span>
+                                          <span><input type="radio" name="rating" id="str1" value="1"><label for="str1">Bad</label></span>
+                                        </div>
+                                      </div>
+
+                    <!--Preview Slider display box-->                  
+                                      <div class="options" id="3" style="display: none;">
+                                        <h5 class="text-left">Silder</h5>
+                                        Draging the button to rate one stuff.
+                                        <input type="range" min="1" max="100" value="50">
+                                      </div>
+                                      
+
+                    <!--Text-Box type display-->       
+                                <div class="options" id="5" style="display:none">
+                                       <p class="m-2"> A Text Field provided for user to enter with only single line of words.</p>
+                                       <input type="text"  value="" >
+                                 </div> 
+
+                     <!--Multiple-Row-Box type display-->       
+                             <div class="options" id="6" style="display:none"> 
+                                    <p class="m-2"> A Text Field provided for user to enter with multiple row lines of words.</p>
+                                    <textarea rows="4" col="50"></textarea>
+                             </div> 
+                             
+                     <!--Multiple-Row-Box type display-->       
+                     <div class="options" id="7" style="display: none;">
+                            <h5 class="text-left">List of textboxs</h5>
+                            A list of textboxs which can let users to enter multiple lines of words.
+                            <input type="text" value="">
+                            <input type="text" value="">
+                            <input type="text" value="">
+                          </div>      
+                           
+                          <div class="add-option text-center"><ion-icon id="add-option" class="btn" style="height:30px;width:25px;color:grey" name="add-circle-outline"></ion-icon></div>   
+                            
+                    </div>
+                <div class="inline-row-2">
+                        <div class="form-group" >  
+                                <div class="input-group ">
+                                        <select class="form-control custom-select" id="qtopic" name="question[qtopic]">
+                                                <option value="" selected>None</option>
+                                                <option>Lifestyle</option>
+                                                <option>Health</option>
+                                                <option>Demographics</option>
+                                                <option>Education</option>
+                                                <option>Finances</option>
+                                                <option>Daily Living</option>
+                                                <option>Hobbies</option>
+                                                <option>Relationships</option>
+                                                <option>Travel</option>
+                                                <option>Transportation</option>
+                                                <option>Technology</option>
+                                                <option>Employment</option>
+                                                <option>Entertainment</option>
+                                        </select>
+                                        <ion-icon class="border rounded-circle mx-3 my-2" name="help" style="height:15px;width:15px;background-color:	#e9ecef" data-toggle="tooltip" data-placement="top" data-html="true" title="<h4>Question Type</h4><p>You can select here the type of question you want ot create</p>"></ion-icon>
+                                      </div>
+                            </div>
+                        <div class="form-group d-flex" >
+                            <div class="buttons" >
+                               <a id="delete" href="#" class="btn m-2" value="Delete">Delete</a>
+                            <button id="edit" type="submit" class="btn form-control float-right m-2" style="display:none">Edit</button>   
+                           <button id="save" type="submit" class="btn form-control float-right m-2" >Save</button>
+                                
+                              </div>
+                            </div>
+                     </div>
+                     </div>
+                </div>
+
+     </div>
     </div>
+   
+     </div>
+     
+     <input type="hidden" id="S_id" value="<%=survey._id%>">
+     <input type="hidden" id="q_id" value="<%=question._id%>">
+    </form>
+    <%})%>
+
     <div class="d-flex justify-content-end" >
     <button id="duplicate" class="btn m-2 p-1 " style="background-color: #7dce94;color: white;">Add Another Question</button>
     </div>
     
   </div>
-
-
-  <div id="Question-display" style="display:none">
-
   </div>
-<input type="hidden" id="total-questions" value="<%=survey.questions.length%>">
 
-
-                 <!-- <script>
-
-                   // var form = document.getElementById("validationform");
-
-                    var del = document.getElementById("del");
-
-                    // if( form.dataset != null ) {
-                     document.getElementById( "duplicatebtn" ).onclick = duplicate;
-                    // }
-                     
-                      var i = 0;
-
-                     function duplicate() {
-                          var div = document.getElementById( "validationform" );
-
-                          var clonediv = div.cloneNode( true );
-
-                          clonediv.id = "validationform" + ++i;
-
-                          div.parentNode.appendChild( clonediv );
-
-                          var div = document.getElementById( "validationform20");
-
-                          var clonediv = div.cloneNode( true );
-
-                          clonediv.id = "divtobeduplicated" + ++i;
-                          clonediv.reset();
-                         var parent = document.getElementById("validationform0");
-                          parent.appendChild(clonediv);
-                        //  div.parentNode(tobeapended).appendChild( clonediv );
-                          console.log("The valhfiskd"+i);
-                      }
-                     
-                    //  del.onclick( () => {
-
-                    //    i=i-1;
-
-                    //  });
-                  
-                      function deleteblock(){
-                          var element=document.getElementById()
-                      }
-                  </script>-->
-         <!--Script wrritten using jquery for diplaying options on click-->         
+  <!--getting the reading of total questions for getting the counter working inside the script-->
+<input type="hidden" id="question-count" value="<%=survey.questions.length%>">                  
       
              
 <script>
   
 
   $(document).ready(function(){
-    var Total_questions_initally=<%=survey.questions.length%>;
+   // var Total_questions_initally=<%=survey.questions.length%>
     
     console.log(Total_questions_initally)
 /*block for tooltip work here ,either you can add the popper classs of bootsterap before bootstrap.min.js bundle containing popper*/
@@ -343,30 +498,33 @@ $('#save').click(function(e){
             $(this).find('#Edit-div').remove()})
 
     /*The edit button usage on the page*/
-   $('#edit').click(function(e){
+    $('#edit').click(function(e){
     e.preventDefault()
     e.stopPropagation()
     var id=$('#S_id').val()
+    console.log(id)
     var question_id=$(this).closest('.form').find('#q_id').val()
     var current_element_selected=$(this).closest('form')
-    var items=$(this).closest('form').serialize()
+    var items=$(this).closest('form').serializeArray()
     var Print_question_number_here=current_element_selected.attr('id')
-    if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
+    //if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
     $.ajax({
         type:'POST',
         enctype:'multipart/form-data',
         url:'/surveys/'+id+'/questions/'+question_id+'?_method=PUT',
         data:items,
         success:function(question){ 
-           console.log('done'+ question.text+question.options[0].content)
+           console.log('done'+ question.options[1].content +"length "+question.options.length)
            var afterSave_div=$(current_element_selected).find('#afterSave'+Print_question_number_here)
            afterSave_div.css('display','block')
            var afterSave_text_div=afterSave_div.find('.row>#afterSave-text')
            afterSave_text_div.children('h4').replaceWith('<h4 class="m-1">'+question.text+'</h4>')
-           for(var x=0; x < question.options.length;x++){
-            afterSave_text_div.find('p').replaceWith('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
-                }
-           
+           for(var x=0;x<question.options.length;x++){
+            afterSave_text_div.find('p').remove();
+               }
+           for(var x=0;x<question.options.length;x++){
+            afterSave_text_div.append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
+               }
            current_element_selected.children('#form-input').css('display','none')
         }
     })
@@ -401,11 +559,13 @@ $('#save').click(function(e){
 
 
     /*cloning new validation form*/ 
-        var i = Total_questions_initally;
+        var i =$('#question-count').val()
         $('#duplicate').click(function(){
         var div=$('#validationform')
-        var t=div.clone(true,true).attr('id', ++i).appendTo(div.parent())
+        var div_to_append=$('#'+(i))
+        var t=div.clone(true,true).attr('id', ++i).appendTo(div_to_append)
         console.log('created form:'+t.attr('id'))
+        t.css('display','block')
         t.find("input").val("")
         t.find("#question-number").children('span').remove()
         t.find("#question-number").append('<span>Q.'+i+'</span>')
@@ -415,7 +575,6 @@ $('#save').click(function(e){
         t.find('#'+current_questiontype[i]).css('display','block')
         //t.find('.for-options').append($('#1'))
         t.find('.add-option').css('display','block')
-        t.css('display','block')
         t.find('#save').css('display','block')
         t.find('#edit').css('display','none')
         if(option_counter[1]>1){
@@ -479,36 +638,22 @@ $('#add-option').on('click',function(event){
         })
 
       
-    /*creating question 1 to display on page load with brute-force method*/ 
-   
-
-    for(var for_this_question=1;for_this_question<=Total_questions_initally;for_this_question++){
-        console.log('indise for'+for_this_question)
-        var question=$('#validationform').clone(true,true).attr('id',for_this_question).appendTo($('#validationform').parent())
-        console.log('created form:'+question.attr('id'))
-        question.find("#question-number").children('span').remove()
-        question.find("#question-number").append('<span>Q.'+for_this_question+'</span>')
-        option_counter[for_this_question]=1
-        current_questiontype[for_this_question]=question.find('#questionType').children('option:selected').val()
-        question.find('.options').css('display','none')
-        question.find('#'+current_questiontype[for_this_question]).css('display','block')
-        question.find('.add-option').css('display','block')
-        question.css('display','block')
-        console.log(current_questiontype[for_this_question] +'  value '+i+' optioncounter  ' + option_counter[for_this_question])
-
-          var afterSave_div=$(question).find('#afterSave').attr('id','afterSave'+for_this_question)
-           afterSave_div.css('display','block')
-           afterSave_div.append('<div class="row"></div>')
-          afterSave_div.find('.row').append( '<div class="col-lg-1 col-sm-2 text-center px-0"><h4 id="question-number" class="m-1"><span>Q.'+ for_this_question+'</span></h4> </div>')
-           afterSave_div.find('.row').append('<div class="col-lg-11 col-sm-10" id="afterSave-text"></div>')
-          afterSave_div.find('#afterSave-text').append('<h4 class="m-1"></h4>')
-           question.append('<input type="hidden" id="q_id" value="'+question._id +'">')
-           for(var x=0; x < question.options.length;x++){
-            afterSave_div.find('#afterSave-text').append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
-                }
-           current_element_selected.children('#form-input').css('display','none')
-    }
-
+    /*creating question 1 to display on page load with brute-force method*/  
+    
+    /*    var first_question=$('#validationform').clone(true,true).attr('id',i).appendTo($('#validationform').parent())
+        console.log('created form:'+first_question.attr('id'))
+        first_question.find("input").val("")
+        first_question.find("#question-number").children('span').remove()
+        first_question.find("#question-number").append('<span>Q.'+i+'</span>')
+        option_counter[i]=1
+        current_questiontype[i]=first_question.find('#questionType').children('option:selected').val()
+        first_question.find('.options').css('display','none')
+        first_question.find('#'+current_questiontype[i]).css('display','block')
+        //t.find('.for-options').append($('#1'))
+        first_question.find('.add-option').css('display','block')
+        first_question.css('display','block')
+        console.log(current_questiontype[i] +'  value '+i+' optioncounter  ' + option_counter[i])
+     */   
 })
   
 </script>

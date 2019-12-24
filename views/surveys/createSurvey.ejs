@@ -89,7 +89,7 @@
                                     <input class="form-check-input" type="radio" name="exampleRadios" id="create-Radios" value="option1" >
                                         <label class="form-check-label" for="exampleRadios1" style="height:30px;width:100%">
                                             <div class="form-group" >
-                                                    <input type="text" class="form-control form-control-sm pl-2 my-0 border rounded-0" style="height:30px" placeholder="Add option here" name="question[options][0][content]"></input>
+                                                    <input type="text"  class="form-control form-control-sm pl-2 my-0 border rounded-0" style="height:30px" placeholder="Add option here" name="question[options][0][content]"></input>
                                             </div>
                                     </label>
                                 </div>
@@ -219,10 +219,6 @@
   </div>
 
 
-  <div id="Question-display" style="display:none">
-
-  </div>
-
                  <!-- <script>
 
                       //this is the main parent
@@ -305,6 +301,17 @@ $('#save').click(function(e){
     e.stopPropagation()
     var id=$('#S_id').val()
     var current_element_selected=$(this).closest('form')
+    var selected_option=current_element_selected.find("#questionType")
+    if(selected_option.children('option:selected').val()==='1'){
+        current_element_selected.find('#1').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#2')
+       temporary.find( "input:text" ).prop("disabled", true)
+    }
+    else if(selected_option.children('option:selected').val()=='2'){
+        current_element_selected.find('#2').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#1')
+        temporary.find( "input:text" ).prop("disabled", true)
+    }
     var items=$(this).closest('form').serialize()
     var Print_question_number_here=current_element_selected.attr('id')
     if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
@@ -321,6 +328,7 @@ $('#save').click(function(e){
            new_cloned_element.find('.row').append('<div class="col-lg-11 col-sm-10" id="afterSave-text"></div>')
            new_cloned_element.find('#afterSave-text').append('<h4 class="m-1">'+question.text+'</h4>')
            current_element_selected.append('<input type="hidden" id="q_id" value="'+question._id +'">')
+          
            for(var x=0; x < question.options.length;x++){
             new_cloned_element.find('#afterSave-text').append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
                 }
@@ -353,10 +361,19 @@ $('#save').click(function(e){
     e.preventDefault()
     e.stopPropagation()
     var id=$('#S_id').val()
-    console.log(id)
     var question_id=$(this).closest('.form').find('#q_id').val()
     var current_element_selected=$(this).closest('form')
-    var items=$(this).closest('form').serializeArray()
+    if(selected_option.children('option:selected').val()==='1'){
+        current_element_selected.find('#1').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#2')
+       temporary.find( "input:text" ).prop("disabled", true)
+    }
+    else if(selected_option.children('option:selected').val()=='2'){
+        current_element_selected.find('#2').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#1')
+        temporary.find( "input:text" ).prop("disabled", true)
+    }
+    var items=$(this).closest('form').serialize()
     var Print_question_number_here=current_element_selected.attr('id')
     //if(Print_question_number_here==='validationform'){Print_question_number_here='1'}
     $.ajax({
@@ -365,7 +382,7 @@ $('#save').click(function(e){
         url:'/surveys/'+id+'/questions/'+question_id+'?_method=PUT',
         data:items,
         success:function(question){ 
-           console.log('done'+ question.options[1].content +"length "+question.options.length)
+           alert('done'+ question.options[1].content +"length "+question.options.length)
            var afterSave_div=$(current_element_selected).find('#afterSave'+Print_question_number_here)
            afterSave_div.css('display','block')
            var afterSave_text_div=afterSave_div.find('.row>#afterSave-text')
@@ -468,39 +485,35 @@ $('#save').click(function(e){
             i--       //subtracting one number from total of all forms
         })
 
-
-     /*Adding more options to given question*/
-     
-$('#add-option').on('click',function(event){
-    event.preventDefault()
-    var div;
-    var new_div;
-    var temp;
-//conditional block for getting the attribute id of selected form  
-    if($(this).closest('form').attr('id')!=='validationform'){
-    temp=parseInt($(this).closest('form').attr('id'))}
-    else{
-    temp=1;
-    }
-   
-//if else for adding new div on basis of selected question type
-    if(current_questiontype[temp]==='1'){
-     div=$(this).closest("form").find('#radio-option-'+option_counter[temp])
-     new_div = div.clone(true).attr('id','radio-option-'+ ++option_counter[temp])
-    }
-    else if(current_questiontype[temp]==='2'){
-        div=$(this).closest("form").find('#check-option-'+option_counter[temp])
-        new_div = div.clone(true,true).attr('id','check-option-'+ ++option_counter[temp])  
-    }
-    new_div.find('input').val("")
-    new_div.find('.form-group > .form-control').attr('name','question[options]['+option_counter[temp]+'][content]')
-    new_div.append().insertAfter(div)
-    console.log(new_div.attr('id')+'TO  form' +div.attr('id')+'  '+option_counter[temp])
+/*Adding more options to given question*/     
+    $('#add-option').on('click',function(event){
+        event.preventDefault()
+        var div;
+        var new_div;
+        var temp;
+    //conditional block for getting the attribute id of selected form  
+        if($(this).closest('form').attr('id')!=='validationform'){
+        temp=parseInt($(this).closest('form').attr('id'))}
+        else{
+        temp=1;
+        } 
+    //if else for adding new div on basis of selected question type
+        if(current_questiontype[temp]==='1'){
+        div=$(this).closest("form").find('#radio-option-'+option_counter[temp])
+        new_div = div.clone(true).attr('id','radio-option-'+ ++option_counter[temp])
+        }
+        else if(current_questiontype[temp]==='2'){
+            div=$(this).closest("form").find('#check-option-'+option_counter[temp])
+            new_div = div.clone(true,true).attr('id','check-option-'+ ++option_counter[temp])  
+        }
+        new_div.find('input').val("")
+        new_div.find('.form-group > .form-control').attr('name','question[options]['+option_counter[temp]+'][content]')
+        new_div.append().insertAfter(div)
+        console.log(new_div.attr('id')+'TO  form' +div.attr('id')+'  '+option_counter[temp])
         })
 
       
     /*creating question 1 to display on page load with brute-force method*/  
-    
         var first_question=$('#validationform').clone(true,true).attr('id',i).appendTo($('#validationform').parent())
         console.log('created form:'+first_question.attr('id'))
         first_question.find("input").val("")
@@ -514,6 +527,7 @@ $('#add-option').on('click',function(event){
         first_question.find('.add-option').css('display','block')
         first_question.css('display','block')
         console.log(current_questiontype[i] +'  value '+i+' optioncounter  ' + option_counter[i])
+
 
 })
   

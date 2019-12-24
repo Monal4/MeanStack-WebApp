@@ -93,7 +93,7 @@ if (req.file) {
         
             })
             } else {
-                //console.log(req.body.question.options);
+                console.log(req.body.question.options[0].content[0]);
                 Survey.findById(req.params.id, function(err, survey) { // }) -2 
                 if (err) {
                     console.log(err)
@@ -106,6 +106,7 @@ if (req.file) {
                         console.log(err)
                         return res.redirect("back")
                     } else {
+                        
                         // add new question to survey
                         // ADD - USERNAME & ID TO QUESTION
                         question.author.id = req.user._id

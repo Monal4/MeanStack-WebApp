@@ -176,8 +176,7 @@ router.get("/report/:id", middleware.isLoggedIn, function(req, res) {
 // EDIT - Survey Edit Route
 router.get("/:id/edit", middleware.checkSurveyOwnership, function(req, res) {
 
-    
-    Survey.findById(req.params.id).populate("questions").exec(function(err, foundSurvey) {
+    Survey.findById(req.params.id).populate("questions").exec( function(err, foundSurvey) {
         res.render("surveys/edit", {survey: foundSurvey})
     })
 })
