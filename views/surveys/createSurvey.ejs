@@ -217,6 +217,11 @@
     </div>
     
   </div>
+  <div class="container mt-4" style=" padding:0px">
+  <div class="d-flex justify-content-end" >
+    <button id="End-Survey" class="btn m-2 p-1 " style="background-color: #7dce94;color: white;">Finish Survey</button>
+    </div>
+</div>
 
 
                  <!-- <script>
@@ -328,7 +333,6 @@ $('#save').click(function(e){
            new_cloned_element.find('.row').append('<div class="col-lg-11 col-sm-10" id="afterSave-text"></div>')
            new_cloned_element.find('#afterSave-text').append('<h4 class="m-1">'+question.text+'</h4>')
            current_element_selected.append('<input type="hidden" id="q_id" value="'+question._id +'">')
-          
            for(var x=0; x < question.options.length;x++){
             new_cloned_element.find('#afterSave-text').append('<p class="p-1 mb-1">'+ question.options[x].content + '</p>');
                 }
@@ -357,12 +361,14 @@ $('#save').click(function(e){
             $(this).find('#Edit-div').remove()})
 
     /*The edit button usage on the page*/
+    //Note it here thst both edit and edit-button are differnet have a look at the html attribute ids.
    $('#edit').click(function(e){
     e.preventDefault()
     e.stopPropagation()
     var id=$('#S_id').val()
     var question_id=$(this).closest('.form').find('#q_id').val()
     var current_element_selected=$(this).closest('form')
+    var selected_option=current_element_selected.find("#questionType")
     if(selected_option.children('option:selected').val()==='1'){
         current_element_selected.find('#1').find("input:text").prop("disabled", false)
         var temporary=current_element_selected.find('#2')
@@ -402,8 +408,19 @@ $('#save').click(function(e){
     var option_counter=[0] //initalizing the option counter for the current form's(i.e. id='validationform') total options available
     var current_questiontype=[0];
      $('#questionType').change(function(e){
+        var current_element_selected=$(this).closest('form')
         var option=$(this).children('option:selected').val()
-        var temp=parseInt($(this).closest('form').attr('id'))     
+        var temp=parseInt($(this).closest('form').attr('id'))  
+        if(option==='1'){
+        current_element_selected.find('#1').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#2')
+       temporary.find( "input:text" ).prop("disabled", true)
+    }
+    else if(option=='2'){
+        current_element_selected.find('#2').find("input:text").prop("disabled", false)
+        var temporary=current_element_selected.find('#1')
+        temporary.find( "input:text" ).prop("disabled", true)
+    }   
         if(option_counter[temp]>1){
             if(option==='2'){for ( var i = 2; i <=option_counter[temp]; i++ ) {
                 $('#radio-option-'+i).remove()
@@ -427,6 +444,7 @@ $('#save').click(function(e){
 
 
     /*cloning new validation form*/ 
+    //Here var i stands for the question no for current jquery processing
         var i = 1;
         $('#duplicate').click(function(){
         var div=$('#validationform')
@@ -453,6 +471,8 @@ $('#save').click(function(e){
     })
 
 
+    /*Finishing the survey button*/
+    
 
     /*deletein the nearest validation form*/
     $('#delete').click(function(){

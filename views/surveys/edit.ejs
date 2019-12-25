@@ -6,13 +6,11 @@
             <h4>
                 <ul>
         <% if (currentUser) {  %>  
-            <li style="color:#3d3d3f;text-align:center" class="text-black">Welcome,<%= currentUser.firstName %>!</li>
+            <li style="color:#3d3d3f;text-align:center" class="text-black">Welcome <%= currentUser.firstName %></li>
         <% } %>
             <ul>           
-            </h4>
-            
-            <h4 style="color:black">
-                   
+            </h4> 
+            <h4 style="color:black">     
             </h4>
     </div>
    
@@ -438,14 +436,13 @@
   
 
   $(document).ready(function(){
-   // var Total_questions_initally=<%=survey.questions.length%>
+    var Total_questions_initally=<%=survey.questions.length%>
     
     console.log(Total_questions_initally)
 /*block for tooltip work here ,either you can add the popper classs of bootsterap before bootstrap.min.js bundle containing popper*/
     $(function (event) {
   $('[data-toggle="tooltip"]').tooltip()
 })
-
 
 
 /*for passing the data from form to cotroller with ajax*/
@@ -558,7 +555,8 @@ $('#save').click(function(e){
 
 
 
-    /*cloning new validation form*/ 
+    /*Cloning new validation form*/ 
+        //Here var i stands for the question no for current jquery processing
         var i =$('#question-count').val()
         $('#duplicate').click(function(){
         var div=$('#validationform')
@@ -577,6 +575,8 @@ $('#save').click(function(e){
         t.find('.add-option').css('display','block')
         t.find('#save').css('display','block')
         t.find('#edit').css('display','none')
+        alert()
+
         if(option_counter[1]>1){
         for(var temp=2;temp<=option_counter[1];temp++){
             t.find('#radio-option-'+temp).remove()
