@@ -402,8 +402,9 @@
                         <div class="form-group d-flex" >
                             <div class="buttons" >
                                <a id="delete" href="#" class="btn m-2" value="Delete">Delete</a>
+                               <button id="save" type="submit" class="btn form-control float-right m-2" >Save</button>
                             <button id="edit" type="submit" class="btn form-control float-right m-2" style="display:none">Edit</button>   
-                           <button id="save" type="submit" class="btn form-control float-right m-2" >Save</button>
+                           
                                 
                               </div>
                             </div>
@@ -560,8 +561,8 @@ $('#save').click(function(e){
         var i =$('#question-count').val()
         $('#duplicate').click(function(){
         var div=$('#validationform')
-        var div_to_append=$('#'+(i))
-        var t=div.clone(true,true).attr('id', ++i).appendTo(div_to_append)
+        var div_to_append=$(this).closest('#form-container').children('#'+i)
+        var t=div.clone(true).attr('id', ++i).insertAfter(div_to_append)
         console.log('created form:'+t.attr('id'))
         t.css('display','block')
         t.find("input").val("")
@@ -573,10 +574,9 @@ $('#save').click(function(e){
         t.find('#'+current_questiontype[i]).css('display','block')
         //t.find('.for-options').append($('#1'))
         t.find('.add-option').css('display','block')
+        alert(t.find('.row2>.flex-row>.inline-row-2>.d-flex>.buttons>#save').attr('class'))
         t.find('#save').css('display','block')
         t.find('#edit').css('display','none')
-        alert()
-
         if(option_counter[1]>1){
         for(var temp=2;temp<=option_counter[1];temp++){
             t.find('#radio-option-'+temp).remove()
