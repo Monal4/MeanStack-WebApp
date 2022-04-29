@@ -9,7 +9,7 @@
   },
   "author": "Avinash Reddy",
   "dependencies": {
-    "async": "~0.2.8",
+    "async": "~2.6.4",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
