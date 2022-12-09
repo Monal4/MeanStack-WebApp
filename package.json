@@ -19,7 +19,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.8",
-    "express": "^4.16.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "locus": "^2.0.1",
     "method-override": "^2.3.10",
